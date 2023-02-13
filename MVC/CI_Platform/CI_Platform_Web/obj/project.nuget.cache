@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GU+S+KxYkwpqSKSpNhbd6l2JhiP9ZRZEnym8V372ZZK5zrDzA2GRGEtsAAMjdimTDPRqaMM4Hw+9NX+1butlsw==",
+  "dgSpecHash": "u7Geo6TR8RAbyKVrZBPj0yN5qLRECH05SvNQAlxpSbPO0OibuZ8b6fkXNzdG6JeXKVzIEVJvoHyz8eDjYgYWIQ==",
   "success": true,
-  "projectFilePath": "D:\\Main-Project\\CI_Platform\\CI_Platform_Web\\CI_Platform_Web.csproj",
+  "projectFilePath": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\CI_Platform_Web.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

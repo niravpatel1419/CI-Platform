@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WYrFuFuQM7YUvWQ42nZD8M9QWoJ971a3Fdhrad5TkWY=",
+  "Hash": "9pMBPcf9zOLuOrr2Vj4ZQ7KjBKic6UgOh4b9sEve8Pg=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -66,6 +66,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
+    },
+    {
+      "Identity": "D:\\Main-Project\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\forgotPassword.css",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Main-Project\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "css/forgotPassword.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\forgotPassword.css"
     },
     {
       "Identity": "D:\\Main-Project\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\site.css",
