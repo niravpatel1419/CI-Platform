@@ -1,17 +1,79 @@
 ﻿@{
     Layout = "homeLayout";
 }
+   <hr class="line mt-0">
 
-   <div class="container">
+
+        <!-- Mission Section -->
+
+    <div class="container">
+
+        <div class="row">
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Tree Plantation</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Canada</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Toronto</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Montreal</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Environment</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Nutrition</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Anthropology</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Environmental Science</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter1">Clear all</button>
+        </div>
+
+    </div>
+
+    <div class="container exploreMission">
+        <div class="row align-items-center">
+            <p class="heading col-8">Explore <big>72 Missions</big></p>
+
+            <div class="dropdown  col-2">
+                <button class="btn  dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Sort by
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">India</a></li>
+                    <li><a class="dropdown-item" href="#">Australia</a></li>
+                    <li><a class="dropdown-item" href="#">England</a></li>
+                </ul>
+            </div>
+
+            <div class="container mb-3 mt-3 col-2">
+                <button class="btn btn-primary btn-grid">Grid View</button>
+                <button class="btn btn-danger btn-list">List View</button>
+            </div>
+
+        </div>
+    </div>
+
+        <!-- Grid-View -->
+
+    <div class="container grid-container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            
+
             <div class="col">
                 <div class="card h-100">
                     <img src="images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top"
                         alt="...">
-                    
+
                     <div class="shape">
-                            <p>Environment</p>
+                        <p>Environment</p>
                     </div>
 
                     <div class="card-body">
@@ -50,7 +112,7 @@
             <div class="col">
                 <div class="card h-100">
                     <img src="images/Nourish-the-Children-in--African-country.png" class="card-img-top" alt="...">
-                    
+
                     <div class="shape">
                         <p>Nutrition</p>
                     </div>
@@ -70,8 +132,9 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" class="card-img-top" alt="...">
-                   
+                    <img src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" class="card-img-top"
+                        alt="...">
+
                     <div class="shape">
                         <p>Environment</p>
                     </div>
@@ -92,7 +155,7 @@
             <div class="col">
                 <div class="card h-100">
                     <img src="images/Animal-welfare-&-save-birds-campaign.png" class="card-img-top" alt="...">
-                   
+
                     <div class="shape">
                         <p>Animals</p>
                     </div>
@@ -103,7 +166,7 @@
                             additional content. This card has even longer content than the first to show that equal
                             height action.</p>
                     </div>
-                    
+
                     <div class="card-footer">
                         <small class="text-muted">Last updated 3 mins ago</small>
                     </div>
@@ -113,7 +176,7 @@
             <div class="col">
                 <div class="card h-100">
                     <img src="images/Plantation-and-Afforestation-programme.png" class="card-img-top" alt="...">
-                    
+
                     <div class="shape">
                         <p>Health</p>
                     </div>
@@ -133,12 +196,13 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top" alt="...">
-                    
+                    <img src="images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top"
+                        alt="...">
+
                     <div class="shape">
                         <p>Environment</p>
                     </div>
-                    
+
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
@@ -154,12 +218,13 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" class="card-img-top" alt="...">
-                    
+                    <img src="images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" class="card-img-top"
+                        alt="...">
+
                     <div class="shape">
                         <p>Children</p>
                     </div>
-                   
+
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
@@ -176,18 +241,18 @@
             <div class="col">
                 <div class="card h-100">
                     <img src="images/Nourish-the-Children-in--African-country.png" class="card-img-top" alt="...">
-                   
+
                     <div class="shape">
                         <p>Nutrition</p>
                     </div>
-                   
+
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
                             additional content. This card has even longer content than the first to show that equal
                             height action.</p>
                     </div>
-                    
+
                     <div class="card-footer">
                         <small class="text-muted">Last updated 3 mins ago</small>
                     </div>
@@ -196,4 +261,6 @@
 
 
         </div>
-   </div>
+    </div>
+
+
