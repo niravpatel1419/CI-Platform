@@ -1,6 +1,15 @@
+/* body {
+    font-family: 'Helvetica';
+    background-color: #0e2439;
+  } */
+
 a {
     text-decoration: none;
 }
+
+
+
+/* Top Header CSS */
 
 .headerLeft a {
     width: 150px;
@@ -74,6 +83,11 @@ a {
     object-fit: cover;
 }
 
+
+
+
+/* Second Navbar CSS */
+
 .filterNav {
     border: 0.5px solid;
     border-color: rgba(51, 51, 51, 0.1);
@@ -86,21 +100,10 @@ a {
     justify-content: center;
 }
 
-/* ----------------------------------------------------------------------- */
 
-.shape {
-    text-align: center;
-    width: 100px;
-    height: 30px;
-    border: 1px solid rgba(51, 51, 51, 0.3);
-    border-radius: 25px;
-    /* position: absolute;
-    top: 49%;
-    left: 35%; */
-    margin-left: 38%;
-    margin-top: -14px;
-    background-color: #ffffff;
-}
+
+/* Filter Button CSS */
+
 
 .btnFilter {
     font-size: 13px;
@@ -135,6 +138,10 @@ a {
     margin-right: 8px;
 }
 
+
+/* Explore Mission CSS */
+
+
 .exploreMission {
     margin-top: 15px;
 }
@@ -156,7 +163,112 @@ big {
     opacity: 1;
 }
 
+.gridListDiv {
+    width: auto;
+}
+
+.gridBtn, .listBtn {
+    background-color: #fff;
+    border: none;
+}
+
+
+
+
+
+
+/* Mission Cards CSS */
+
+
+.cardHead {
+    position: relative;
+}
+
+.shape {
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    /* border: 1px solid rgba(51, 51, 51, 0.3); */
+    border-radius: 25px;
+    margin-left: 38%;
+    margin-top: -14px;
+    background-color: #ffffff;
+    position: absolute;
+    /* z-index: 1; */
+}
+
+.card-body {
+    color: #414141;
+    margin-top: 12px;
+}
+
+.card-text {
+    color: #414141;
+    font-size: 16px;
+}
+
+.cardBodyFooter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ngoName {
+    margin: 0;
+    color: #333333;
+}
+
+.missionDurationDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.durationLine {
+    flex: 1;
+    border: none;
+    height: 2px;
+    background: black;
+}
+
+.missionDuration {
+    width: auto;
+    height: 30px;
+    border: 1px solid rgba(51, 51, 51, 0.3);
+    border-radius: 25px;
+    color: #414141;
+    background-color: #ffffff;
+}
+
+
+.seatsLeftDiv {
+    margin-left: 10px
+}
+
+.applyBtn {
+    width: 120px;
+    height: 48px;
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    text-align: center;
+    color: #F88634;
+    opacity: 1;
+}
+
+    .applyBtn:hover {
+        background-color: #F8863400;
+        color: #F88634;
+        border-color: #F88634;
+    }
+
+
+
+
+
+
+
 /* For the Grid View And List View CSS */
+
 
 .card {
     margin-bottom: 1rem;
@@ -183,6 +295,16 @@ big {
 
 .list-view .card .card-body {
     display: inline-block;
+}
+
+
+.list-view .card-img, .card-img-bottom, .card-img-top {
+    height: 100%;
+    width: auto;
+}
+
+.list-view .shape {
+    margin-top: -14px;
 }
 
 
@@ -214,6 +336,12 @@ big {
     }
 }
 
-/* ----------------------------------------------------------------------------- */
+
+/* For Hide the Grid List View */
 
 
+@media screen and (max-width:772px) {
+    .gridListDiv {
+        display: none;
+    }
+}
