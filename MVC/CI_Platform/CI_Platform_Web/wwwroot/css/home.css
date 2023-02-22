@@ -199,7 +199,6 @@ big {
 
 .card-body {
     color: #414141;
-    margin-top: 12px;
 }
 
 .card-text {
@@ -240,8 +239,9 @@ big {
 }
 
 
-.seatsLeftDiv {
-    margin-left: 10px
+.missionDeadLine {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .applyBtn {
@@ -270,9 +270,6 @@ big {
 /* For the Grid View And List View CSS */
 
 
-.card {
-    margin-bottom: 1rem;
-}
 
 .list-view .row > [class*='col'] {
     max-width: 100%;
@@ -300,13 +297,16 @@ big {
 
 .list-view .card-img, .card-img-bottom, .card-img-top {
     height: 100%;
-    width: auto;
+    /* width: auto; */
 }
 
 .list-view .shape {
     margin-top: -14px;
 }
 
+.list-view .card-text {
+    margin-bottom: 5px;
+}
 
 
 
@@ -332,7 +332,7 @@ big {
 
 @media (max-width : 991px) {
     .form-control {
-        width: 75vw;
+        width: 50vw;
     }
 }
 
