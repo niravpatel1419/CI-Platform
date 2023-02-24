@@ -22,6 +22,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=volunteeringMission}/{id?}");
+    pattern: "{controller=Home}/{action=storyListingPage}/{id?}");
 
 app.Run();
