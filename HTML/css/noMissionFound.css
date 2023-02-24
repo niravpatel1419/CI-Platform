@@ -1,0 +1,211 @@
+/* body {
+    font-family: 'Helvetica';
+    background-color: #0e2439;
+  } */
+  
+  a{
+    text-decoration: none;
+}
+
+
+
+/* Top Header CSS */
+
+.headerLeft a{
+    width: 150px;
+    height: 22px;
+    font-size: 16px;
+    color: #333333;
+    opacity: 1;
+}
+
+.policy-1{
+    margin-left: -13px;
+}
+
+.menu {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+    top: 0;
+    left: 0;
+    right: 50vw;
+    bottom: 50vh;
+    z-index: 99;
+    color: #333333;
+    background-color: #fff;
+    list-style: none;
+    padding-top: 4rem;
+  }
+
+  .showMenu {
+    transform: translateY(0);
+  }
+
+  .hamburger {
+    position: relative;
+    z-index: 100;
+    top: 12px;
+    /* left: 1rem; */
+    padding-top: 4px;
+    margin-bottom: auto;
+    border: black solid 1px;
+    border-radius: 10%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+  }
+
+  .closeIcon {
+    display: none;
+  }
+
+.btnCustom{
+    /* width: 262px; */
+    /* height: 22px; */
+    font-size: 16px;
+    color: #333333;
+    background-color: #fff;
+    border: none;
+    opacity: 1;
+}
+
+.btn:hover{
+    color: #333333;
+    background-color: #fff;
+}
+
+.imgIcon{
+    /* margin-left: 450px; */
+    margin-right:11px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+
+/* Second Navbar CSS */
+
+.filterNav{
+    border: 0.5px solid;
+    border-color: rgba(51, 51, 51, 0.1);
+    border-top: none;
+    border-bottom: none;
+    /* width: 143px; */
+    /* height: 78px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Filter Button CSS */
+
+
+.btnFilter{
+    font-size: 13px;
+    width:auto;
+    height:28px;
+    margin-right: 10px;
+    /* margin-bottom: 30px; */
+    color: #414141;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E8E8E8;
+    border-radius: 14px;
+    opacity: 1;
+}
+
+.btnFilter1{
+    font-size: 13px;
+    width:auto;
+    height:28px;
+    color: #414141;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: none;
+    opacity: 1;
+}
+
+.btnFlex{
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+}
+
+.filterText{
+    margin-right: 8px;
+}
+
+/* No Mission Found */
+
+.noMissionFound{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-top: 10%;
+}
+
+.submitMissionBtn{
+    /* width: 120px; */
+    /* height: 48px; */
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    font-size: 15px;
+    text-align: center;
+    color: #F88634;
+    opacity: 1;
+  }
+  
+  .submitMissionBtn:hover{
+    background-color: #F8863400;
+    color: #F88634;
+    border-color:#F88634;
+  }
+  
+  .submitMissionBtn img{
+      margin-left: 10px;
+  }
+
+
+
+/* Media Queries For Responsive */
+
+
+
+@media (max-width:991px) {
+    .filterNav{
+        display: none;
+    }
+
+    .topHeader{
+        display: none;
+    }
+}
+
+@media (min-width : 991px){
+    .hamburger{
+        display: none;
+    }
+}
+
+@media (max-width : 991px){
+    .form-control{
+        width: 75vw;
+    }
+}
+
+
+/* For Hide the Grid List View */
+
+
+@media screen and (max-width:772px){
+  .gridListDiv{
+    display: none;
+  }
+}
+

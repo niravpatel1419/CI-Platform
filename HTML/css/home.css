@@ -1,0 +1,344 @@
+/* body {
+    font-family: 'Helvetica';
+    background-color: #0e2439;
+  } */
+  
+  a{
+    text-decoration: none;
+}
+
+
+
+/* Top Header CSS */
+
+.headerLeft a{
+    width: 150px;
+    height: 22px;
+    font-size: 16px;
+    color: #333333;
+    opacity: 1;
+}
+
+.policy-1{
+    margin-left: -13px;
+}
+
+.menu {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+    top: 0;
+    left: 0;
+    right: 50vw;
+    bottom: 50vh;
+    z-index: 99;
+    color: #333333;
+    background-color: #fff;
+    list-style: none;
+    padding-top: 4rem;
+  }
+
+  .showMenu {
+    transform: translateY(0);
+  }
+
+  .hamburger {
+    position: relative;
+    z-index: 100;
+    top: 12px;
+    /* left: 1rem; */
+    padding-top: 4px;
+    margin-bottom: auto;
+    border: black solid 1px;
+    border-radius: 10%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+  }
+
+  .closeIcon {
+    display: none;
+  }
+
+.btnCustom{
+    /* width: 262px; */
+    /* height: 22px; */
+    font-size: 16px;
+    color: #333333;
+    background-color: #fff;
+    border: none;
+    opacity: 1;
+}
+
+.btn:hover{
+    color: #333333;
+    background-color: #fff;
+}
+
+.imgIcon{
+    /* margin-left: 450px; */
+    margin-right:11px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+
+
+/* Second Navbar CSS */
+
+.filterNav{
+    border: 0.5px solid;
+    border-color: rgba(51, 51, 51, 0.1);
+    border-top: none;
+    border-bottom: none;
+    /* width: 143px; */
+    /* height: 78px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/* Filter Button CSS */
+
+
+.btnFilter{
+    font-size: 13px;
+    width:auto;
+    height:28px;
+    margin-right: 10px;
+    /* margin-bottom: 30px; */
+    color: #414141;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E8E8E8;
+    border-radius: 14px;
+    opacity: 1;
+}
+
+.btnFilter1{
+    font-size: 13px;
+    width:auto;
+    height:28px;
+    color: #414141;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: none;
+    opacity: 1;
+}
+
+.btnFlex{
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+}
+
+.filterText{
+    margin-right: 8px;
+}
+
+
+/* Explore Mission CSS */
+
+
+.exploreMission{
+    margin-top: 15px;
+}
+
+.heading{
+    font-size: 22px;
+    margin-top: 15px;
+    
+}
+
+big{
+    font-size: 28px;
+}
+
+.missionSort{
+    /* width: 171px; */
+    height: 38px;
+    border: 1px solid #D9D9D9;
+    border-radius: 3px;
+    opacity: 1;
+}
+
+.gridListDiv{
+  width: auto;
+}
+
+.gridBtn,.listBtn{
+  background-color: #fff;
+  border: none;
+}
+
+
+
+
+
+
+/* Mission Cards CSS */
+
+
+.cardHead{
+  position: relative;
+}
+
+.shape{
+  text-align: center;
+  width:100px;
+  height: 30px;
+  border-radius: 25px;
+  margin-left: 38%;
+  margin-top: -14px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.card-body{
+  color: #414141;
+  
+}
+
+.card-text{
+  color: #414141;
+  font-size: 16px;
+}
+
+.cardBodyFooter{
+  display: flex;
+  justify-content: space-between;
+}
+
+.ngoName{
+  margin: 0;
+  color: #333333;
+}
+
+.missionDurationDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.durationLine{
+  flex: 1;
+  border: none;
+  height: 2px;
+  background: black;
+}
+
+.missionDuration{
+  width:auto;
+  height: 30px;
+  border: 1px solid rgba(51, 51, 51, 0.3);
+  border-radius: 25px;
+  color: #414141;
+  background-color: #ffffff;
+}
+
+  
+.missionDeadLine{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.applyBtn{
+  width: 120px;
+  height: 48px;
+  background: #F8863400 0% 0% no-repeat padding-box;
+  border: 2px solid #F88634;
+  border-radius: 24px;
+  text-align: center;
+  color: #F88634;
+  opacity: 1;
+}
+
+.applyBtn:hover{
+  background-color: #F8863400;
+  color: #F88634;
+  border-color:#F88634;
+}
+
+
+
+
+
+
+
+/* For the Grid View And List View CSS */
+
+
+
+.list-view .row > [class*='col'] {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+.list-view .card {
+  flex-direction: row;
+}
+@media (max-width: 575.98px) {
+  .list-view .card {
+      flex-direction: column;
+ }
+}
+.list-view .card > .card-img-top {
+  width: auto;
+}
+.list-view .card .card-body {
+  display: inline-block;
+}
+
+
+.list-view .card-img, .card-img-bottom, .card-img-top {
+  height: 100%;
+  /* width: auto; */
+}
+
+.list-view .shape{
+  margin-top:-14px;
+}
+
+.list-view .card-text{
+  margin-bottom: 5px;
+}
+
+
+
+/* Media Queries For Responsive */
+
+
+
+@media (max-width:991px) {
+    .filterNav{
+        display: none;
+    }
+
+    .topHeader{
+        display: none;
+    }
+}
+
+@media (min-width : 991px){
+    .hamburger{
+        display: none;
+    }
+}
+
+@media (max-width : 991px){
+    .form-control{
+        width:50vw;
+    }
+}
+
+
+/* For Hide the Grid List View */
+
+
+@media screen and (max-width:772px){
+  .gridListDiv{
+    display: none;
+  }
+}
+

@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/forgotPassword.css">
-    <title>Forgot Password</title>
+    <link rel="stylesheet" href="css/registration.css">
+    <title>Registration</title>
 </head>
-
 <body>
     <div class="container-fluid">
-
         <div class="row">
 
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 mt-2">
@@ -23,7 +20,8 @@
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Sed ut perspiciatis unde omnis iste natus voluptatem.</h5>
-                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                <p class="slideCaption"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
                                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -56,36 +54,61 @@
                 <div class="row justify-content-center">
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-
                         <form class="mt-5">
 
-                            <div class="forPasswordTlt">
-                                <p class="fTitle">Forgot Password</p>
-                                <p class="fSubTlt">Enter your email address you've using for your account below and we will send you a password reset link</p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label"><p class="formInput">Email address</p></label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email address...">
+                            <div class="mb-3">  
+                                <label for="firstName" class="form-label"><p class="formInput">First Name</p></label>
+                                <input type="text" class="form-control" id="firstName" placeholder="evan">
                             </div>
 
-                            <button type="submit" class="btn btn-primary btnCustom">Reset my Password</button>
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label"><p class="formInput">Last Name</p></label>
+                                <input type="text" class="form-control" id="lastName" placeholder="donohue">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label"><p class="formInput">Phone Number</p></label>
+                                <input type="text" class="form-control" id="phoneNumber" placeholder="8923454615">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><p class="formInput">Email Address</p></label>
+                                <input type="email" class="form-control" id="email" placeholder="evan.donohue@gmail.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label"><p class="formInput">Password</p></label>
+                                <input type="password" class="form-control" id="password" placeholder="**********">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label"><p class="formInput">Confirm Password</p></label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="**********">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btnCustom">Register</button>
 
                             <div class="lost mt-3">
-                                <p class="loginTag"><a href="./index.html">Login</a></p>
+                                <a href="./forgotPassword.html">
+                                    <p class="losttext">Lost your password?</p>
+                                </a>
                             </div>
-    
+
+                            <div class="lost mt-3">
+                                <p class="loginTag">Already registered? <a href="./index.html">Login now</a></p>
+                            </div>
+ 
                             <div class="lost mt-3">
                                 <a href="./policy.html"><p class="policyTag">Privacy Policy</p></a>
                             </div>
-                            
+
                         </form>
-                              
                     </div>
 
                 </div>
             </div>
+
         </div>
     </div>
 </body>
-
 </html>

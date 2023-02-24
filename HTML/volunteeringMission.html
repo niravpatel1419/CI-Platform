@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/volunteeringMission.css" class="rel" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6 d-flex align-items-center headerLeft">
+
+                <!-- Top-Header Shown In Mobile/Tab -->
+
+                <ul class="menu">
+
+                    <a href="./stories.html">Stories</a>
+
+                    <div class="dropdown policy-1">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./privacy.html">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">India</a></li>
+                            <li><a class="dropdown-item" href="#">Australia</a></li>
+                            <li><a class="dropdown-item" href="#">England</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            City
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
+                            <li><a class="dropdown-item" href="#">Melbourn</a></li>
+                            <li><a class="dropdown-item" href="#">London</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Theme
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Heritage</a></li>
+                            <li><a class="dropdown-item" href="#">Global Warming</a></li>
+                            <li><a class="dropdown-item" href="#">Tree Plantesion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Skills
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Communication</a></li>
+                            <li><a class="dropdown-item" href="#">Marketing</a></li>
+                            <li><a class="dropdown-item" href="#">Quick Learner</a></li>
+                        </ul>
+                    </div>
+
+                </ul>
+
+                <button class="hamburger">
+                    <!-- material icons https://material.io/resources/icons/ -->
+                    <i class="menuIcon material-icons">menu</i>
+                    <i class="closeIcon material-icons">close</i>
+                </button>
+
+
+                <!-- Top-Header Shown On PC/Laptop -->
+
+
+                <a href="./stories.html" class="topHeader">Stories</a>
+
+                <div class="dropdown topHeader">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Policy
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./privacy.html">Privacy Policy</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Common In Both -->
+
+            <div class="col-6 py-2">
+                <div class="d-flex align-items-center justify-content-end">
+
+                    <div><img src="images/user-img.png" alt="" class="imgIcon"></div>
+
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Evan Donchue
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" href="./index.html">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr class="line mt-1 mb-0">
+
+    <!-- Searching And Filter Header -->
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6 d-flex align-items-center">
+
+                <img src="images/search.png" alt="Search" class="searchIcon">
+
+                <nav class="navbar">
+                    <div class="container">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search mission..."
+                                aria-label="Search">
+                        </form>
+                    </div>
+                </nav>
+
+            </div>
+
+            <div class="col-6 d-flex align-items-center">
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Country
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Country List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        City
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The City List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Theme
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Theme List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Skills
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Skills List Here</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <hr class="line mt-0">
+
+
+    <!-- Volunteering Mission Image And Details -->
+
+    <div class="container mt-3">
+        <div class="row ">
+
+            <!-- Image Slider -->
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+
+
+                <!-- image carausol start -->
+                <section class="csec">
+                    <div class="container">
+                        <div class="carousel">
+                            <input type="radio" name="slides" checked="checked" id="slide-1">
+                            <input type="radio" name="slides" id="slide-2">
+                            <input type="radio" name="slides" id="slide-3">
+                            <input type="radio" name="slides" id="slide-4">
+
+                            <ul class="carousel__slides">
+                                <li class="carousel__slide">
+                                    <figure>
+                                        <div>
+                                            <img src="images/img11.png" alt="">
+                                        </div>
+
+                                    </figure>
+                                </li>
+                                <li class="carousel__slide">
+                                    <figure>
+                                        <div>
+                                            <img src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-2.png"
+                                                alt="">
+                                        </div>
+
+                                    </figure>
+                                </li>
+                                <li class="carousel__slide">
+                                    <figure>
+                                        <div>
+                                            <img src="images/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                                                alt="">
+                                        </div>
+
+                                    </figure>
+                                </li>
+                                <li class="carousel__slide">
+                                    <figure>
+                                        <div>
+                                            <img src="images/image1.png" alt="">
+                                        </div>
+
+                                    </figure>
+                                </li>
+
+                            </ul>
+                            <ul class="carousel__thumbnails">
+                                <li>
+                                    <label for="slide-1"><img src="images/img11.png" alt=""></label>
+                                </li>
+                                <li>
+                                    <label for="slide-2"><img
+                                            src="images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png"
+                                            alt=""></label>
+                                </li>
+                                <li>
+                                    <label for="slide-3"><img
+                                            src="images/Grow-Trees-On-the-path-to-environment-sustainability-2.png"
+                                            alt=""></label>
+                                </li>
+                                <li>
+                                    <label for="slide-4"><img src="images/image.png" alt=""></label>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <!-- image carausel end -->
+
+            </div>
+
+            <!-- Side Information -->
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="titlediv">
+                    <span class="title">CSR initiative stands for Coffee & Farmer Equity</span>
+                </div>
+
+                <div class="text">
+                    <span class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                        enim ad minim veniam.</span>
+                </div>
+
+                <div class="center-text">
+                    <span class="ispan"> Plant 10,000 Trees</span>
+                </div>
+
+                <div class="d-flex targetInfo">
+
+                    <div class="d-flex flex-row align-items-center seatDiv">
+                        <img src="Images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                        <div class="d-flex flex-column ms-2">
+                            <p class="d-inline mb-0 pt-2">10</p>
+                            <p class="seat">Seats Left</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center seatDiv">
+                        <img src="Images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                        <div class="d-flex flex-column ms-2">
+                            <p class="d-inline mb-0 pt-2">10</p>
+                            <p class="seat">Seats Left</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <hr>
+                <div class="buttonii">
+                    <button class="addToFavouriteBtn"><img src="images/heart1.png" alt="">Add to Favourite</button>
+                    <button class="recommendetionBtn"><img src="images/add1.png" alt="">Recommend to a
+                        Co-Worker</button>
+                </div>
+
+                <div class="center-text mt-2">
+                    <img src="images/star-empty.png" alt="" class="starImg">
+                    <img src="images/star-empty.png" alt="" class="starImg">
+                    <img src="images/star-empty.png" alt="" class="starImg">
+                    <img src="images/star-empty.png" alt="" class="starImg">
+                    <img src="images/star-empty.png" alt="" class="starImg">
+                </div>
+
+                <div class="row gx-2 mt-2">
+                    <div class="col-3">
+                        <div class="box1">
+                            <div class="image">
+                                <img src="images/pin1.png" alt="">
+                            </div>
+                            <div class="belowImg">
+                                <span style="font-size: 13px; color: #757575;">City</span>
+                                <span class="cityName" style="font-size: 15px;">London</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="box1">
+                            <div class="image">
+                                <img src="images/web.png" alt="">
+                            </div>
+                            <div class="belowimg">
+                                <span style="font-size: 13px; color: #757575;">Theme</span>
+                                <span class="theme" style="font-size: 15px;">Environment</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="box1">
+                            <div class="image">
+                                <img src="images/calender.png" alt="">
+                            </div>
+                            <div class="belowImg">
+                                <span style="font-size: 13px; color: #757575;">Date</span>
+                                <span class="timeline" style="font-size: 15px;">Ongoing <br> Opportunity</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="box1">
+                            <div class="image">
+                                <img src="images/organization.png" alt="">
+                            </div>
+                            <div class="belowImg">
+                                <span style="font-size: 13px; color: #757575;">Organization</span>
+                                <span class="organizationName" style="font-size: 15px;">CSE Network</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="apply  mt-2 d-flex">
+                    <button class="buttonsi py-2">
+                        Apply Now &nbsp <img src="images/right-arrow.png" alt="" />
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Middle Part -->
+
+    <div class="container middleDiv">
+        <div class="row">
+
+            <!-- Tabs -->
+
+            <div class="col-lg-7  col-md-12 leftDiv">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                            aria-selected="true">Missions</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                            type="button" role="tab" aria-controls="nav-profile"
+                            aria-selected="false">Organization</button>
+                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                            type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Comments</button>
+                    </div>
+                </nav>
+
+                <div class="tab-content mt-2" id="nav-tabContent">
+
+                    <div class="tab-pane fade show active missionTab" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                        <span>Introduction</span>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <span>Challenge</span>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident quaerat nostrum quod
+                            laboriosam modi quia aliquam, dolorum magnam tempore deleniti praesentium facere eveniet,
+                            aperiam vitae expedita quae, molestias eius perferendis? Quisquam, molestiae!</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, eius dignissimos. Excepturi
+                            sequi earum itaque, delectus soluta exercitationem libero ipsa a modi reprehenderit atque
+                            labore similique corrupti aliquid cupiditate distinctio praesentium minima?</p>
+
+                        <span>Documents</span>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </p>
+                        <p>
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                            mollit anim id est laborum.
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in
+                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                        <textarea name="enterComments" id="" cols="" rows="5" placeholder="Enter your comments..."
+                            style="width: 100%;"></textarea>
+
+                        <div class="mt-2 d-flex">
+                            <button class="buttonsi1 py-2">
+                                Post Comment
+                            </button>
+                        </div>
+
+                        <div class="commentDiv bg-light rounded-3  p-4 mt-3">
+
+                            <div class="card d-flex flex-row align-items-center">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                            <div class="card d-flex flex-row align-items-center mt-3">
+
+                                <div class="card-header1">
+                                    <img src="images/user-img.png" alt="" class="commentImg">
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Special title treatment</h5>
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional
+                                        content.</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Information & Recent Volunteers -->
+
+            <div class="col-lg-5 col-md-12 rightDiv">
+
+                <div class="informationDiv">
+                    <div class="information">
+                        <h4 style="color:#414141;">Information</h4>
+                    </div>
+                    <hr>
+                    <div class="skillDiv">
+                        <p class="mb-0">Skills</p>
+                        <p class="mb-0">Cool, Easy going, Math, Computer</p>
+                    </div>
+                    <hr>
+                    <div class="daysDiv">
+                        <p class="mb-0">Days</p>
+                        <p class="mb-0">Weekend only</p>
+                    </div>
+                    <hr>
+                    <div class="ratingDiv">
+                        <p class="mb-0">Rating</p>
+                        <img src="images/selected-star.png" alt="">
+                        <img src="images/selected-star.png" alt="">
+                        <img src="images/selected-star.png" alt="">
+                        <img src="images/selected-star.png" alt="">
+                        <img src="images/selected-star.png" alt="">
+                        <p class="mb-0">(by 125 volunteers)</p>
+                        <div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recentVolunteersDiv">
+                    <div class="recentVolunteers">
+                        <div class="volunteers">
+                            <h4 style="color:#414141;">Recent Volunteers</h4>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="volunteersImage">
+                        <div class="imageDiv">
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson</p>
+                        </div>
+                        <div class="imageDiv">
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson2</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson2</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson2</p>
+                        </div>
+                        <div class="imageDiv">
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson3</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson3</p>
+
+                            <img src="images/user-img.png" alt="">
+                            <p class="name">Andrew Johnson3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+<script>
+
+    // For Toggle Navbar
+
+    const menu = document.querySelector(".menu");
+    const menuItems = document.querySelectorAll(".menuItem");
+    const hamburger = document.querySelector(".hamburger");
+    const closeIcon = document.querySelector(".closeIcon");
+    const menuIcon = document.querySelector(".menuIcon");
+
+    function toggleMenu() {
+        if (menu.classList.contains("showMenu")) {
+            menu.classList.remove("showMenu");
+            closeIcon.style.display = "none";
+            menuIcon.style.display = "block";
+        } else {
+            menu.classList.add("showMenu");
+            closeIcon.style.display = "block";
+            menuIcon.style.display = "none";
+        }
+    }
+
+    hamburger.addEventListener("click", toggleMenu);
+</script>
+
+</html>

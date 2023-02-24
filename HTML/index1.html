@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/forgotPassword.css">
-    <title>Forgot Password</title>
+    <link rel="stylesheet" href="css/login.css">
+    <title>Login</title>
+    <style>
+     
+    </style>
 </head>
 
 <body>
@@ -23,7 +26,8 @@
                                 class="d-block w-100" alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Sed ut perspiciatis unde omnis iste natus voluptatem.</h5>
-                                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                <p class="slideCaption"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                    eiusmod tempor
                                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                                     exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
                                     irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -57,29 +61,44 @@
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 
-                        <form class="mt-5">
-
-                            <div class="forPasswordTlt">
-                                <p class="fTitle">Forgot Password</p>
-                                <p class="fSubTlt">Enter your email address you've using for your account below and we will send you a password reset link</p>
-                            </div>
+                        <form class="mt-5 ">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label"><p class="formInput">Email address</p></label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email address...">
+                                <label for="exampleInputEmail1" class="form-label">
+                                    <p class="formInput">Email address</p>
+                                </label>
+                                <input type="email" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" placeholder="evan.donohue@gmail.com">
                             </div>
 
-                            <button type="submit" class="btn btn-primary btnCustom">Reset my Password</button>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">
+                                    <p class="formInput">Password</p>
+                                </label>
+                                <input type="password" class="form-control" id="exampleInputPassword1"
+                                    placeholder="**********">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btnCustom">Login</button>
 
                             <div class="lost mt-3">
-                                <p class="loginTag"><a href="./index.html">Login</a></p>
+                                <a href="./forgotPassword.html">
+                                    <p class="losttext">Lost your password?</p>
+                                </a>
                             </div>
-    
+
                             <div class="lost mt-3">
-                                <a href="./policy.html"><p class="policyTag">Privacy Policy</p></a>
+                                <p class="losttext1">Don’t have an account? <a href="./registration.html">Create an
+                                        account</a></p>
                             </div>
-                            
+
+                            <div class="lost mt-3">
+                                <a href="./policy.html">
+                                    <p class="losttext2">Privacy Policy</p>
+                                </a>
+                            </div>
+
                         </form>
-                              
+
                     </div>
 
                 </div>
@@ -87,5 +106,6 @@
         </div>
     </div>
 </body>
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </html>

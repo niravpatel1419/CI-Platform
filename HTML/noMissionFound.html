@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/noMissionFound.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6 d-flex align-items-center headerLeft">
+
+                <!-- Top-Header Shown In Mobile/Tab -->
+
+                <ul class="menu">
+
+                    <a href="./stories.html">Stories</a>
+
+                    <div class="dropdown policy-1">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Policy
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="./privacy.html">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Country
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">India</a></li>
+                            <li><a class="dropdown-item" href="#">Australia</a></li>
+                            <li><a class="dropdown-item" href="#">England</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            City
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
+                            <li><a class="dropdown-item" href="#">Melbourn</a></li>
+                            <li><a class="dropdown-item" href="#">London</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Theme
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Heritage</a></li>
+                            <li><a class="dropdown-item" href="#">Global Warming</a></li>
+                            <li><a class="dropdown-item" href="#">Tree Plantesion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown col-3">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Skills
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Communication</a></li>
+                            <li><a class="dropdown-item" href="#">Marketing</a></li>
+                            <li><a class="dropdown-item" href="#">Quick Learner</a></li>
+                        </ul>
+                    </div>
+
+                </ul>
+
+                <button class="hamburger">
+                    <!-- material icons https://material.io/resources/icons/ -->
+                    <i class="menuIcon material-icons">menu</i>
+                    <i class="closeIcon material-icons">close</i>
+                </button>
+
+
+                <!-- Top-Header Shown On PC/Laptop -->
+
+
+                <a href="./stories.html" class="topHeader">Stories</a>
+
+                <div class="dropdown topHeader">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Policy
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./privacy.html">Privacy Policy</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Common In Both -->
+
+            <div class="col-6 py-2">
+                <div class="d-flex align-items-center justify-content-end">
+
+                    <div><img src="images/user-img.png" alt="" class="imgIcon"></div>
+
+                    <div class="dropdown ">
+                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Evan Donchue
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                            <li><a class="dropdown-item" href="./index.html">Logout</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr class="line mt-1 mb-0">
+
+    <!-- Searching And Filter Header -->
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6 d-flex align-items-center">
+
+                <img src="images/search.png" alt="Search" class="searchIcon">
+
+                <nav class="navbar">
+                    <div class="container">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search mission..."
+                                aria-label="Search">
+                        </form>
+                    </div>
+                </nav>
+
+            </div>
+
+            <div class="col-6 d-flex align-items-center">
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Country
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Country List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        City
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The City List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Theme
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Theme List Here</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Skills
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Show All The Skills List Here</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <hr class="line mt-0">
+
+
+    <!-- Mission Section -->
+
+
+    <!-- Mission Filter Btn -->
+
+    <div class="container">
+
+        <div class="row">
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Tree Plantation</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Canada</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Toronto</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Montreal</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Environment</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Nutrition</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Anthropology</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter btnFlex">
+                <p class="filterText">Environmental Science</p><img src="images/cancel.png" alt="">
+            </button>
+            <button class="btnFilter1">Clear all</button>
+        </div>
+
+    </div>
+
+    <div class="container noMissionFound">
+        <p>No Mission Found</p>
+        <button class="submitMissionBtn">Submit New Mission <img src="images/right-arrow.png"
+                alt="Right Arrow"></button>
+    </div>
+
+
+
+
+
+
+
+
+</body>
+
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+
+    // For Toggle Navbar
+
+    function showList(e) {
+        var $gridCont = $('.grid-container');
+        e.preventDefault();
+        $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
+    }
+    function gridList(e) {
+        var $gridCont = $('.grid-container')
+        e.preventDefault();
+        $gridCont.removeClass('list-view');
+    }
+
+    $(document).on('click', '.btn-grid', gridList);
+    $(document).on('click', '.btn-list', showList);
+</script>
+
+</html>
