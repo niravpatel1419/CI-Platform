@@ -1,4 +1,5 @@
-﻿using CI_Platform_Web.Models;
+﻿using CI_Platform_Web.Data;
+using CI_Platform_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,10 +8,12 @@ namespace CI_Platform_Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly CI_PlatformContext _cI_PlatformContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext)
         {
             _logger = logger;
+            _cI_PlatformContext = cI_PlatformContext;
         }
 
         public IActionResult Index()
@@ -35,8 +38,30 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult registration()
         {
+            User user = new User();
+            return View(user);
+        }
+
+
+        [HttpPost]
+        public IActionResult registration(User user)
+        {
+            var compare = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == user.Email);
+
+            if (compare != null)
+            {
+
+                ViewBag.RegEmail = "email exist";
+            }
+            else
+            {
+                _cI_PlatformContext.Users.Add(user);
+                _cI_PlatformContext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
+
 
         public IActionResult home()
         {

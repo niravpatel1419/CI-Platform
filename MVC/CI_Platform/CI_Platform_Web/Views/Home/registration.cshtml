@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@model User
+
+
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,43 +17,84 @@
 </head>
 
 <body>
-    
-       
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 mt-2">
+                <div id="carouselExampleCaptions" class="carousel slide">
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
+                                 class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Sed ut perspiciatis unde omnis iste natus voluptatem.</h5>
+                                <p class="slideCaption">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                                    deserunt mollit anim id est laborum.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="..." class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Second slide label</h5>
+                                <p>Some representative placeholder content for the second slide.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="..." class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Third slide label</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
             <div class="col-lg-4 align-self-center">
                 <div class="row justify-content-center">
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <form class="mt-5">
+                        <form class="mt-5" asp-controller="Home" asp-action="registration">
 
-                            <div class="mb-3">  
-                                <label for="firstName" class="form-label"><p class="formInput">First Name</p></label>
-                                <input type="text" class="form-control" id="firstName" placeholder="evan">
+                            <div class="mb-3">
+                                <label asp-for="FirstName" class="form-label"><p class="formInput">First Name</p></label>
+                                <input asp-for="FirstName" type="text" class="form-control" id="firstName" placeholder="evan">
                             </div>
 
                             <div class="mb-3">
-                                <label for="lastName" class="form-label"><p class="formInput">Last Name</p></label>
-                                <input type="text" class="form-control" id="lastName" placeholder="donohue">
+                                <label asp-for="LastName" class="form-label"><p class="formInput">Last Name</p></label>
+                                <input asp-for="LastName" type="text" class="form-control" id="lastName" placeholder="donohue">
                             </div>
 
                             <div class="mb-3">
-                                <label for="phoneNumber" class="form-label"><p class="formInput">Phone Number</p></label>
-                                <input type="text" class="form-control" id="phoneNumber" placeholder="8923454615">
+                                <label asp-for="PhoneNumber" class="form-label"><p class="formInput">Phone Number</p></label>
+                                <input asp-for="PhoneNumber" type="tel" class="form-control" id="phoneNumber" placeholder="8923454615">
                             </div>
 
                             <div class="mb-3">
-                                <label for="email" class="form-label"><p class="formInput">Email Address</p></label>
-                                <input type="email" class="form-control" id="email" placeholder="evan.donohue@gmail.com">
+                                <label asp-for="Email" class="form-label"><p class="formInput">Email Address</p></label>
+                                <input asp-for="Email"  type="email" class="form-control" id="email" placeholder="evan.donohue@gmail.com">
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label"><p class="formInput">Password</p></label>
-                                <input type="password" class="form-control" id="password" placeholder="**********">
+                                <label asp-for="Password" class="form-label"><p class="formInput">Password</p></label>
+                                <input asp-for="Password" type="password" class="form-control" id="password" placeholder="**********">
                             </div>
 
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label"><p class="formInput">Confirm Password</p></label>
-                                <input type="password" class="form-control" id="confirmPassword" placeholder="**********">
+                                <label  class="form-label"><p class="formInput">Confirm Password</p></label>
+                                <input  type="password" class="form-control" id="confirmPassword" placeholder="**********">
                             </div>
 
                             <button type="submit" class="btn btn-primary btnCustom">Register</button>
@@ -55,7 +106,7 @@
                             <div class="lost mt-3">
                                 <p class="loginTag">Already registered? <a asp-area="" asp-controller="Home" asp-action="Index">Login now</a></p>
                             </div>
- 
+
                             <div class="lost mt-3">
                                 <a asp-area="" asp-controller="Home" asp-action="policy"><p class="policyTag">Privacy Policy</p></a>
                             </div>
@@ -66,7 +117,9 @@
                 </div>
             </div>
 
-        
-    
+        </div>
+    </div>
+
+
 </body>
 </html>

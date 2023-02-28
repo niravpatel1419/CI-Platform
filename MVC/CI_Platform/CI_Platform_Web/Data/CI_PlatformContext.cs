@@ -47,6 +47,8 @@ namespace CI_Platform_Web.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=PCT124\\SQL2019;DataBase=CI_Platform;User ID=sa;Password=Tatva@123;TrustServerCertificate=True");
             }
         }
 
@@ -1054,13 +1056,11 @@ namespace CI_Platform_Web.Data
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__user__city_id__628FA481");
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.CountryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__user__country_id__6383C8BA");
             });
 

@@ -30,8 +30,8 @@ namespace CI_Platform_Web.Models
         public string? WhyIVolunteer { get; set; }
         public string? EmployeeId { get; set; }
         public string? Department { get; set; }
-        public long CityId { get; set; }
-        public long CountryId { get; set; }
+        public long? CityId { get; set; }
+        public long? CountryId { get; set; }
         public string? ProfileText { get; set; }
         public string? LinkedInUrl { get; set; }
         public string? Title { get; set; }
@@ -40,8 +40,8 @@ namespace CI_Platform_Web.Models
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
 
-        public virtual City City { get; set; } = null!;
-        public virtual Country Country { get; set; } = null!;
+        public virtual City? City { get; set; }
+        public virtual Country? Country { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<FavouriteMission> FavouriteMissions { get; set; }
         public virtual ICollection<MissionApplication> MissionApplications { get; set; }
