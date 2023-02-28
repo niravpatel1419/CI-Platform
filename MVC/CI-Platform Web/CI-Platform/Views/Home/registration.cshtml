@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="~/css/registration.css">
+    <title>Registration</title>
+</head>
+
+<body>
+    
+       
+
+            <div class="col-lg-4 align-self-center">
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                        <form class="mt-5">
+
+                            <div class="mb-3">  
+                                <label for="firstName" class="form-label"><p class="formInput">First Name</p></label>
+                                <input type="text" class="form-control" id="firstName" placeholder="evan">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="lastName" class="form-label"><p class="formInput">Last Name</p></label>
+                                <input type="text" class="form-control" id="lastName" placeholder="donohue">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label"><p class="formInput">Phone Number</p></label>
+                                <input type="text" class="form-control" id="phoneNumber" placeholder="8923454615">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label"><p class="formInput">Email Address</p></label>
+                                <input type="email" class="form-control" id="email" placeholder="evan.donohue@gmail.com">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label"><p class="formInput">Password</p></label>
+                                <input type="password" class="form-control" id="password" placeholder="**********">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label"><p class="formInput">Confirm Password</p></label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="**********">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btnCustom">Register</button>
+
+                            <div class="lost mt-3">
+                                <a asp-area="" asp-controller="Home" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>
+                            </div>
+
+                            <div class="lost mt-3">
+                                <p class="loginTag">Already registered? <a asp-area="" asp-controller="Home" asp-action="Index">Login now</a></p>
+                            </div>
+ 
+                            <div class="lost mt-3">
+                                <a asp-area="" asp-controller="Home" asp-action="policy"><p class="policyTag">Privacy Policy</p></a>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        
+    
+</body>
+</html>
