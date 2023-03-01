@@ -2,6 +2,7 @@
 using CI_Platform_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -16,8 +17,60 @@ namespace CI_Platform_Web.Controllers
             _cI_PlatformContext = cI_PlatformContext;
         }
 
+
         public IActionResult Index()
         {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = await _cI_PlatformContext.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefaultAsync();
+
+                if (user != null)
+                {
+
+                    return RedirectToAction(nameof(HomeController.home), "Home");
+
+                }
+                else
+                {
+                    TempData["Message"] = "Email or Password is incorrect";
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+            }
+            return View();  
+        }
+
+        public IActionResult registration()
+        {
+            User user = new User();
+            return View(user);
+        }
+
+
+        [HttpPost]
+        public IActionResult registration(User user)
+        {
+            var compare = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == user.Email);
+
+            if (compare != null)
+            {
+                
+                ViewBag.RegEmail = "Email Address Already Exists.Please use a different email address";
+
+            }
+            else
+            {
+                _cI_PlatformContext.Users.Add(user);
+                _cI_PlatformContext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -35,33 +88,6 @@ namespace CI_Platform_Web.Controllers
         {
             return View();
         }
-
-        public IActionResult registration()
-        {
-            User user = new User();
-            return View(user);
-        }
-
-
-        [HttpPost]
-        public IActionResult registration(User user)
-        {
-            var compare = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == user.Email);
-
-            if (compare != null)
-            {
-
-                ViewBag.RegEmail = "email exist";
-            }
-            else
-            {
-                _cI_PlatformContext.Users.Add(user);
-                _cI_PlatformContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
-
 
         public IActionResult home()
         {

@@ -25,7 +25,6 @@ namespace CI_Platform_Web.Data
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<FavouriteMission> FavouriteMissions { get; set; } = null!;
         public virtual DbSet<GoalMission> GoalMissions { get; set; } = null!;
-        public virtual DbSet<Login> Logins { get; set; } = null!;
         public virtual DbSet<Mission> Missions { get; set; } = null!;
         public virtual DbSet<MissionApplication> MissionApplications { get; set; } = null!;
         public virtual DbSet<MissionDocument> MissionDocuments { get; set; } = null!;
@@ -47,8 +46,7 @@ namespace CI_Platform_Web.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=PCT124\\SQL2019;DataBase=CI_Platform;User ID=sa;Password=Tatva@123;TrustServerCertificate=True");
+
             }
         }
 
@@ -339,21 +337,6 @@ namespace CI_Platform_Web.Data
                     .HasForeignKey(d => d.MissionId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__goal_miss__missi__571DF1D5");
-            });
-
-            modelBuilder.Entity<Login>(entity =>
-            {
-                entity.HasKey(e => e.Email);
-
-                entity.ToTable("login");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(55)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(55)
-                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Mission>(entity =>

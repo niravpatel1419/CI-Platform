@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System.ComponentModel.DataAnnotations;
+
 
 namespace CI_Platform_Web.Models
 {
-    public partial class Login
+    public class Login
     {
-        public string Email { get; set; } = null!;
-        public string? Password { get; set; }
+        [Required,EmailAddress,Display(Name ="Email Address")]
+        public string? Email { get; set; }
+
+        [Required,Display(Name ="Password")]
+        public string? Password{ get; set; }
     }
 }

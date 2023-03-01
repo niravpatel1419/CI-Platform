@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform_Web.Models
 {
@@ -21,10 +22,20 @@ namespace CI_Platform_Web.Models
         }
 
         public long UserId { get; set; }
+
+        [Required]
         public string? FirstName { get; set; }
+
+        [Required]
         public string? LastName { get; set; }
+
+        [Required]
         public string Email { get; set; } = null!;
+
+        [Required]
         public string Password { get; set; } = null!;
+
+        [Required]
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? WhyIVolunteer { get; set; }
