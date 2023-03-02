@@ -28,13 +28,12 @@ namespace CI_Platform_Web.Models
 
         [Required]
         public string? LastName { get; set; }
-
-        [Required]
         public string Email { get; set; } = null!;
 
-        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6 , ErrorMessage ="Minimum 6 characters are required")]
         public string Password { get; set; } = null!;
-
+        
         [Required]
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }

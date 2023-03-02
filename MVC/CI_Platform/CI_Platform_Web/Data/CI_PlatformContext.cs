@@ -712,9 +712,15 @@ namespace CI_Platform_Web.Data
 
             modelBuilder.Entity<PasswordReset>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Token)
+                    .HasName("PK__password__CA90DA7B93554993");
 
                 entity.ToTable("password_reset");
+
+                entity.Property(e => e.Token)
+                    .HasMaxLength(191)
+                    .IsUnicode(false)
+                    .HasColumnName("token");
 
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
@@ -725,11 +731,6 @@ namespace CI_Platform_Web.Data
                     .HasMaxLength(191)
                     .IsUnicode(false)
                     .HasColumnName("email");
-
-                entity.Property(e => e.Token)
-                    .HasMaxLength(191)
-                    .IsUnicode(false)
-                    .HasColumnName("token");
             });
 
             modelBuilder.Entity<Skill>(entity =>
