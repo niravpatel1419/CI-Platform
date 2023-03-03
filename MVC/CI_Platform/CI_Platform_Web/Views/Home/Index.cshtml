@@ -67,8 +67,6 @@
 
                         <form class="mt-5 " asp-controller="Home" asp-action="Login">
 
-
-
                             <div class="mb-3">
                                 <div class="mb-5 text-danger" id="viewbag">@TempData["Message"]</div>
                                 <label  asp-for="Email" class="form-label"><p class="formInput">Email address</p></label>
@@ -82,7 +80,7 @@
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
 
-                            <button type="submit" class="btn btn-primary btnCustom">Login</button>
+                            <button type="submit" class="btn btn-primary btnCustom"  >Login</button>
 
                             <div class="lost mt-3">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>

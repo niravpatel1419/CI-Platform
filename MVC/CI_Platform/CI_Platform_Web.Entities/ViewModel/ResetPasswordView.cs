@@ -10,6 +10,7 @@ namespace CI_Platform_Web.Entities.Models
 
         [Required]
         [DataType(DataType.Password)]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Minimum 6 characters are required")]
         public string? Password { get; set; }    
 
         [DataType(DataType.Password)]

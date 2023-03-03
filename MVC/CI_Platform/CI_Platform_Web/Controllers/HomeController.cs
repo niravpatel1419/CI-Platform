@@ -2,10 +2,13 @@
 using CI_Platform_Web.Entities.Models;
 using CI_Platform_Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using System.Diagnostics;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -23,32 +26,6 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-
-        //For the User Login 
-
-        [HttpPost]
-        public async Task<IActionResult> Login(Login model)
-        {
-            if (ModelState.IsValid)
-            {
-
-                var user = await _cI_PlatformContext.Users.Where(u => u.Email == model.Email && u.Password == model.Password).FirstOrDefaultAsync();
-
-                if (user != null)
-                {
-
-                    return RedirectToAction(nameof(HomeController.home), "Home");
-
-                }
-                else
-                {
-                    TempData["Message"] = "Email or Password is incorrect";
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
-                }
-            }
             return View();
         }
 
@@ -84,6 +61,56 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+        //For the User Login 
+
+
+        [HttpPost]
+
+        public IActionResult Login(Login model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
+
+                if (user != null)
+                {
+                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, user.Email) },
+                        CookieAuthenticationDefaults.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ClaimTypes.Name, user.FirstName));
+                    identity.AddClaim(new Claim(ClaimTypes.Name, user.LastName));
+                    var principal = new ClaimsPrincipal(identity);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    HttpContext.Session.SetString("EmailId", user.Email);
+
+                    return RedirectToAction(nameof(HomeController.home), "Home");
+
+                }
+
+                else
+                {
+                    TempData["Message"] = "Email or Password is incorrect";
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+            }
+            return View();
+        }
+
+
+        //For Logout
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            var storedCookies = Request.Cookies.Keys;
+            foreach (var cookie in storedCookies)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+            //HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
+
 
         //For the Privacy Page
         public IActionResult Privacy()
@@ -109,7 +136,7 @@ namespace CI_Platform_Web.Controllers
             var status = _cI_PlatformContext.Users.FirstOrDefault(m => m.Email == _forogtpass.Email);
             if (status == null)
             {
-              
+
                 TempData["Error"] = "Email id is invalid or You are not registerd";
                 return View();
 
@@ -122,13 +149,13 @@ namespace CI_Platform_Web.Controllers
                 Email = _forogtpass.Email,
                 Token = token,
             };
-           
+
             _cI_PlatformContext.Add(passwordReset);
             _cI_PlatformContext.SaveChanges();
 
             var resetLink = Url.Action("resetPassword", "Home", new { email = _forogtpass.Email, token }, Request.Scheme);
 
-            var fromAddress = new MailAddress("niravpatel1419@gmail.com", "CI_Platform");
+            var fromAddress = new MailAddress("testbhai393@gmail.com", "CI_Platform");
             var toAddress = new MailAddress(_forogtpass.Email);
             var subject = "Password reset request";
             var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -138,10 +165,11 @@ namespace CI_Platform_Web.Controllers
                 Body = body,
                 IsBodyHtml = true
             };
-            var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
+                Port = 587,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("niravpatel1419@gmail.com", "qzymefhbvcsfrcsz"),
+                Credentials = new NetworkCredential("testbhai393@gmail.com", "fdqbpbjcivvfbayr"),
                 EnableSsl = true
             };
             smtpClient.Send(message);
@@ -163,22 +191,22 @@ namespace CI_Platform_Web.Controllers
 
         [HttpGet]
         public IActionResult resetPassword(string token, string email)
-        {   
-            if( token == null || email == null)
+        {
+            if (token == null || email == null)
             {
                 ModelState.AddModelError("", "Invalid Password Reset Token");
-            } 
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult resetPassword(ResetPasswordView model)
-        
+
         {
             if (ModelState.IsValid)
             {
-                var user =  _cI_PlatformContext.Users.FirstOrDefault( m => m.Email == model.Email );
-                if(user == null)
+                var user = _cI_PlatformContext.Users.FirstOrDefault(m => m.Email == model.Email);
+                if (user == null)
                 {
                     return RedirectToAction("forgotPassword", "Home");
 
@@ -189,10 +217,10 @@ namespace CI_Platform_Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-           return RedirectToAction("forgotPassword", "Home");
+            return RedirectToAction("forgotPassword", "Home");
         }
 
-            
+
         //For LandingPage
 
         public IActionResult home()
@@ -220,5 +248,29 @@ namespace CI_Platform_Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+
+        /*        public IActionResult LandingPage()
+                {
+                    string UserID = HttpContext.Session.GetString("UserID");
+                    if (UserID == null)
+                    {
+                        return RedirectToAction("Login", "Auth");
+                    }
+                    else
+                    {
+                        var model = _landingPageRepo.createLandingPageModel(long.Parse(UserID));
+                        return View(model);
+                    }
+                }*/
     }
 }
+
+
+
+
+
+

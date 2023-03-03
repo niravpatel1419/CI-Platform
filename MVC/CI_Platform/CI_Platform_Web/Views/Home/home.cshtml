@@ -18,32 +18,15 @@
 <div class="container">
 
     <div class="row">
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Tree Plantation</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Canada</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Toronto</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Montreal</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Environment</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Nutrition</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Anthropology</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter btnFlex">
-            <p class="filterText">Environmental Science</p><img src="~/images/cancel.png" alt="">
-        </button>
-        <button class="btnFilter1">Clear all</button>
-    </div>
+        <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
+
+@*            <div class="btnFilter btnFlex" id="filter-item">
+                <p class="filterText"></p>
+                <button id="deleteBtn1" style="border:none;background: white;" onclick="clearOne(this.id)"><img src="~/images/cancel.png" alt=""></button>
+            </div>*@
+
+        </div>
+    </div>  
 
 </div>
 
@@ -665,3 +648,98 @@
     </div>
 </div>
 
+
+<script>
+
+
+
+
+    //For Remove the Filter
+
+    function clearAll(){
+      document.querySelectorAll("#filter-item").forEach(el => el.remove());
+      document.querySelectorAll(".btnFilter1").forEach(el => el.remove());
+    }
+
+    function clearOne(id){
+        var a = document.getElementById(id);
+        var b = a.parentElement;
+
+        b.remove()
+    }
+
+    //For filter-choices
+
+
+    var checkboxes = document.querySelectorAll(".checkbox");
+
+
+    let filtersSection = document.querySelector(".filterSection");
+
+    var listArray = [];
+
+    var filterList = document.querySelector(".filter-list");
+
+    var len = listArray.length;
+
+    for (var checkbox of checkboxes) {
+        checkbox.addEventListener("click", function () {
+            if (this.checked == true) {
+                addElement(this, this.value);
+            }
+            else {
+                removeElement(this.value);
+                console.log("unchecked");
+            }
+        })
+    }
+
+
+    function addElement(current, value) {
+        let filtersSection = document.querySelector(".filterSection");
+
+
+
+        let createdTag = document.createElement('span');
+        createdTag.classList.add('filter-list');
+        createdTag.classList.add('ps-3')
+        createdTag.classList.add('pe-1');
+        createdTag.classList.add('me-2');
+        createdTag.innerHTML = value;
+        createdTag.setAttribute('id', value);
+
+        let crossButton = document.createElement('button');
+        crossButton.classList.add("filter-close-button");
+        let cross = '&times;'
+
+
+
+        crossButton.addEventListener('click', function () {
+            let elementToBeRemoved = document.getElementById(value);
+
+            console.log(elementToBeRemoved);
+            console.log(current);
+            elementToBeRemoved.remove();
+
+            current.checked = false;
+        })
+
+        crossButton.innerHTML = cross;
+
+
+    // let crossButton = '&times;'
+
+        createdTag.appendChild(crossButton);
+        filtersSection.appendChild(createdTag);
+
+    }
+
+    function removeElement(value) {
+
+        let filtersSection = document.querySelector(".filterSection");
+
+        let elementToBeRemoved = document.getElementById(value);
+        filtersSection.removeChild(elementToBeRemoved);
+
+    }
+</script>

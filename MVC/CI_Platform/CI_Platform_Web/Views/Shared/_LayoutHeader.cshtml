@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using CI_Platform_Web.Entities.Models
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -114,18 +116,30 @@
                 <div class="col-6 py-2">
                     <div class="d-flex align-items-center justify-content-end">
 
-                        <div><img src="~/images/user-img.png" alt="" class="imgIcon"></div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var user = new User();
+                            <div><img src="~/images/user-img.png" alt="" class="imgIcon"></div>
 
-                        <div class="dropdown ">
-                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Evan Donchue
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                                <li><a class="dropdown-item" href="./index.html">Logout</a></li>
+                            <div class="dropdown ">
+                                <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Evan Donchue
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Logout</a></li>
+                                </ul>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <ul class="d-flex text-decoration-none" style="list-style:none">
+                                <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Index">Login</a></li>
+                                <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Registration">Register</a></li>
                             </ul>
-                        </div>
+                        }
 
                     </div>
                 </div>
@@ -160,7 +174,9 @@
                             Country
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Show All The Country List Here</a></li>
+                            <li><a class="dropdown-item" href="#">India</a></li>
+                            <li><a class="dropdown-item" href="#">USA</a></li>
+                            <li><a class="dropdown-item" href="#">UK</a></li>
                         </ul>
                     </div>
 
@@ -169,7 +185,42 @@
                             City
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Show All The City List Here</a></li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
+                                Ahmedabad
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
+                                NewYork
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
+                                London
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
+                                Ahmedabad
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
+                                NewYork
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
+                                London
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
+                                Ahmedabad
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
+                                NewYork
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
+                                London
+                            </li>
                         </ul>
                     </div>
 
@@ -178,7 +229,18 @@
                             Theme
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Show All The Theme List Here</a></li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="theme1" name="theme1" value="Theme1">
+                                Theme1
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="theme2" name="theme2" value="Theme2">
+                                Theme2
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="theme3" name="theme3" value="Theme3">
+                                Theme3
+                            </li>
                         </ul>
                     </div>
 
@@ -187,7 +249,18 @@
                             Skills
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Show All The Skills List Here</a></li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="skill1" name="skill1" value="Skill1">
+                                Skill1
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="skill2" name="skill2" value="Skill2">
+                                Slill2
+                            </li>
+                            <li class="dropdown-item">
+                                <input class="checkbox" type="checkbox" id="skill3" name="skill3" value="Skill3">
+                                Skill3
+                            </li>
                         </ul>
                     </div>
 
@@ -228,22 +301,21 @@
 
       hamburger.addEventListener("click", toggleMenu);
 
-
           // For the Grid View And List View
 
-      function showList(e) {
-          var $gridCont = $('.grid-container');
-          e.preventDefault();
-          $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
-      }
-      function gridList(e) {
-          var $gridCont = $('.grid-container')
-          e.preventDefault();
-          $gridCont.removeClass('list-view');
-      }
+    function showList(e) {
+        var $gridCont = $('.grid-container');
+        e.preventDefault();
+        $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
+    }
+    function gridList(e) {
+        var $gridCont = $('.grid-container')
+        e.preventDefault();
+        $gridCont.removeClass('list-view');
+    }
 
-      $(document).on('click', '.btn-grid', gridList);
-      $(document).on('click', '.btn-list', showList);
+    $(document).on('click', '.btn-grid', gridList);
+    $(document).on('click', '.btn-list', showList);
 
 </script>
 
