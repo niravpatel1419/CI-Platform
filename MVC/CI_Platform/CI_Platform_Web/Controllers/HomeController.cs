@@ -1,4 +1,5 @@
-﻿using CI_Platform_Web.Data;
+﻿using CI_Platform_Web.Entities.Data;
+using CI_Platform_Web.Entities.Models;
 using CI_Platform_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -116,7 +117,7 @@ namespace CI_Platform_Web.Controllers
 
             var token = Guid.NewGuid().ToString();
 
-            var passwordReset = new CI_Platform_Web.Models.PasswordReset
+            var passwordReset = new CI_Platform_Web.Entities.Models.PasswordReset
             {
                 Email = _forogtpass.Email,
                 Token = token,

@@ -1,4 +1,4 @@
-using CI_Platform_Web.Data;
+using CI_Platform_Web.Entities.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
