@@ -30,6 +30,10 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
+
+
+
         //For the User Registration
 
         [HttpGet]
@@ -224,9 +228,20 @@ namespace CI_Platform_Web.Controllers
         //For LandingPage
 
         public IActionResult home()
-        {
-            return View();
+        {   
+            List<Country> country = _cI_PlatformContext.Countries.ToList();
+            ViewBag.Country = country;  
+
+            List<Mission> mission = _cI_PlatformContext.Missions.ToList();
+            foreach (var i in mission)
+            {
+                var City = _cI_PlatformContext.Cities.FirstOrDefault(u => u.CityId == i.CityId);
+                var Theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(u => u.MissionThemeId == i.ThemeId);
+                var Country = _cI_PlatformContext.Countries.FirstOrDefault(u => u.CountryId == i.CountryId);
+            }
+            return View(mission);
         }
+
 
         public IActionResult noMissionFound()
         {

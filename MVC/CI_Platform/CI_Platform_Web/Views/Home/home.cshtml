@@ -1,11 +1,18 @@
-﻿@{
+﻿@model List<CI_Platform_Web.Entities.Models.Mission>;
+
+@{
     Layout = "_LayoutHeader";
+    ViewData["Title"] = "Home Page";
 }
+
+
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 
-    <link rel="stylesheet" href="~/css/home.css">
-    <title>Reset-Password</title>
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
 </head>
 
@@ -20,13 +27,16 @@
     <div class="row">
         <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
 
-@*            <div class="btnFilter btnFlex" id="filter-item">
+            @*            <div class="btnFilter btnFlex" id="filter-item">
                 <p class="filterText"></p>
                 <button id="deleteBtn1" style="border:none;background: white;" onclick="clearOne(this.id)"><img src="~/images/cancel.png" alt=""></button>
-            </div>*@
+                </div>*@
+
+            <span class="filter-list ps-3 pe-2 me-2" id="India">India <button class="filter-close-button">&times;</span>
+            @*<span class="filter-list ps-3 pe-2 me-2" id="Ahmedabad">Ahmedabad <button class="filter-close-button">&times;</button></span>*@
 
         </div>
-    </div>  
+    </div>
 
 </div>
 
@@ -59,687 +69,115 @@
 <!--Mission Cards  -->
 
 <div class="container grid-container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
 
-        <div class="col ">
-            <div class="card h-100">
+            @foreach (var item in Model)
+            {
 
-                <div class="cardHead">
+                <div class="col ">
+                    <div class="card h-100">
 
-                    <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
+                        <div class="cardHead">
 
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
+                            <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
 
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
+                            <div class="shape">
+                                <p>@item.Theme.Title</p>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
                         </div>
 
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
+                        <div class="cardBodyMain">
+                            <div class="card-body mt-10">
+                                <h4 class="card-title">@item.Title</h4>
+                                <p class="card-text">
+                                    This is a wider card with supporting text below as a natural lead-in to
+                                    additional content. This content is a little bit longer.
+                                </p>
+
+                                <div class="cardBodyFooter">
+                                    <p class="ngoName">@item.OrganizationName</p>
+                                    <div class="rating">
+                                        <img src="~/images/selected-star.png" alt="Rating">
+                                        <img src="~/images/selected-star.png" alt="Rating">
+                                        <img src="~/images/selected-star.png" alt="Rating">
+                                        <img src="~/images/star.png" alt="Rating">
+                                        <img src="~/images/star.png" alt="Rating">
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
+                            <div class="missionDurationDiv">
+                                <hr class="durationLine">
+                                <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
+                                <hr class="durationLine">
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
+                            <div class="missionDeadLine  d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                    <div class="d-flex flex-column ms-2">
+                                        <p class="d-inline mb-0 pt-2">10</p>
+                                        <p class="seat">Seats Left</p>
+                                    </div>
+                                </div>
 
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
+                                @if (item.MissionType == "time")
+                                {
+                                    <div class="d-flex flex-row align-items-center">
+                                        <img src="~/images/deadline.png" height="33px" width="33px" alt="">
+                                        <div class="d-flex flex-column ms-2">
+                                            <p class="d-inline mb-0 pt-2">@item.EndDate.ToString().Split(" ")[0]</p>
+                                            <p class="seat">Deadline</p>
+                                        </div>
+                                    </div>
+                                }
+
+                                else
+                                {
+                                    <div class="ms-auto me-2"><img src="/Image/achieved.png" class="mt-2"></div>
+                                    <div class="ms-2 me-5" stye="width:100%">
+                                        <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                            <div class="progress-bar bg-warning" style="width: 25%">25%</div>
+                                        </div>
+                                        <fs-5>Deadline</fs-5>
+                                    </div>
+                                }
+
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
+                                <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
                             </div>
                         </div>
 
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Nourish-the-Children-in--African-country.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Animal-welfare-&-save-birds-campaign.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Plantation-and-Afforestation-programme.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="col ">
-            <div class="card h-100">
-
-                <div class="cardHead">
-
-                    <img src="~/images/Nourish-the-Children-in--African-country.png" class="card-img" alt="...">
-
-                    <div class="shape">
-                        <p>Environment</p>
-                    </div>
-
-                </div>
-
-                <div class="cardBodyMain">
-                    <div class="card-body mt-10">
-                        <h4 class="card-title">Grow Trees - On the path to environment sustainability</h4>
-                        <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.
-                        </p>
-
-                        <div class="cardBodyFooter">
-                            <p class="ngoName">Tree Canada</p>
-                            <div class="rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/selected-star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                                <img src="~/images/star.png" alt="Rating">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="missionDurationDiv">
-                        <hr class="durationLine">
-                        <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                        <hr class="durationLine">
-                    </div>
-
-                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">10</p>
-                                <p class="seat">Seats Left</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row align-items-center">
-                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                            <div class="d-flex flex-column ms-2">
-                                <p class="d-inline mb-0 pt-2">09/03/2023 </p>
-                                <p class="seat">Deadline</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                        <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+            }
+   
     </div>
 </div>
 
 
-<script>
+<!--For The Pagination-->
+<div class="d-flex justify-content-center mt-3">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item "><a class="page-link page-item-current" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
 
-
-
-
-    //For Remove the Filter
-
-    function clearAll(){
-      document.querySelectorAll("#filter-item").forEach(el => el.remove());
-      document.querySelectorAll(".btnFilter1").forEach(el => el.remove());
-    }
-
-    function clearOne(id){
-        var a = document.getElementById(id);
-        var b = a.parentElement;
-
-        b.remove()
-    }
-
-    //For filter-choices
-
-
-    var checkboxes = document.querySelectorAll(".checkbox");
-
-
-    let filtersSection = document.querySelector(".filterSection");
-
-    var listArray = [];
-
-    var filterList = document.querySelector(".filter-list");
-
-    var len = listArray.length;
-
-    for (var checkbox of checkboxes) {
-        checkbox.addEventListener("click", function () {
-            if (this.checked == true) {
-                addElement(this, this.value);
-            }
-            else {
-                removeElement(this.value);
-                console.log("unchecked");
-            }
-        })
-    }
-
-
-    function addElement(current, value) {
-        let filtersSection = document.querySelector(".filterSection");
-
-
-
-        let createdTag = document.createElement('span');
-        createdTag.classList.add('filter-list');
-        createdTag.classList.add('ps-3')
-        createdTag.classList.add('pe-1');
-        createdTag.classList.add('me-2');
-        createdTag.innerHTML = value;
-        createdTag.setAttribute('id', value);
-
-        let crossButton = document.createElement('button');
-        crossButton.classList.add("filter-close-button");
-        let cross = '&times;'
-
-
-
-        crossButton.addEventListener('click', function () {
-            let elementToBeRemoved = document.getElementById(value);
-
-            console.log(elementToBeRemoved);
-            console.log(current);
-            elementToBeRemoved.remove();
-
-            current.checked = false;
-        })
-
-        crossButton.innerHTML = cross;
-
-
-    // let crossButton = '&times;'
-
-        createdTag.appendChild(crossButton);
-        filtersSection.appendChild(createdTag);
-
-    }
-
-    function removeElement(value) {
-
-        let filtersSection = document.querySelector(".filterSection");
-
-        let elementToBeRemoved = document.getElementById(value);
-        filtersSection.removeChild(elementToBeRemoved);
-
-    }
-</script>

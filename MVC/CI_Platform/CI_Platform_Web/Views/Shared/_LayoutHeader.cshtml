@@ -1,8 +1,11 @@
-﻿@using CI_Platform_Web.Entities.Models
+﻿@using CI_Platform_Web.Entities.Models;
+
+@{
+    var usrid = Context.Session.GetString("userID");
+}
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en-ms-perspective-origin-y>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CI_Platform_Web</title>
@@ -13,6 +16,8 @@
     <link rel="stylesheet" href="~/CI_Platform_Web.styles.css" asp-append-version="true" />
 </head>
 <body>
+
+
     <!-- Starting Top Header -->
     <div class="abc">
         <div class="container">
@@ -160,12 +165,14 @@
                     <nav class="navbar">
                         <div class="container">
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search mission..." aria-label="Search">
+                                <input class="form-control me-2" id="myFilter" onkeyup="myFunction()" type="text" placeholder="Search mission..." aria-label="Search">
                             </form>
                         </div>
                     </nav>
 
+
                 </div>
+
 
                 <div class="col-6 d-flex align-items-center">
 
@@ -173,10 +180,21 @@
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Country
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">India</a></li>
-                            <li><a class="dropdown-item" href="#">USA</a></li>
-                            <li><a class="dropdown-item" href="#">UK</a></li>
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                            @*for country data in drop down*@
+
+                            @if (ViewBag.Country != null)
+                            {
+                                @foreach (var iteam in ViewBag.Country)
+                                {
+                                    <li>
+                                        <input class="form-check-input mt-1 ms-2 checkbox" type="checkbox" value="@iteam.Name" id="@iteam.Name">
+                                        @iteam.Name
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </div>
 
@@ -274,10 +292,14 @@
 
     </div>
 
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/filter.js"></script>
+    <script src="~/js/site.js" asp-append-version = "true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
 
 <script>
