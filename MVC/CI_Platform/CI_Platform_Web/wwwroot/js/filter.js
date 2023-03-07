@@ -5,7 +5,7 @@
 
 //For Remove the Filter
 
-function clearAll() {
+/*function clearAll() {
     document.querySelectorAll("#filter-item").forEach(el => el.remove());
     document.querySelectorAll(".btnFilter1").forEach(el => el.remove());
 }
@@ -16,6 +16,8 @@ function clearOne(id) {
 
     b.remove()
 }
+*/
+
 
 //For filter-choices
 
@@ -49,15 +51,16 @@ function addElement(current, value) {
 
 
 
-    var createdTag = document.createElement('span');
+    let createdTag = document.createElement('span');
     createdTag.classList.add('filter-list');
     createdTag.classList.add('ps-3')
     createdTag.classList.add('pe-2');
     createdTag.classList.add('me-2');
     createdTag.innerHTML = value;
     createdTag.setAttribute('id', value);
+    createdTag.setAttribute('name', value);
 
-    var crossButton = document.createElement('button');
+    let crossButton = document.createElement('button');
     crossButton.classList.add("filter-close-button");
 
     let cross = '&times;'
@@ -106,7 +109,7 @@ function myFunction() {
 
     for (i = 0; i < cards.length; i++) {
         title = cards[i].querySelector(".card-body h4.card-title");
-
+     
         if (title.innerText.toUpperCase().indexOf(filter) > -1) {
             cards[i].style.display = "";
         } else {

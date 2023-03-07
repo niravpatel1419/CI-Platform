@@ -5,7 +5,9 @@
 }
 
 <!DOCTYPE html>
-<html lang="en-ms-perspective-origin-y>
+<html lang="en">
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CI_Platform_Web</title>
@@ -47,10 +49,22 @@
                                     aria-expanded="false">
                                 Country
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">India</a></li>
-                                <li><a class="dropdown-item" href="#">Australia</a></li>
-                                <li><a class="dropdown-item" href="#">England</a></li>
+
+                            <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                                @*for country data in drop down*@
+
+                                @if (ViewBag.Country != null)
+                                {
+                                    @foreach (var item in ViewBag.Country)
+                                    {
+                                        <li>
+                                            <input class="form-check-input mt-1 ms-2 checkbox" type="checkbox" value="@item.Name" id="@item.Name">
+                                            @item.Name
+                                        </li>
+                                    }
+                                }
+
                             </ul>
                         </div>
 
@@ -121,30 +135,30 @@
                 <div class="col-6 py-2">
                     <div class="d-flex align-items-center justify-content-end">
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            var user = new User();
-                            <div><img src="~/images/user-img.png" alt="" class="imgIcon"></div>
+                        <div><img src="~/images/user-img.png" alt="" class="imgIcon"></div>
 
-                            <div class="dropdown ">
-                                <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Evan Donchue
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">My Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Home" asp-action="Logout">Logout</a></li>
-                                </ul>
-                            </div>
-
-                        }
-                        else
-                        {
-                            <ul class="d-flex text-decoration-none" style="list-style:none">
-                                <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Index">Login</a></li>
-                                <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Registration">Register</a></li>
+                        <div class="dropdown ">
+                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @{
+                                    if (@usrid != null)
+                                    {
+                                        <span class="txt text-dark">@usrid</span>
+                                    }
+                                }
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Volunteering Timesheet</a></li>
+                                <li><a class="dropdown-item" asp-controller="Login" asp-action="Login">Logout</a></li>
                             </ul>
-                        }
+                        </div>
+
+                        @*
+                            <ul class="d-flex text-decoration-none" style="list-style:none">
+                            <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Index">Login</a></li>
+                            <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Registration">Register</a></li>
+                            </ul>
+                        *@
 
                     </div>
                 </div>
@@ -153,7 +167,7 @@
         </div>
         <hr class="line mt-1 mb-0">
 
-        <!-- Searching And Filter Header -->
+        <!-- Searching And Filter Header In PC/Tab -->
 
         <div class="container">
             <div class="row">
@@ -176,6 +190,8 @@
 
                 <div class="col-6 d-flex align-items-center">
 
+                    <!--Country Dropdown-->
+
                     <div class="dropdown col-3 filterNav">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Country
@@ -186,11 +202,13 @@
 
                             @if (ViewBag.Country != null)
                             {
-                                @foreach (var iteam in ViewBag.Country)
+                                @foreach (var item in ViewBag.Country)
                                 {
                                     <li>
-                                        <input class="form-check-input mt-1 ms-2 checkbox" type="checkbox" value="@iteam.Name" id="@iteam.Name">
-                                        @iteam.Name
+                                        <a class="dropdown-item p-0 mt-1" href="#">
+                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.Name">
+                                            @item.Name
+                                        </a>
                                     </li>
                                 }
                             }
@@ -198,87 +216,78 @@
                         </ul>
                     </div>
 
+                    <!--City Dropdown-->
                     <div class="dropdown col-3 filterNav">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             City
                         </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
-                                Ahmedabad
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
-                                NewYork
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
-                                London
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
-                                Ahmedabad
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
-                                NewYork
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
-                                London
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city1" value="Ahmedabad">
-                                Ahmedabad
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city2" value="NewYork">
-                                NewYork
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="" name="city3" value="London">
-                                London
-                            </li>
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                            @*for city data in drop down*@
+
+                            @if (ViewBag.City != null)
+                            {
+                                @foreach (var item in ViewBag.City)
+                                {
+                                    <li>
+                                        <a class="dropdown-item p-0 mt-1" href="#">
+                                            <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
+                                            @item.Name
+                                        </a>
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </div>
 
+                    <!--Theme Dropdown-->
                     <div class="dropdown col-3 filterNav">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Theme
+                            Themes
                         </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="theme1" name="theme1" value="Theme1">
-                                Theme1
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="theme2" name="theme2" value="Theme2">
-                                Theme2
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="theme3" name="theme3" value="Theme3">
-                                Theme3
-                            </li>
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                            @*for city data in drop down*@
+
+                            @if (ViewBag.MissionThemes != null)
+                            {
+                                @foreach (var item in ViewBag.MissionThemes)
+                                {
+                                    <li>
+                                        <a class="dropdown-item p-0 mt-1" href="#">
+                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.Title">
+                                            @item.Title
+                                        </a>
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </div>
 
+                    <!--Skill Dropdown-->
                     <div class="dropdown col-3 filterNav">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Skills
                         </button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="skill1" name="skill1" value="Skill1">
-                                Skill1
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="skill2" name="skill2" value="Skill2">
-                                Slill2
-                            </li>
-                            <li class="dropdown-item">
-                                <input class="checkbox" type="checkbox" id="skill3" name="skill3" value="Skill3">
-                                Skill3
-                            </li>
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                            @*for city data in drop down*@
+
+                            @if (ViewBag.Skill != null)
+                            {
+                                @foreach (var item in ViewBag.Skill)
+                                {
+                                    <li>
+                                        <a class="dropdown-item p-0 mt-1" href="#">
+                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.skill_name">
+                                            @item.skill_name
+                                        </a>
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </div>
 
@@ -296,7 +305,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/filter.js"></script>
-    <script src="~/js/site.js" asp-append-version = "true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 

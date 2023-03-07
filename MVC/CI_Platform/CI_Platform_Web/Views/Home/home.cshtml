@@ -6,178 +6,196 @@
 }
 
 
+@{
+    var usrid = Context.Session.GetString("userID");
 
-<!DOCTYPE html>
-<html lang="en">
+    if (usrid == null)
+    {
+        Context.Response.Redirect("Index");
+    }
 
-<head>
+    else
+    {
 
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+        <!DOCTYPE html>
+        <html lang="en">
 
-</head>
+        <head>
 
-<hr class="line mt-0">
+            <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+
+        </head>
+
+        <hr class="line mt-0">
 
 
-<!------------------------------------------------ Mission Section -------------------------------------------------------------------->
-<!-- Mission Filter Btn -->
+        <!------------------------------------------------ Mission Section -------------------------------------------------------------------->
+        <!-- Mission Filter Btn -->
 
-<div class="container">
+    <div class="container">
 
-    <div class="row">
-        <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
-
-            @*            <div class="btnFilter btnFlex" id="filter-item">
-                <p class="filterText"></p>
-                <button id="deleteBtn1" style="border:none;background: white;" onclick="clearOne(this.id)"><img src="~/images/cancel.png" alt=""></button>
-                </div>*@
-
-            <span class="filter-list ps-3 pe-2 me-2" id="India">India <button class="filter-close-button">&times;</span>
-            @*<span class="filter-list ps-3 pe-2 me-2" id="Ahmedabad">Ahmedabad <button class="filter-close-button">&times;</button></span>*@
+            <div class="row">
+                <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
+                </div>
+            </div>
 
         </div>
-    </div>
-
-</div>
 
 
-<!--Explore Mission  -->
-<div class="container exploreMission">
-    <div class="row align-items-center">
-        <p class="heading col-8">Explore <big>72 Missions</big></p>
+        <!--Explore Mission  -->
+    <div class="container exploreMission">
+            <div class="row align-items-center">
+                <p class="heading col-8">Explore <big>@ViewBag.TotalMission Missions</big></p>
 
-        <div class="dropdown  col-2">
-            <button class="btn dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Sort by
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">India</a></li>
-                <li><a class="dropdown-item" href="#">Australia</a></li>
-                <li><a class="dropdown-item" href="#">England</a></li>
-            </ul>
-        </div>
-
-        <div class="container mb-3 mt-3 col-2 gridListDiv">
-            <button class=" btn-grid gridBtn"><img src="~/images/grid.png" alt="Grid View"></button>
-            <button class=" btn-list listBtn"><img src="~/images/list.png" alt="List View"></button>
-        </div>
-
-    </div>
-</div>
-
-
-<!--Mission Cards  -->
-
-<div class="container grid-container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
-
-            @foreach (var item in Model)
-            {
-
-                <div class="col ">
-                    <div class="card h-100">
-
-                        <div class="cardHead">
-
-                            <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
-
-                            <div class="shape">
-                                <p>@item.Theme.Title</p>
-                            </div>
-
-                        </div>
-
-                        <div class="cardBodyMain">
-                            <div class="card-body mt-10">
-                                <h4 class="card-title">@item.Title</h4>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This content is a little bit longer.
-                                </p>
-
-                                <div class="cardBodyFooter">
-                                    <p class="ngoName">@item.OrganizationName</p>
-                                    <div class="rating">
-                                        <img src="~/images/selected-star.png" alt="Rating">
-                                        <img src="~/images/selected-star.png" alt="Rating">
-                                        <img src="~/images/selected-star.png" alt="Rating">
-                                        <img src="~/images/star.png" alt="Rating">
-                                        <img src="~/images/star.png" alt="Rating">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="missionDurationDiv">
-                                <hr class="durationLine">
-                                <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
-                                <hr class="durationLine">
-                            </div>
-
-                            <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                                <div class="d-flex flex-row align-items-center">
-                                    <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                                    <div class="d-flex flex-column ms-2">
-                                        <p class="d-inline mb-0 pt-2">10</p>
-                                        <p class="seat">Seats Left</p>
-                                    </div>
-                                </div>
-
-                                @if (item.MissionType == "time")
-                                {
-                                    <div class="d-flex flex-row align-items-center">
-                                        <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                                        <div class="d-flex flex-column ms-2">
-                                            <p class="d-inline mb-0 pt-2">@item.EndDate.ToString().Split(" ")[0]</p>
-                                            <p class="seat">Deadline</p>
-                                        </div>
-                                    </div>
-                                }
-
-                                else
-                                {
-                                    <div class="ms-auto me-2"><img src="/Image/achieved.png" class="mt-2"></div>
-                                    <div class="ms-2 me-5" stye="width:100%">
-                                        <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar bg-warning" style="width: 25%">25%</div>
-                                        </div>
-                                        <fs-5>Deadline</fs-5>
-                                    </div>
-                                }
-
-                            </div>
-
-                            <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                                <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="dropdown  col-2">
+                    <button class="btn dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sort by
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">India</a></li>
+                        <li><a class="dropdown-item" href="#">Australia</a></li>
+                        <li><a class="dropdown-item" href="#">England</a></li>
+                    </ul>
                 </div>
 
-            }
-   
-    </div>
-</div>
+                <div class="container mb-3 mt-3 col-2 gridListDiv">
+                    <button class=" btn-grid gridBtn"><img src="~/images/grid.png" alt="Grid View"></button>
+                    <button class=" btn-list listBtn"><img src="~/images/list.png" alt="List View"></button>
+                </div>
+
+            </div>
+        </div>
 
 
-<!--For The Pagination-->
-<div class="d-flex justify-content-center mt-3">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item "><a class="page-link page-item-current" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+        <!--Mission Cards  -->
+
+    <div class="container grid-container">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
+
+                @foreach (var item in Model)
+                {
+
+                    <div class="col ">
+                        <div class="card h-100">
+
+                            <div class="cardHead">
+
+                                <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
+                                <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.Country.Name</div>
+                                <div class="landing-page-bottom-right d-flex flex-column">
+                                    <button class="mb-2 landing-page-btn-img">
+                                        <img src="~/images/heart.png" alt="">
+                                    </button><button class="landing-page-btn-img">
+                                        <img src="~/images/user.png"
+                                 alt="">
+                                    </button>
+                                </div>
+                                <p class="shape">@item.Theme.Title</p>
+
+                            </div>
+
+                            <div class="cardBodyMain">
+                                <div class="card-body mt-10">
+                                    <h4 class="card-title">@item.Title</h4>
+                                    <p class="card-text">
+                                        This is a wider card with supporting text below as a natural lead-in to
+                                        additional content. This content is a little bit longer.
+                                    </p>
+
+                                    <div class="cardBodyFooter">
+                                        <p class="ngoName">@item.OrganizationName</p>
+                                        <div class="rating">
+                                            <img src="~/images/selected-star.png" alt="Rating">
+                                            <img src="~/images/selected-star.png" alt="Rating">
+                                            <img src="~/images/selected-star.png" alt="Rating">
+                                            <img src="~/images/star.png" alt="Rating">
+                                            <img src="~/images/star.png" alt="Rating">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="missionDurationDiv">
+                                    <hr class="durationLine">
+                                    <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
+                                    <hr class="durationLine">
+                                </div>
+
+                                <div class="missionDeadLine  d-flex flex-row justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                        <div class="d-flex flex-column ms-2">
+                                            <p class="d-inline mb-0 pt-2">10</p>
+                                            <p class="seat">Seats Left</p>
+                                        </div>
+                                    </div>
+
+                                    @if (item.MissionType == "time")
+                                    {
+                                        <div class="d-flex flex-row align-items-center">
+                                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
+                                            <div class="d-flex flex-column ms-2">
+                                                <p class="d-inline mb-0 pt-2">@item.EndDate.ToString().Split(" ")[0]</p>
+                                                <p class="seat">Deadline</p>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="ms-auto me-2"><img src="~/images/achieved.png" class="mt-2"></div>
+                                        <div class="ms-2 me-5" stye="width:100%">
+                                            <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar bg-warning" style="width: 25%">25%</div>
+                                            </div>
+                                            <fs-5>Deadline</fs-5>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
+                                    <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+
+
+        <!--For The Pagination-->
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+
+            <ul class="pagination">
+
+                <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">
+                    <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                @for (int i = 0; i < ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@i">@((i + 1).ToString())</a>
+                    </li>
+                }
+
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages - 1 ? "disabled" : "")">
+                    <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+        </html>
+
+
+    }
+}
 
