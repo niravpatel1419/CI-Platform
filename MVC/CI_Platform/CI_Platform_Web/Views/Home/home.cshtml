@@ -52,9 +52,12 @@
                         Sort by
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">India</a></li>
-                        <li><a class="dropdown-item" href="#">Australia</a></li>
-                        <li><a class="dropdown-item" href="#">England</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Newest">Newest</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Oldest">Oldest</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Lowest available seats">Lowest available seats</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Highest available seats">Highest available seats</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Registration deadline">Registration deadline</a></li>
                     </ul>
                 </div>
 
@@ -68,8 +71,9 @@
 
 
         <!--Mission Cards  -->
+    @ViewData["nomission"]
 
-    <div class="container grid-container">
+        <div class="container grid-container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
 
                 @foreach (var item in Model)
@@ -116,7 +120,7 @@
 
                                 <div class="missionDurationDiv">
                                     <hr class="durationLine">
-                                    <button class="missionDuration">From 10/03/2023 until 25/03/2023</button>
+                                    <button class="missionDuration">From @item.StartDate.ToString().Split(" ")[0] until @item.EndDate.ToString().Split(" ")[0]</button>
                                     <hr class="durationLine">
                                 </div>
 
@@ -154,7 +158,7 @@
                                 </div>
 
                                 <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                                    <a href="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
+                                    <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
                                 </div>
                             </div>
 
@@ -195,7 +199,10 @@
         </nav>
         </html>
 
-
     }
+
+
+
+
 }
 

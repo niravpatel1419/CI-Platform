@@ -103,7 +103,7 @@ namespace CI_Platform_Web.Controllers
             // Send an email with the password reset link to the user's email address
             var resetLink = Url.Action("resetPassword", "Home", new { email = _forogtpass.Email, token }, Request.Scheme);
 
-            var fromAddress = new MailAddress("testbhai393@gmail.com", "CI_Platform");
+            var fromAddress = new MailAddress("computerengineermeet@gmail.com", "CI_Platform");
             var toAddress = new MailAddress(_forogtpass.Email);
             var subject = "Password reset request";
             var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
@@ -117,7 +117,7 @@ namespace CI_Platform_Web.Controllers
             {
                 Port = 587,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("testbhai393@gmail.com", "fdqbpbjcivvfbayr"),
+                Credentials = new NetworkCredential("computerengineermeet@gmail.com", "kknqzbwyupzddahv"),
                 EnableSsl = true
             };
             smtpClient.Send(message);
@@ -192,13 +192,12 @@ namespace CI_Platform_Web.Controllers
 
         //For LandingPage
 
-        public IActionResult home(int? pageIndex)
+        public IActionResult home(string searchQuery, string sortOrder, int? pageIndex)
         {
 
 
-
             //For shown the Country list in the Dropdown
-
+                
             List<Country> country = _cI_PlatformContext.Countries.ToList();
             ViewBag.Country = country;
 
@@ -218,9 +217,6 @@ namespace CI_Platform_Web.Controllers
             ViewBag.Skill = skills;
 
 
-
-
-
             //For Shown the Mission Details On the Card
 
             List<Mission> mission = _cI_PlatformContext.Missions.ToList();
@@ -231,11 +227,63 @@ namespace CI_Platform_Web.Controllers
                 var Country = _cI_PlatformContext.Countries.FirstOrDefault(u => u.CountryId == i.CountryId);
             }
 
+
+
+            //for sort by filter
+
+            switch (sortOrder)
+            {
+                case "Newest":
+                    mission = (List<Mission>)mission.OrderByDescending(m => m.StartDate).ToList();
+                        break;
+
+                case "Oldest":
+                    mission = (List<Mission>)mission.OrderBy(m => m.StartDate).ToList();
+                    break;
+
+                case "Lowest available seats":
+                    mission = (List<Mission>)mission.OrderBy(m => m.Availability).ToList();
+                    break;
+
+                case "Highest available seats":
+                    mission = (List<Mission>)mission.OrderByDescending(m => m.Availability).ToList();
+                    break;
+
+                case "My favourites":
+                    mission = (List<Mission>)mission.OrderBy(m => m.FavouriteMissions).ToList();
+                    break;
+
+                case "Registration deadline":
+                    mission = (List<Mission>)mission.OrderBy(m => m.EndDate).ToList();
+                    break;
+
+                default:
+                    mission = (List<Mission>)mission.OrderByDescending(m => m.StartDate).ToList();
+                    break;
+            }
+
+
+
+            //for search the mission
+
+            if (searchQuery != null)
+            {
+                mission = _cI_PlatformContext.Missions.Where(m => m.Title.Contains(searchQuery)).ToList();
+                ViewBag.searchQuery = searchQuery;
+                if (mission.Count() == 0)
+                {
+                    return RedirectToAction("noMissionFound");
+                }
+            }
+
+
             //For the Pagination
+
             int pageSize = 6;
             int skip = (pageIndex ?? 0) * pageSize;
             var Missions = mission.Skip(skip).Take(pageSize).ToList();
 
+    
             int totalMissions = mission.Count();
             ViewBag.TotalMission = totalMissions;
 
@@ -247,15 +295,33 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
+
+
+
+        //For the no mission found
+
         public IActionResult noMissionFound()
         {
             return View();
         }
 
-        public IActionResult volunteeringMission()
+
+
+        //For the volunteering mission 
+
+        public IActionResult volunteeringMission(int missID)
         {
+            var mission = _cI_PlatformContext.Missions.FirstOrDefault(i => i.MissionId == missID);
+            ViewBag.mission = mission; 
             return View();
         }
+
+
+
+
+
+
 
         public IActionResult storyListingpage()
         {
@@ -274,6 +340,7 @@ namespace CI_Platform_Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
 
     }
 }

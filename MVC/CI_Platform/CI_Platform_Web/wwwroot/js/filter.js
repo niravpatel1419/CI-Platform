@@ -3,22 +3,6 @@
 
 
 
-//For Remove the Filter
-
-/*function clearAll() {
-    document.querySelectorAll("#filter-item").forEach(el => el.remove());
-    document.querySelectorAll(".btnFilter1").forEach(el => el.remove());
-}
-
-function clearOne(id) {
-    var a = document.getElementById(id);
-    var b = a.parentElement;
-
-    b.remove()
-}
-*/
-
-
 //For filter-choices
 
 
@@ -95,26 +79,3 @@ function removeElement(value) {
     filtersSection.removeChild(elementToBeRemoved);
 
 }
-
-
-
-// For Search The Mission
-
-function myFunction() {
-    var input, filter, cards, cardContainer, h4, title, i;
-    input = document.getElementById("myFilter");
-    filter = input.value.toUpperCase();
-    cardContainer = document.getElementById("myItems");
-    cards = cardContainer.getElementsByClassName("card");
-
-    for (i = 0; i < cards.length; i++) {
-        title = cards[i].querySelector(".card-body h4.card-title");
-     
-        if (title.innerText.toUpperCase().indexOf(filter) > -1) {
-            cards[i].style.display = "";
-        } else {
-            cards[i].style.display = "none";
-        }
-    }
-}
-

@@ -44,23 +44,56 @@
                             </ul>
                         </div>
 
+                        <!--Country Dropdown-->
                         <div class="dropdown col-3">
-                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+
+                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Country
                             </button>
-
                             <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                                @*for country data in drop down*@
-
+                                <!-- for country data in drop down -->
                                 @if (ViewBag.Country != null)
                                 {
                                     @foreach (var item in ViewBag.Country)
                                     {
                                         <li>
-                                            <input class="form-check-input mt-1 ms-2 checkbox" type="checkbox" value="@item.Name" id="@item.Name">
-                                            @item.Name
+                                            <a class="dropdown-item p-0 mt-1" href="#">
+                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
+                                                @item.Name
+                                            </a>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+
+                            @*                        <select id="Country11">
+                                <option>default</option>
+                                </select>
+
+                                <select id="City11">
+                                <option>default</option>
+                                </select>*@
+                        </div>
+
+                        <!--City Dropdown-->
+                        <div class="dropdown col-3">
+                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                City
+                            </button>
+                            <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                                <!-- for city data in drop down -->
+                                @if (ViewBag.City != null)
+                                {
+                                    @foreach (var item in ViewBag.City)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item p-0 mt-1" href="#">
+                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
+                                                @item.Name
+                                            </a>
                                         </li>
                                     }
                                 }
@@ -68,39 +101,51 @@
                             </ul>
                         </div>
 
-                        <div class="dropdown col-3">
-                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                City
+                        <!--Theme Dropdown-->
+                        <div class="dropdown col-3  ">
+                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Themes
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Ahmedabad</a></li>
-                                <li><a class="dropdown-item" href="#">Melbourn</a></li>
-                                <li><a class="dropdown-item" href="#">London</a></li>
+                            <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                                <!--for theme data in drop down-->
+                                @if (ViewBag.MissionThemes != null)
+                                {
+                                    @foreach (var item in ViewBag.MissionThemes)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item p-0 mt-1" href="#">
+                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Title">
+                                                @item.Title
+                                            </a>
+                                        </li>
+                                    }
+                                }
+
                             </ul>
                         </div>
 
+                        <!--Skill Dropdown-->
                         <div class="dropdown col-3">
-                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                Theme
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Heritage</a></li>
-                                <li><a class="dropdown-item" href="#">Global Warming</a></li>
-                                <li><a class="dropdown-item" href="#">Tree Plantesion</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="dropdown col-3">
-                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Skills
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Communication</a></li>
-                                <li><a class="dropdown-item" href="#">Marketing</a></li>
-                                <li><a class="dropdown-item" href="#">Quick Learner</a></li>
+                            <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+
+                                <!-- for skill data in drop down -->
+                                @if (ViewBag.Skill != null)
+                                {
+                                    @foreach (var item in ViewBag.Skill)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item p-0 mt-1" href="#">
+                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.skill_name">
+                                                @item.skill_name
+                                            </a>
+                                        </li>
+                                    }
+                                }
+
                             </ul>
                         </div>
 
@@ -179,7 +224,7 @@
                     <nav class="navbar">
                         <div class="container">
                             <form class="d-flex" role="search">
-                                <input class="form-control me-2" id="myFilter" onkeyup="myFunction()" type="text" placeholder="Search mission..." aria-label="Search">
+                                <input class="form-control me-2" id="search-bar" name="searchQuery" value="@ViewBag.searchQuery" type="text" placeholder="Search mission..." aria-label="Search">
                             </form>
                         </div>
                     </nav>
@@ -191,22 +236,21 @@
                 <div class="col-6 d-flex align-items-center">
 
                     <!--Country Dropdown-->
-
                     <div class="dropdown col-3 filterNav">
+
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Country
                         </button>
                         <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                            @*for country data in drop down*@
-
+                            <!-- for country data in drop down -->
                             @if (ViewBag.Country != null)
                             {
                                 @foreach (var item in ViewBag.Country)
                                 {
                                     <li>
                                         <a class="dropdown-item p-0 mt-1" href="#">
-                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.Name">
+                                            <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
                                             @item.Name
                                         </a>
                                     </li>
@@ -214,6 +258,14 @@
                             }
 
                         </ul>
+
+                        @*                        <select id="Country11">
+                            <option>default</option>
+                            </select>
+
+                            <select id="City11">
+                            <option>default</option>
+                            </select>*@
                     </div>
 
                     <!--City Dropdown-->
@@ -223,8 +275,7 @@
                         </button>
                         <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                            @*for city data in drop down*@
-
+                            <!-- for city data in drop down -->
                             @if (ViewBag.City != null)
                             {
                                 @foreach (var item in ViewBag.City)
@@ -248,15 +299,14 @@
                         </button>
                         <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                            @*for city data in drop down*@
-
+                            <!--for theme data in drop down-->
                             @if (ViewBag.MissionThemes != null)
                             {
                                 @foreach (var item in ViewBag.MissionThemes)
                                 {
                                     <li>
                                         <a class="dropdown-item p-0 mt-1" href="#">
-                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.Title">
+                                            <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Title">
                                             @item.Title
                                         </a>
                                     </li>
@@ -273,15 +323,14 @@
                         </button>
                         <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                            @*for city data in drop down*@
-
+                            <!-- for skill data in drop down -->
                             @if (ViewBag.Skill != null)
                             {
                                 @foreach (var item in ViewBag.Skill)
                                 {
                                     <li>
                                         <a class="dropdown-item p-0 mt-1" href="#">
-                                            <input type="checkbox" id="" class="checkbox ms-3 "  value="@item.skill_name">
+                                            <input type="checkbox" id="" class="checkbox ms-3 " value="@item.skill_name">
                                             @item.skill_name
                                         </a>
                                     </li>
@@ -306,50 +355,55 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/filter.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+
+
+            //For the Hamburger navbar
+
+              const menu = document.querySelector(".menu");
+              const menuItems = document.querySelectorAll(".menuItem");
+              const hamburger = document.querySelector(".hamburger");
+              const closeIcon = document.querySelector(".closeIcon");
+              const menuIcon = document.querySelector(".menuIcon");
+
+              function toggleMenu() {
+                  if (menu.classList.contains("showMenu")) {
+                      menu.classList.remove("showMenu");
+                      closeIcon.style.display = "none";
+                      menuIcon.style.display = "block";
+                  } else {
+                      menu.classList.add("showMenu");
+                      closeIcon.style.display = "block";
+                      menuIcon.style.display = "none";
+                  }
+              }
+
+              hamburger.addEventListener("click", toggleMenu);
+
+
+
+
+            // For the Grid View And List View
+
+            function showList(e) {
+                var $gridCont = $('.grid-container');
+                e.preventDefault();
+                $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
+            }
+            function gridList(e) {
+                var $gridCont = $('.grid-container')
+                e.preventDefault();
+                $gridCont.removeClass('list-view');
+            }
+
+            $(document).on('click', '.btn-grid', gridList);
+            $(document).on('click', '.btn-list', showList);
+
+
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 
 
 </body>
-
-<script>
-    const menu = document.querySelector(".menu");
-      const menuItems = document.querySelectorAll(".menuItem");
-      const hamburger = document.querySelector(".hamburger");
-      const closeIcon = document.querySelector(".closeIcon");
-      const menuIcon = document.querySelector(".menuIcon");
-
-      function toggleMenu() {
-          if (menu.classList.contains("showMenu")) {
-              menu.classList.remove("showMenu");
-              closeIcon.style.display = "none";
-              menuIcon.style.display = "block";
-          } else {
-              menu.classList.add("showMenu");
-              closeIcon.style.display = "block";
-              menuIcon.style.display = "none";
-          }
-      }
-
-      hamburger.addEventListener("click", toggleMenu);
-
-          // For the Grid View And List View
-
-    function showList(e) {
-        var $gridCont = $('.grid-container');
-        e.preventDefault();
-        $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
-    }
-    function gridList(e) {
-        var $gridCont = $('.grid-container')
-        e.preventDefault();
-        $gridCont.removeClass('list-view');
-    }
-
-    $(document).on('click', '.btn-grid', gridList);
-    $(document).on('click', '.btn-list', showList);
-
-</script>
-
-
 
 </html>
