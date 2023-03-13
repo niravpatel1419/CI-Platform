@@ -22,11 +22,9 @@ namespace CI_Platform_Web.Controllers
         //For the User Login 
 
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl)
+        public IActionResult Login()
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
-            //return View();
+            return View();
         }
 
 

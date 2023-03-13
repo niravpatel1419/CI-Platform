@@ -4,12 +4,15 @@
 
 @{
     var missDetail = ViewBag.mission;
-    var city = ViewBag.City;
+    var city = ViewBag.citylist;
+    var theme = ViewBag.themelist;
+    var orgName = ViewBag.orgname;
 }
 
 <head>
 
     <link rel="stylesheet" href="~/css/volunteeringMission.css">
+    <link rel="stylesheet" href="~/css/home.css">
     <title>Reset-Password</title>
 
 </head>
@@ -164,7 +167,7 @@
                         </div>
                         <div class="belowImg">
                             <span style="font-size: 13px; color: #757575;">City</span>
-                            <span class="cityName" style="font-size: 15px;"></span>
+                            <span class="cityName" style="font-size: 15px;">@city.Name</span>
                         </div>
                     </div>
                 </div>
@@ -176,7 +179,7 @@
                         </div>
                         <div class="belowimg">
                             <span style="font-size: 13px; color: #757575;">Theme</span>
-                            <span class="theme" style="font-size: 15px;">Environment</span>
+                            <span class="theme" style="font-size: 15px;">@theme.Title</span>
                         </div>
                     </div>
                 </div>
@@ -200,7 +203,7 @@
                         </div>
                         <div class="belowImg">
                             <span style="font-size: 13px; color: #757575;">Organization</span>
-                            <span class="organizationName" style="font-size: 15px;">CSE Network</span>
+                            <span class="organizationName" style="font-size: 15px;">@orgName.OrganizationName</span>
                         </div>
                     </div>
                 </div>
@@ -218,7 +221,7 @@
 
 <!--Middle Part -->
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
 
         <!-- Tabs -->
@@ -472,33 +475,33 @@
                 <hr>
                 <div class="volunteersImage">
                     <div class="imageDiv">
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson</p>
                     </div>
                     <div class="imageDiv">
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson2</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson2</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson2</p>
                     </div>
                     <div class="imageDiv">
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson3</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson3</p>
 
-                        <img src="images/user-img.png" alt="">
+                        <img src="~/images/user-img.png" alt="">
                         <p class="name">Andrew Johnson3</p>
                     </div>
                 </div>
@@ -508,3 +511,107 @@
     </div>
 </div>
 
+<hr />
+
+
+<!--For the Related Missions-->
+
+
+<div class="container">
+    <h4 class="d-flex justify-content-center">Related Missions</h4>
+</div>
+
+<div class="container grid-container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
+
+        @for (var i = 0; i < 3; i++)
+        {
+            <div class="col ">
+                <div class="card h-100">
+
+                    <div class="cardHead">
+
+                        <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
+                        <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">Country.Name</div>
+                        <div class="landing-page-bottom-right d-flex flex-column">
+                            <button class="mb-2 landing-page-btn-img">
+                                <img src="~/images/heart.png" alt="">
+                            </button><button class="landing-page-btn-img">
+                                <img src="~/images/user.png"
+                                 alt="">
+                            </button>
+                        </div>
+                        <p class="shape">Theme.Title</p>
+
+                    </div>
+
+                    <div class="cardBodyMain">
+                        <div class="card-body mt-10">
+                            <h4 class="card-title">Title</h4>
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.
+                            </p>
+
+                            <div class="cardBodyFooter">
+                                <p class="ngoName">OrganizationName</p>
+                                <div class="rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/star.png" alt="Rating">
+                                    <img src="~/images/star.png" alt="Rating">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="missionDurationDiv">
+                            <hr class="durationLine">
+                            <button class="missionDuration">From  until</button>
+                            <hr class="durationLine">
+                        </div>
+
+                        <div class="missionDeadLine  d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                <div class="d-flex flex-column ms-2">
+                                    <p class="d-inline mb-0 pt-2">10</p>
+                                    <p class="seat">Seats Left</p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="~/images/deadline.png" height="33px" width="33px" alt="">
+                                <div class="d-flex flex-column ms-2">
+                                    <p class="d-inline mb-0 pt-2">jsjsjsj</p>
+                                    <p class="seat">Deadline</p>
+                                </div>
+                            </div>
+
+
+                            @*                                else
+                                {
+                                <div class="ms-auto me-2"><img src="~/images/achieved.png" class="mt-2"></div>
+                                <div class="ms-2 me-5" stye="width:100%">
+                                <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar bg-warning" style="width: 25%">25%</div>
+                                </div>
+                                <fs-5>Deadline</fs-5>
+                                </div>
+                                }*@
+
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
+                            <a asp-action="volunteeringMission" asp-route-missID="" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

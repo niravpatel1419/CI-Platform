@@ -177,13 +177,7 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult Logout()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            var storedCookies = Request.Cookies.Keys;
-            foreach (var cookie in storedCookies)
-            {
-                Response.Cookies.Delete(cookie);
-            }
-            //HttpContext.Session.Clear();
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 
@@ -313,7 +307,17 @@ namespace CI_Platform_Web.Controllers
         public IActionResult volunteeringMission(int missID)
         {
             var mission = _cI_PlatformContext.Missions.FirstOrDefault(i => i.MissionId == missID);
-            ViewBag.mission = mission; 
+            ViewBag.mission = mission;
+
+            City city = _cI_PlatformContext.Cities.FirstOrDefault(s => s.CityId == mission.CityId);
+            ViewBag.citylist = city;
+
+            MissionTheme theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(s => s.MissionThemeId == mission.ThemeId);
+            ViewBag.themelist = theme;
+
+            var orgName = _cI_PlatformContext.Missions.FirstOrDefault(i => i.OrganizationName == mission.OrganizationName);
+            ViewBag.orgname = orgName;
+
             return View();
         }
 
@@ -339,6 +343,28 @@ namespace CI_Platform_Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+        public JsonResult Country()
+        {
+            var c = _cI_PlatformContext.Countries.ToList();
+            return new JsonResult(c);
+
+        }
+
+        public JsonResult City(int id)
+        {
+            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
+            return new JsonResult(city);
+
+        }
+
+        public JsonResult Themes()
+        {
+            var theme = _cI_PlatformContext.MissionThemes.ToList();
+            return new JsonResult(theme);
         }
 
 

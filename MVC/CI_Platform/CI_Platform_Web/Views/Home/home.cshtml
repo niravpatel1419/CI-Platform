@@ -54,9 +54,9 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Newest">Newest</a></li>
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Oldest">Oldest</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Lowest available seats">Lowest available seats</a></li>
+                        @*<li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Lowest available seats">Lowest available seats</a></li>
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Highest available seats">Highest available seats</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>*@
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Registration deadline">Registration deadline</a></li>
                     </ul>
                 </div>
@@ -138,7 +138,7 @@
                                         <div class="d-flex flex-row align-items-center">
                                             <img src="~/images/deadline.png" height="33px" width="33px" alt="">
                                             <div class="d-flex flex-column ms-2">
-                                                <p class="d-inline mb-0 pt-2">@item.EndDate.ToString().Split(" ")[0]</p>
+                                                <p class="d-inline mb-0 pt-2">@item.StartDate.ToString().Split(" ")[0]</p>
                                                 <p class="seat">Deadline</p>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
 
 
         <!--For The Pagination-->
-    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
 
             <ul class="pagination">
 
@@ -206,3 +206,4 @@
 
 }
 
+<script src="~/js/site.js"></script>
