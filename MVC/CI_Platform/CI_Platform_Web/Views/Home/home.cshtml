@@ -26,24 +26,14 @@
 
         </head>
 
-        <hr class="line mt-0">
+        
 
 
         <!------------------------------------------------ Mission Section -------------------------------------------------------------------->
-        <!-- Mission Filter Btn -->
-
-    <div class="container">
-
-            <div class="row">
-                <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
-                </div>
-            </div>
-
-        </div>
-
+        
 
         <!--Explore Mission  -->
-    <div class="container exploreMission">
+        <div class="container exploreMission">
             <div class="row align-items-center">
                 <p class="heading col-8">Explore <big>@ViewBag.TotalMission Missions</big></p>
 
@@ -55,8 +45,8 @@
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Newest">Newest</a></li>
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Oldest">Oldest</a></li>
                         @*<li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Lowest available seats">Lowest available seats</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Highest available seats">Highest available seats</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>*@
+                <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Highest available seats">Highest available seats</a></li>
+                <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>*@
                         <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Registration deadline">Registration deadline</a></li>
                     </ul>
                 </div>
@@ -172,7 +162,7 @@
 
 
         <!--For The Pagination-->
-    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
 
             <ul class="pagination">
 

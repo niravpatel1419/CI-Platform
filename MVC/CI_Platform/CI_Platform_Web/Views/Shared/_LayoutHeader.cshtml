@@ -69,12 +69,12 @@
                             </ul>
 
                             @*                        <select id="Country11">
-                                <option>default</option>
-                                </select>
+                            <option>default</option>
+                            </select>
 
-                                <select id="City11">
-                                <option>default</option>
-                                </select>*@
+                            <select id="City11">
+                            <option>default</option>
+                            </select>*@
                         </div>
 
                         <!--City Dropdown-->
@@ -199,10 +199,10 @@
                         </div>
 
                         @*
-                            <ul class="d-flex text-decoration-none" style="list-style:none">
-                            <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Index">Login</a></li>
-                            <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Registration">Register</a></li>
-                            </ul>
+                        <ul class="d-flex text-decoration-none" style="list-style:none">
+                        <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Index">Login</a></li>
+                        <li><a class="dropdown-item btn" asp-controller="Home" asp-action="Registration">Register</a></li>
+                        </ul>
                         *@
 
                     </div>
@@ -234,31 +234,31 @@
                 <div class="col-6 d-flex align-items-center">
 
                     <!--Country Dropdown-->
-                    @*                    <div class="dropdown col-3 filterNav">
+                    @*<div class="dropdown col-3 filterNav">
 
-                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Country
-                        </button>
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Country
+                    </button>
+                    <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                        <!-- for country data in drop down -->
-                        @if (ViewBag.Country != null)
-                        {
-                        @foreach (var item in ViewBag.Country)
-                        {
-                        <li>
-                        <a class="dropdown-item p-0 mt-1" href="#">
-                        <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
-                        @item.Name
-                        </a>
-                        </li>
-                        }
-                        }
+                    <!-- for country data in drop down -->
+                    @if (ViewBag.Country != null)
+                    {
+                    @foreach (var item in ViewBag.Country)
+                    {
+                    <li>
+                    <a class="dropdown-item p-0 mt-1" href="#">
+                    <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
+                    @item.Name
+                    </a>
+                    </li>
+                    }
+                    }
 
-                        </ul>
-                        </div>*@
+                    </ul>
+                    </div>*@
 
-
+                  
                     <div class="dropdown col-3 filterNav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-accordion-item dropdown">
@@ -270,28 +270,34 @@
                     </div>
 
                     <!--City Dropdown-->
-                    @*                    <div class="dropdown col-3 filterNav">
-                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        City
-                        </button>
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
+                    @*<div class="dropdown col-3 filterNav">
+                    <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    City
+                    </button>
+                    <ul class="dropdown-menu" style="height:250px; overflow-y:scroll;">
 
-                        <!-- for city data in drop down -->
-                        @if (ViewBag.City != null)
-                        {
-                        @foreach (var item in ViewBag.City)
-                        {
-                        <li>
-                        <a class="dropdown-item p-0 mt-1" href="#">
-                        <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
-                        @item.Name
-                        </a>
-                        </li>
-                        }
-                        }
+                    <!-- for city data in drop down -->
+                    @if (ViewBag.City != null)
+                    {
+                    @foreach (var item in ViewBag.City)
+                    {
+                    <li>
+                    <a class="dropdown-item p-0 mt-1" href="#">
+                    <input type="checkbox" id="" class="checkbox ms-3 " value="@item.Name">
+                    @item.Name
+                    </a>
+                    </li>
+                    }
+                    }
 
-                        </ul>
-                        </div>*@
+                    </ul>
+                    </div>*@
+
+
+
+
+
+
 
                     <div class="dropdown col-3 filterNav">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -365,6 +371,18 @@
 
         </div>
 
+        <hr class="line mt-0">
+
+        <!-- Mission Filter Btn -->
+
+        <div class="container">
+
+            <div class="row">
+                <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
+                </div>
+            </div>
+
+        </div>
 
 
         @RenderBody()
@@ -381,25 +399,25 @@
 
         //For the Hamburger navbar
 
-          const menu = document.querySelector(".menu");
-          const menuItems = document.querySelectorAll(".menuItem");
-          const hamburger = document.querySelector(".hamburger");
-          const closeIcon = document.querySelector(".closeIcon");
-          const menuIcon = document.querySelector(".menuIcon");
+        const menu = document.querySelector(".menu");
+        const menuItems = document.querySelectorAll(".menuItem");
+        const hamburger = document.querySelector(".hamburger");
+        const closeIcon = document.querySelector(".closeIcon");
+        const menuIcon = document.querySelector(".menuIcon");
 
-          function toggleMenu() {
-              if (menu.classList.contains("showMenu")) {
-                  menu.classList.remove("showMenu");
-                  closeIcon.style.display = "none";
-                  menuIcon.style.display = "block";
-              } else {
-                  menu.classList.add("showMenu");
-                  closeIcon.style.display = "block";
-                  menuIcon.style.display = "none";
-              }
-          }
+        function toggleMenu() {
+            if (menu.classList.contains("showMenu")) {
+                menu.classList.remove("showMenu");
+                closeIcon.style.display = "none";
+                menuIcon.style.display = "block";
+            } else {
+                menu.classList.add("showMenu");
+                closeIcon.style.display = "block";
+                menuIcon.style.display = "none";
+            }
+        }
 
-          hamburger.addEventListener("click", toggleMenu);
+        hamburger.addEventListener("click", toggleMenu);
 
 
 
@@ -410,13 +428,13 @@
         // For the Grid View And List View
 
         function showList(e) {
-            localStorage.setItem("view","list");
+            localStorage.setItem("view", "list");
             var $gridCont = $('.grid-container');
             e.preventDefault();
             $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
         }
         function gridList(e) {
-            localStorage.setItem("view","grid");
+            localStorage.setItem("view", "grid");
             var $gridCont = $('.grid-container')
             e.preventDefault();
             $gridCont.removeClass('list-view');

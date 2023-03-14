@@ -26,7 +26,7 @@ $(document).ready(function () {
                 console.log(result);
                 $.each(result, function (i, data) {
                     console.log(data.name);
-                    $('#City').append('<li style="padding:5px"><input class="form-check-input" id="' + data.name + '"style="margin-right:10px" type="checkbox" value="' + data.name + '">' + '<label class="form-check-label" for="flexCheckDefault">' + data.name + '</lable></li>');
+                    $('#City').append('<li style="padding:5px"><input class="form-check-input checkbox" id="' + data.name + '"style="margin-right:10px" type="checkbox" value="' + data.name + '">' + '<label class="form-check-label" for="flexCheckDefault">' + data.name + '</lable></li>');
                     //$('#City').append('<option value=' + data.name + '>' + data.name + '</option>');
                 })
             }
@@ -35,7 +35,7 @@ $(document).ready(function () {
     });
 
 });
-
+    
 
 function GetCountry() {
     $.ajax(
@@ -45,9 +45,9 @@ function GetCountry() {
             success: function (data) {
                 console.log(data);
                 $.each(data, function (i, result) {
-                    //console.log(result.name);
+                   //console.log(result.name);
                     $('#Country').append('<option value=' + result.countryId + '>' + result.name + '</option>');
-                     //$('#Country').append('<li><div class= "form-check"> <input class="form-check-input" type="checkbox"value="' + result.name + '"id="flexCheckDefault"/><label class="form-check-label" for="flexCheckDefault">' + result.name + '</label </div ></li >');
+                    //$('#Country').append('<li style="padding:5px"><input class="form-check-input checkbox" id="' + result.name + '"style="margin-right:10px" type="checkbox" value="' + result.countryId + '">' + '<label class="form-check-label" for="flexCheckDefault">' + result.name + '</lable></li>');
                 });
             }
         }

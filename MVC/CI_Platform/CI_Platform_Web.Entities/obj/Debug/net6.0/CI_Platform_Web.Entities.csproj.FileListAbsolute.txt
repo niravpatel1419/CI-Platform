@@ -1,7 +1,6 @@
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.deps.json
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.runtimeconfig.json
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.dll
-D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\ref\CI_Platform_Web.Entities.dll
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.pdb
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.csproj.AssemblyReference.cache
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.GeneratedMSBuildEditorConfig.editorconfig
@@ -12,3 +11,4 @@ D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\ref\CI_Platform_Web.Entities.dll
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.pdb
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.genruntimeconfig.cache
+D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\refint\CI_Platform_Web.Entities.dll

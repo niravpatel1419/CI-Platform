@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -306,8 +307,26 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult volunteeringMission(int missID)
         {
+
+            //For shown the Theme list in  the Dropdown
+
+            List<MissionTheme> missionThemes = _cI_PlatformContext.MissionThemes.ToList();
+            ViewBag.MissionThemes = missionThemes;
+
+
+            //For mission info
+
             var mission = _cI_PlatformContext.Missions.FirstOrDefault(i => i.MissionId == missID);
             ViewBag.mission = mission;
+
+            if (mission.MissionType == "goal")
+            {
+                ViewBag.goaltext = _cI_PlatformContext.GoalMissions.Where(s => s.MissionId == missID).ToList()[0].GoalObjectiveText.ToString();
+            }
+            else
+            {
+                ViewBag.goaltext = "It is a time base mission";
+            }
 
             City city = _cI_PlatformContext.Cities.FirstOrDefault(s => s.CityId == mission.CityId);
             ViewBag.citylist = city;
@@ -318,7 +337,24 @@ namespace CI_Platform_Web.Controllers
             var orgName = _cI_PlatformContext.Missions.FirstOrDefault(i => i.OrganizationName == mission.OrganizationName);
             ViewBag.orgname = orgName;
 
+
+            //For the releated mission
+
+            long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
+            long cityid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CityId;
+
+            IEnumerable<Mission> relatedmission1 = _cI_PlatformContext.Missions.Where(x => (x.ThemeId == themeid || x.CityId == cityid) && x.MissionId != missID).ToList().Take(3);
+            ViewBag.relatedmission1 = relatedmission1;
+
+            if (relatedmission1.Count() == 0)
+            {
+                ViewData["NoRelatedMission"] = "No Related Mission Available";
+            }
+
+ 
             return View();
+
+
         }
 
 
