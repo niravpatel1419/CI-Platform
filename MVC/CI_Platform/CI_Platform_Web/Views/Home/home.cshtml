@@ -26,12 +26,10 @@
 
         </head>
 
-        
+
 
 
         <!------------------------------------------------ Mission Section -------------------------------------------------------------------->
-        
-
         <!--Explore Mission  -->
         <div class="container exploreMission">
             <div class="row align-items-center">
@@ -42,12 +40,9 @@
                         Sort by
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Newest">Newest</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Oldest">Oldest</a></li>
-                        @*<li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Lowest available seats">Lowest available seats</a></li>
-                <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Highest available seats">Highest available seats</a></li>
-                <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="My favourites">My favourites</a></li>*@
-                        <li><a class="dropdown-item" asp-action="home" asp-route-sortOrder="Registration deadline">Registration deadline</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="1">Newest</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="2">Oldest</a></li>
+                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="4">Registration deadline</a></li>
                     </ul>
                 </div>
 
@@ -75,7 +70,7 @@
                             <div class="cardHead">
 
                                 <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
-                                <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.Country.Name</div>
+                                <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
                                 <div class="landing-page-bottom-right d-flex flex-column">
                                     <button class="mb-2 landing-page-btn-img">
                                         <img src="~/images/heart.png" alt="">
@@ -196,4 +191,3 @@
 
 }
 
-<script src="~/js/site.js"></script>

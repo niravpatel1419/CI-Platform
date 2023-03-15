@@ -1,5 +1,5 @@
 ﻿
-
+/*
 console.log("Script working");
 var checkboxes = document.querySelectorAll(" #state .checkbox");
 console.log(checkboxes)
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
         console.log(id)
         $('#City').empty();
-       /* $('#City').append('<Option> City </option>');*/
+        $('#City').append('<Option> City </option>');
         $.ajax({
             url: '/Home/City?id=' + id,
             success: function (result) {
@@ -71,3 +71,8 @@ function GetThemes() {
         }
     );
 }
+*/
+
+
+
+
