@@ -212,146 +212,7 @@
         </div>
         <hr class="line mt-1 mb-0">
 
-        <!-- Searching And Filter Header In PC/Tab -->
 
-        <div class="container">
-            <div class="row">
-
-                <div class="col-6 d-flex align-items-center">
-
-                    <img src="~/images/search.png" alt="Search" class="searchIcon">
-
-                    <nav class="navbar">
-                        <div class="container">
-                            <form class="d-flex" role="search">
-                                <input class="form-control me-2" id="search-bar" name="searchQuery" value="@ViewBag.searchQuery" type="text" placeholder="Search mission..." aria-label="Search">
-                            </form>
-                        </div>
-                    </nav>
-
-                </div>
-
-
-
-                <div class="  col-6 d-flex align-items-center">
-
-                    <!--Country Dropdown-->
-                    <div class="dropdown col-3 filterNav">
-                        <button class="btn btn-secondary dropdown-toggle btnCustom" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Country
-                        </button>
-
-                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:scroll;">
-
-                            <!-- for country data in drop down -->
-                            @if (ViewBag.Country != null)
-                            {
-                                @foreach (var category in ViewBag.Country)
-                                {
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlCountry()" value="@category.Name" id=@category.CountryId name="country" />
-                                                <label class="form-check-label" for="Checkme1">@category.Name</label>
-                                            </div>
-                                        </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-
-                    <!--City Dropdown-->
-                    <div class="dropdown col-3 filterNav">
-                        <button class="btn btn-secondary dropdown-toggle btnCustom "
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            City
-                        </button>
-
-                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:auto; overflow-x:hidden">
-
-                            <!-- for city data in drop down -->
-                            @if (ViewBag.City != null)
-                            {
-                                @foreach (var category in ViewBag.City)
-                                {
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlCities()" value="@category.Name" id=@category.CityId name="city" />
-                                                <label class="form-check-label" for="Checkme1">@category.Name</label>
-                                            </div>
-                                        </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-
-                    <!--Theme Dropdown-->
-                    <div class="dropdown col-3 filterNav">
-                        <button class="btn btn-secondary dropdown-toggle btnCustom"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Theme
-                        </button>
-
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden">
-
-                            <!--for theme data in drop down-->
-                            @if (ViewBag.MissionThemes != null)
-                            {
-                                @foreach (var category in ViewBag.MissionThemes)
-                                {
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlTheme()" value="@category.Title" id=@category.MissionThemeId name="theme" />
-                                                <label class="form-check-label" for="Checkme1">@category.Title</label>
-                                            </div>
-                                        </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-
-                    <!--Skill Dropdown-->
-                    <div class="dropdown col-3 filterNav">
-                        <button class="btn btn-secondary dropdown-toggle btnCustom"
-                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Skill
-                        </button>
-
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden">
-
-                            <!--for skill data in drop down-->
-                            @if (ViewBag.Skills != null)
-                            {
-                                @foreach (var category in ViewBag.Skills)
-                                {
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlTheme()" value="@category.Title" id=@category.MissionThemeId name="theme" />
-                                                <label class="form-check-label" for="Checkme1">@category.Title</label>
-                                            </div>
-                                        </a>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </div>
-
-                </div>
-
-
-
-            </div>
-
-        </div>
-
-        <hr class="line mt-0">
 
         <!-- Mission Filter Btn -->
         @*      <div class="container">
@@ -410,7 +271,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/filter.js" asp-append-version="true"></script>
+
     <script>
 
 
@@ -436,29 +297,6 @@
 
         hamburger.addEventListener("click", toggleMenu);
 
-
-
-
-
-
-
-        // For the Grid View And List View
-
-        function showList(e) {
-            localStorage.setItem("view", "list");
-            var $gridCont = $('.grid-container');
-            e.preventDefault();
-            $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
-        }
-        function gridList(e) {
-            localStorage.setItem("view", "grid");
-            var $gridCont = $('.grid-container')
-            e.preventDefault();
-            $gridCont.removeClass('list-view');
-        }
-
-        $(document).on('click', '.btn-grid', gridList);
-        $(document).on('click', '.btn-list', showList);
 
 
     </script>

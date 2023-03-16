@@ -249,7 +249,7 @@ namespace CI_Platform_Web.Controllers
                     mission.AddRange(finalmission);
                     if (mission.Count() == 0)
                     {
-                     return RedirectToAction("noMissionFound", "Home");
+                        return RedirectToAction("noMissionFound", "Home");
                     }
                     ViewBag.countryId = c1;
                     if (ViewBag.countryId != null)
@@ -407,7 +407,7 @@ namespace CI_Platform_Web.Controllers
                 ViewBag.searchQuery = searchQuery;
                 if (mission.Count() == 0)
                 {
-                    return RedirectToAction("noMissionFound","Home");
+                    return RedirectToAction("noMissionFound", "Home");
                 }
             }
 
@@ -543,6 +543,9 @@ namespace CI_Platform_Web.Controllers
 
 
 
+
+
+
         //For the volunteering mission 
 
         public IActionResult volunteeringMission(int missID)
@@ -582,9 +585,9 @@ namespace CI_Platform_Web.Controllers
 
             long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
             long cityid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CityId;
-            long countryid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CountryId;
+            //long countryid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CountryId;
 
-            IEnumerable<Mission> relatedmission1 = _cI_PlatformContext.Missions.Where(x => (x.CityId == cityid || x.CountryId == countryid || x.ThemeId == themeid) && x.MissionId != missID).ToList().Take(3);
+            IEnumerable<Mission> relatedmission1 = _cI_PlatformContext.Missions.Where(x => (x.CityId == cityid || x.ThemeId == themeid) && x.MissionId != missID).ToList().Take(3);
             ViewBag.relatedmission1 = relatedmission1;
 
             if (relatedmission1.Count() == 0)
@@ -592,7 +595,22 @@ namespace CI_Platform_Web.Controllers
                 ViewData["NoRelatedMission"] = "No Related Mission Available";
             }
 
- 
+
+            //For Add to Favourite Mission
+            ViewBag.mid = missID;
+            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
+            if (f.Count == 0)
+            {
+                ViewBag.favmission = "Add";
+            }
+
+            //For Mission Rating
+            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
+            if (rr.Count != 0)
+            {
+                ViewBag.rate = rr[0].Rating;
+            }
+
             return View();
 
 
@@ -600,7 +618,64 @@ namespace CI_Platform_Web.Controllers
 
 
 
+        //For Add to Favourite Mission
 
+        public int addToFav(int id, int mid)
+        {
+
+            List<FavouriteMission> r = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == id && x.MissionId == mid).ToList();
+
+            if (r.Count == 0)
+            {
+                FavouriteMission f = new FavouriteMission();
+                f.MissionId = mid;
+                f.UserId = id;
+                _cI_PlatformContext.FavouriteMissions.Add(f);
+                _cI_PlatformContext.SaveChanges();
+
+                return 1;
+            }
+
+            else
+            {
+                FavouriteMission fav = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == id && x.MissionId == mid).FirstOrDefault();
+                _cI_PlatformContext.Remove(fav);
+                _cI_PlatformContext.SaveChanges();
+                return 0;
+            }
+
+        }
+
+        //For User Rating in Volunteering Mission Page
+
+        public int Ratee(int uid, int mid, int rating)
+        {
+            List<MissionRating> p = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == uid && x.MissionId == mid).ToList();
+            if (p.Count == 0)
+            {
+                MissionRating r = new MissionRating();
+                r.Rating = rating;
+                r.MissionId = mid;
+                r.UserId = uid;
+                _cI_PlatformContext.MissionRatings.Add(r);
+                _cI_PlatformContext.SaveChanges();
+
+                return 1;
+            }
+            else
+            {
+                /*  MissionRating r = new MissionRating();
+                  r.MissionRatingId = p[0].MissionRatingId;*/
+                p[0].Rating = rating;
+                /* r.MissionId = mid;
+                 r.UserId = uid;*/
+                _cI_PlatformContext.MissionRatings.Update(p[0]);
+                _cI_PlatformContext.SaveChanges();
+
+                return 3;
+            }
+
+        }
 
 
 

@@ -39,6 +39,7 @@ namespace CI_Platform_Web.Controllers
                 if (user != null)
                 {
                     HttpContext.Session.SetString("userID", username);
+                    HttpContext.Session.SetInt32("Id", (int)user.UserId);
                     return RedirectToAction(nameof(HomeController.home), "Home");
                 }
                 else
@@ -49,54 +50,13 @@ namespace CI_Platform_Web.Controllers
             return View();
         }
 
+        //For Logout
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 
 }
-
-
-
-
-
-
-
-
-/*[HttpPost]
-
-public IActionResult Login(Login model)
-{
-    if (ModelState.IsValid)
-    {
-
-        var user = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == model.Email && u.Password == model.Password);
-
-        if (user != null)
-        {
-            var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, user.Email) },
-                CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.Name, user.FirstName));
-            identity.AddClaim(new Claim(ClaimTypes.Name, user.LastName));
-            var principal = new ClaimsPrincipal(identity);
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-            HttpContext.Session.SetString("EmailId", user.Email);
-
-            return RedirectToAction(nameof(HomeController.home), "Home");
-
-        }
-
-        else
-        {
-            TempData["Message"] = "Email or Password is incorrect";
-            return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-    }
-    return View();
-}*/

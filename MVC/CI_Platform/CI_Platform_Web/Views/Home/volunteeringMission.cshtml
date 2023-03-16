@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_LayoutHeader";
+    Layout = "_LayoutSingleHeader";
 }
 
 @{
@@ -156,21 +156,63 @@
             </div>
 
             <hr>
+
+
             <div class="buttonii">
-                <button class="addToFavouriteBtn"><img src="~/images/heart1.png" alt="">Add to Favourite</button>
+
+                @*Add to Favourite Button*@
+                @if (ViewBag.favmission != null)
+                {
+                    <button class="addToFavouriteBtn" onclick="a11(@Context.Session.GetInt32("Id"),@ViewBag.mid)" id="fa">
+                        <i class="bi bi-heart-fill" id="favfav"></i> &nbsp;<span id="favtext">Add to Favourite</span>
+                    </button>
+                }
+
+                else
+                {
+                    <button class="addToFavouriteBtn" onclick="a11(@Context.Session.GetInt32("Id"),@ViewBag.mid)" id="fa">
+                        <i class="bi bi-heart-fill" id="favfav" style="color:red"></i> &nbsp;<span id="favtext">Added to Favourite</span>
+                    </button>
+                }
+
+                @*Recommend to a Co-Worker*@
                 <button class="recommendetionBtn">
                     <img src="~/images/add1.png" alt="">Recommend to a
                     Co-Worker
                 </button>
+
             </div>
 
+            @*User Rating*@
+
+
             <div class="center-text mt-2">
-                <img src="~/images/star-empty.png" alt="" class="starImg">
-                <img src="~/images/star-empty.png" alt="" class="starImg">
-                <img src="~/images/star-empty.png" alt="" class="starImg">
-                <img src="~/images/star-empty.png" alt="" class="starImg">
-                <img src="~/images/star-empty.png" alt="" class="starImg">
+                @if (@ViewBag.rate == null)
+                {
+                    <i class="bi bi-star-fill" id="1" onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,1)"></i>
+                    <i class="bi bi-star-fill" id="2" onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,2)"></i>
+                    <i class="bi bi-star-fill" id="3" onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,3)"></i>
+                    <i class="bi bi-star-fill" id="4" onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,4)"></i>
+                    <i class="bi bi-star-fill" id="5" onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,5)"></i>
+                }
+
+                else
+                {
+                    int j = 1;
+                    @for (int i = 1; i < ViewBag.rate + 1; i++)
+                    {
+                        <i class="bi bi-star-fill" style="color:yellow" id=i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
+                        j++;
+                    }
+                    @for (int i = ViewBag.rate + 1; i < 6; i++)
+                    {
+                        <i class="bi bi-star-fill" id=@i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
+                        j++;
+                    }
+                }
+
             </div>
+
 
             <div class="row gx-2 mt-2">
                 <div class="col-3">
@@ -643,3 +685,5 @@ else
 
 }
 
+
+<script src="~/js/volunteering.js"></script>
