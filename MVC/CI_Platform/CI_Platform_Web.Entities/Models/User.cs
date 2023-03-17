@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace CI_Platform_Web.Entities.Models
 {
@@ -22,19 +21,10 @@ namespace CI_Platform_Web.Entities.Models
         }
 
         public long UserId { get; set; }
-
-        [Required]
         public string? FirstName { get; set; }
-
-        [Required]
         public string? LastName { get; set; }
         public string Email { get; set; } = null!;
-
-        [DataType(DataType.Password)]
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "Minimum 6 characters are required")]
         public string Password { get; set; } = null!;
-
-        [Required]
         public int PhoneNumber { get; set; }
         public string? Avatar { get; set; }
         public string? WhyIVolunteer { get; set; }

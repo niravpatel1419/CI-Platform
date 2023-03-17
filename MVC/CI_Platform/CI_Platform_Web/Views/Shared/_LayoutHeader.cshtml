@@ -379,7 +379,7 @@
                 @foreach (var city in @ViewBag.cities)
                 {
                     <div class="filter-list ms-2 ps-2" id="ci">
-                        @city.Name<button type="button" class="filter-close-button me-2" aria-label="Close" onclick="cityBtn(this.id)" id=@city.CityId></button>
+                        <span class="ps-1">@city.Name</span><button type="button" class="filter-close-button me-2" aria-label="Close" onclick="cityBtn(this.id)" id=@city.CityId><img src="~/images/cancel.png" /></button>
 
                     </div>
                 }
@@ -389,7 +389,7 @@
                 @foreach (var theme in @ViewBag.theme)
                 {
                     <div class="filter-list ms-2 ps-2" id="th">
-                        @theme.Title<button type="button" class="filter-close-button me-2" aria-label="Close" onclick="themeBtn(this.id)" id=@theme.MissionThemeId></button>
+                        <span class="ps-1">@theme.Title</span><button type="button" class="filter-close-button me-2" aria-label="Close" onclick="themeBtn(this.id)" id=@theme.MissionThemeId><img src="~/images/cancel.png" /></button>
                     </div>
                 }
 

@@ -208,6 +208,11 @@ namespace CI_Platform_Web.Entities.Data
                     .HasColumnName("approval_status")
                     .HasDefaultValueSql("('PENDING')");
 
+                entity.Property(e => e.Commenttext)
+                    .HasMaxLength(600)
+                    .IsUnicode(false)
+                    .HasColumnName("commenttext");
+
                 entity.Property(e => e.CreatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("created_at")

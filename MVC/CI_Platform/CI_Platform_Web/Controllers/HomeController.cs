@@ -167,7 +167,7 @@ namespace CI_Platform_Web.Controllers
 
                 user.Password = model.Password;
                 _cI_PlatformContext.SaveChanges();
-
+                TempData["AlertMessage"] = "Your Password Changed Successfully...! Login with the new password now.";
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("forgotPassword", "Home");
@@ -571,16 +571,47 @@ namespace CI_Platform_Web.Controllers
                 ViewBag.goaltext = "It is a time base mission";
             }
 
+
+            //For Add to Favourite Mission
+            ViewBag.mid = missID;
+            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
+            if (f.Count == 0)
+            {
+                ViewBag.favmission = "Add";
+            }
+
+            //For Recommend to a Co-Worker
+            List<User> user = _cI_PlatformContext.Users.ToList();
+            ViewBag.User = user;
+
+
+            //For Mission Rating
+            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
+            if (rr.Count != 0)
+            {
+                ViewBag.rate = rr[0].Rating;
+            }
+
+            //For Mission City Info
             City city = _cI_PlatformContext.Cities.FirstOrDefault(s => s.CityId == mission.CityId);
             ViewBag.citylist = city;
 
+            //For Mission Theme Info
             MissionTheme theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(s => s.MissionThemeId == mission.ThemeId);
             ViewBag.themelist = theme;
 
+            //For Mission Organization Info
             var orgName = _cI_PlatformContext.Missions.FirstOrDefault(i => i.OrganizationName == mission.OrganizationName);
             ViewBag.orgname = orgName;
 
-
+            //For Comment
+            IEnumerable<Comment> Comment = _cI_PlatformContext.Comments.Where(x => x.MissionId == missID).ToList();
+            ViewBag.comment = Comment;
+            if (Comment.Count() == 0)
+            {
+                ViewData["NoComment"] = "NO ONE COMMENTED YET BE FIRST ONE TO COMMENT";
+            }
+                
             //For the releated mission
 
             long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
@@ -596,20 +627,7 @@ namespace CI_Platform_Web.Controllers
             }
 
 
-            //For Add to Favourite Mission
-            ViewBag.mid = missID;
-            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
-            if (f.Count == 0)
-            {
-                ViewBag.favmission = "Add";
-            }
 
-            //For Mission Rating
-            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
-            if (rr.Count != 0)
-            {
-                ViewBag.rate = rr[0].Rating;
-            }
 
             return View();
 
@@ -673,6 +691,32 @@ namespace CI_Platform_Web.Controllers
                 _cI_PlatformContext.SaveChanges();
 
                 return 3;
+            }
+
+        }
+
+        //For the User Comment
+
+        [HttpPost]
+        public IActionResult AddComment()
+        {
+            string s = Request.Form["comment"].ToString();
+            long l = long.Parse(Request.Form["mid"].ToString());
+
+            if (s == "")
+            {
+                return RedirectToAction("VolunteerMission", "Home", new { missID = l });
+            }
+            else
+            {
+                Comment comment = new Comment();
+                comment.UserId = (int)HttpContext.Session.GetInt32("Id");
+
+                comment.Commenttext = s;
+                comment.MissionId = l;
+                _cI_PlatformContext.Comments.Add(comment);
+                _cI_PlatformContext.SaveChanges();
+                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
             }
 
         }

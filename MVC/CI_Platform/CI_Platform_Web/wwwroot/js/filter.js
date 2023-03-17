@@ -114,7 +114,7 @@ function updateUrlTheme() {
     let url = window.location.href;
     let separator = url.indexOf('?') !== -1 ? '&' : '?';
     url += separator + 'ATheme=' + theme;
-    alert("ahdsh")
+  
 
     window.location.href = url;
 

@@ -176,10 +176,24 @@
                 }
 
                 @*Recommend to a Co-Worker*@
-                <button class="recommendetionBtn">
+
+                <button class="recommendetionBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="~/images/add1.png" alt="">Recommend to a
                     Co-Worker
                 </button>
+
+                <ul class="dropdown-menu" style="height:200px; width:max-content; overflow-y:scroll;">
+                    <li>
+                        @foreach (var c in ViewBag.User)
+                        {
+                            <a class="dropdown-item" href="#">
+                        <li>@c.FirstName @c.LastName
+                        <li>
+                            </a>
+                        }
+
+                    </li>
+                </ul>
 
             </div>
 
@@ -201,7 +215,7 @@
                     int j = 1;
                     @for (int i = 1; i < ViewBag.rate + 1; i++)
                     {
-                        <i class="bi bi-star-fill" style="color:yellow" id=i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
+                        <i class="bi bi-star-fill" style="color:yellow" id=@i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
                         j++;
                     }
                     @for (int i = ViewBag.rate + 1; i < 6; i++)
@@ -283,6 +297,7 @@
 
         <div class="col-lg-7  col-md-12 leftDiv">
 
+            <!--Tab Navbar Section-->
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
@@ -302,7 +317,10 @@
                 </div>
             </nav>
 
+            <!--Navbar Detail Section -->
             <div class="tab-content mt-2" id="nav-tabContent">
+
+                <!--Mission Section-->
 
                 <div class="tab-pane fade show active missionTab" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
@@ -335,6 +353,8 @@
                     <span>Documents</span>
                 </div>
 
+                <!--Organization Section-->
+
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
                     <p>
@@ -357,131 +377,40 @@
 
                 </div>
 
+
+                <!--Add Comment section-->
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                    <textarea name="enterComments" id="" cols="" rows="5" placeholder="Enter your comments..."
-                              style="width: 100%;"></textarea>
-
-                    <div class="mt-2 d-flex">
-                        <button class="buttonsi1 py-2">
-                            Post Comment
-                        </button>
-                    </div>
+                    <form asp-action="AddComment" asp-controller="Home">
+                        <textarea name="comment" id="comment" cols="" rows="5" placeholder="  Enter your comments..." style="width: 100%;" maxlength="600"></textarea>
+                        <input type="text" value=@ViewBag.mid id="mid" name="mid" hidden />
+                        <div class="mt-2">
+                            <button class="buttonsi py-2" type="submit">Post Comment</button>
+                        </div>
+                    </form>
 
                     <div class="commentDiv bg-light rounded-3  p-4 mt-3">
+                        @if (ViewData["NoComment"] != null)
+                        {
+                            <span>@ViewData["NoComment"]</span>
+                        }
+                        @foreach (var i in ViewBag.comment)
+                        {
+                            <div class="card d-flex flex-row align-items-center mt-3">
 
-                        <div class="card d-flex flex-row align-items-center">
+                                <div class="card-header1 mt-4 ms-2">
+                                    <img src="~/images/volunteer2.png" alt="" class="commentImg" />
+                                </div>
 
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
+                                <div class="card-body">
+
+                                    <h5 class="card-title">@i.User.FirstName</h5>
+                                    <p style="font-size: 13px">@i.CreatedAt.ToString("dddd, dd MMMM yyyy HH:mm")</p>
+                                    <p class="card-text">@i.Commenttext</p>
+
+                                </div>
                             </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
-                        <div class="card d-flex flex-row align-items-center mt-3">
-
-                            <div class="card-header1">
-                                <img src="~/images/user-img.png" alt="" class="commentImg">
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">
-                                    With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                            </div>
-
-                        </div>
-
+                        }
                     </div>
                 </div>
 
