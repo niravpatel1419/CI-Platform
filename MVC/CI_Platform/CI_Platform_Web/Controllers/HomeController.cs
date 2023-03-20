@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Web;
+using NuGet.Common;
+using Newtonsoft.Json.Linq;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -542,10 +544,6 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-
-
-
-
         //For the volunteering mission 
 
         public IActionResult volunteeringMission(int missID)
@@ -583,7 +581,7 @@ namespace CI_Platform_Web.Controllers
             //For Recommend to a Co-Worker
             List<User> user = _cI_PlatformContext.Users.ToList();
             ViewBag.User = user;
-
+    
 
             //For Mission Rating
             List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
@@ -626,11 +624,7 @@ namespace CI_Platform_Web.Controllers
                 ViewData["NoRelatedMission"] = "No Related Mission Available";
             }
 
-
-
-
             return View();
-
 
         }
 
@@ -664,6 +658,8 @@ namespace CI_Platform_Web.Controllers
 
         }
 
+
+
         //For User Rating in Volunteering Mission Page
 
         public int Ratee(int uid, int mid, int rating)
@@ -695,6 +691,8 @@ namespace CI_Platform_Web.Controllers
 
         }
 
+
+
         //For the User Comment
 
         [HttpPost]
@@ -705,7 +703,7 @@ namespace CI_Platform_Web.Controllers
 
             if (s == "")
             {
-                return RedirectToAction("VolunteerMission", "Home", new { missID = l });
+                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
             }
             else
             {
@@ -721,6 +719,37 @@ namespace CI_Platform_Web.Controllers
 
         }
 
+
+        //For reccommendation to co-worker
+
+        public IActionResult recommendEmail(int sID,int m)
+        {
+            string user = _cI_PlatformContext.Users.Where(x => x.UserId == sID).FirstOrDefault().Email;
+            ViewBag.User = user;
+
+            var invitationLink = Url.Action("resetPassword", "Home", Request.Scheme);
+
+            var fromAddress = new MailAddress("computerengineermeet@gmail.com", "CI_Platform");
+            var toAddress = new MailAddress(user);
+            var subject = "Volunteer Mission Invitation";
+            var body = $"Hi,<br /><br />Please click on the following link to join the mission:<br /><br /><a href='{invitationLink}'>{invitationLink}</a>";
+            var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            };
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("computerengineermeet@gmail.com", "kknqzbwyupzddahv"),
+                EnableSsl = true
+            };
+            smtpClient.Send(message);
+
+            return RedirectToAction("volunteeringMission", "Home", new {missID = m});
+        }
 
 
         public IActionResult storyListingpage()
@@ -741,9 +770,12 @@ namespace CI_Platform_Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        
 
 
-        public JsonResult Country()
+
+
+/*        public JsonResult Country()
         {
             var c = _cI_PlatformContext.Countries.ToList();
             return new JsonResult(c);
@@ -761,7 +793,7 @@ namespace CI_Platform_Web.Controllers
         {
             var theme = _cI_PlatformContext.MissionThemes.ToList();
             return new JsonResult(theme);
-        }
+        }*/
 
 
     }

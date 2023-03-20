@@ -364,6 +364,12 @@ section {
     width: 40%;
 }
 
+.my-custom-scrollbar {
+    position: relative;
+    height: 285px;
+    overflow: auto;
+}
+
 .starImg {
     height: 25px;
     width: 25px;
@@ -490,8 +496,9 @@ section {
     }
 
 .volunteersImage {
-    display: flex;
+    display: grid;
     justify-content: space-around;
+    grid-template-columns: 33% 33% 33%;
 }
 
 .imageDiv {

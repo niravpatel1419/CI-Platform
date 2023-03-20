@@ -163,7 +163,7 @@
                 @*Add to Favourite Button*@
                 @if (ViewBag.favmission != null)
                 {
-                    <button class="addToFavouriteBtn" onclick="a11(@Context.Session.GetInt32("Id"),@ViewBag.mid)" id="fa">
+                    <button class="btn addToFavouriteBtn" onclick="a11(@Context.Session.GetInt32("Id"),@ViewBag.mid)" id="fa">
                         <i class="bi bi-heart-fill" id="favfav"></i> &nbsp;<span id="favtext">Add to Favourite</span>
                     </button>
                 }
@@ -177,23 +177,63 @@
 
                 @*Recommend to a Co-Worker*@
 
-                <button class="recommendetionBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="~/images/add1.png" alt="">Recommend to a
-                    Co-Worker
+                <button type="button" class="btn recommendetionBtn" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <img src="~/images/add1.png" alt="">
+                    Recommend to a Co-Worker
                 </button>
 
-                <ul class="dropdown-menu" style="height:200px; width:max-content; overflow-y:scroll;">
-                    <li>
-                        @foreach (var c in ViewBag.User)
-                        {
-                            <a class="dropdown-item" href="#">
-                        <li>@c.FirstName @c.LastName
-                        <li>
-                            </a>
-                        }
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
 
-                    </li>
-                </ul>
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Recommend to a Co-Worker</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Send An Invitation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var c in ViewBag.User)
+                                        {
+                                            <tr>
+                                                <td>@c.FirstName @c.LastName</td>
+                                                <td>@c.Email</td>
+                                                <td>
+                                                    <a asp-action="recommendEmail" asp-controller="Home" asp-route-sID="@c.UserId" asp-route-m="@ViewBag.mid">
+                                                        <button class="btn btn-primary">Send</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
 
             </div>
 
@@ -227,7 +267,7 @@
 
             </div>
 
-
+            <!------------->
             <div class="row gx-2 mt-2">
                 <div class="col-3">
                     <div class="box1">
@@ -278,6 +318,7 @@
                 </div>
             </div>
 
+            <!------------->
             <div class="apply  mt-2 d-flex">
                 <button class="buttonsi py-2">
                     Apply Now &nbsp <img src="images/right-arrow.png" alt="" />
@@ -422,6 +463,7 @@
 
         <div class="col-lg-5 col-md-12 rightDiv">
 
+            <!--Information Div-->
             <div class="informationDiv">
                 <div class="information">
                     <h4 style="color:#414141;">Information</h4>
@@ -450,6 +492,7 @@
                 </div>
             </div>
 
+            <!--Recent Volunteers Div-->
             <div class="recentVolunteersDiv">
                 <div class="recentVolunteers">
                     <div class="volunteers">
@@ -458,36 +501,42 @@
                 </div>
                 <hr>
                 <div class="volunteersImage">
-                    <div class="imageDiv">
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson</p>
 
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson</p>
+                    @foreach (var user in ViewBag.User)
+                    {
+                        <div class="imageDiv">
+                            <img src="~/images/user-img.png" alt="">
+                            <p class="name">@user.FirstName @user.LastName</p>
+                        </div>
+                    }
 
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson</p>
+
+                    @*                        <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson</p>
+
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson</p>*@
+
+                    @*                    <div class="imageDiv">
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson2</p>
+
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson2</p>
+
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson2</p>
                     </div>
                     <div class="imageDiv">
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson2</p>
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson3</p>
 
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson2</p>
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson3</p>
 
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson2</p>
-                    </div>
-                    <div class="imageDiv">
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson3</p>
-
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson3</p>
-
-                        <img src="~/images/user-img.png" alt="">
-                        <p class="name">Andrew Johnson3</p>
-                    </div>
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">Andrew Johnson3</p>
+                    </div>*@
                 </div>
             </div>
         </div>
