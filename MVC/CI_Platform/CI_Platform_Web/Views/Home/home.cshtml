@@ -72,12 +72,68 @@
                                 <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
                                 <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
                                 <div class="landing-page-bottom-right d-flex flex-column">
+
+                                    @*For Add To Favourite*@
+
                                     <button class="mb-2 landing-page-btn-img">
                                         <img src="~/images/heart.png" alt="">
-                                    </button><button class="landing-page-btn-img">
-                                        <img src="~/images/user.png"
-                                 alt="">
                                     </button>
+
+                                    @*For Recommendation to User*@
+
+                                    <button class="landing-page-btn-img" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        <img src="~/images/user.png" alt="">
+                                    </button>
+                                    <div class="modal" id="myModal">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Recommend to a Co-Worker</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <!-- Modal body -->
+                                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Email</th>
+                                                                <th scope="col">Send An Invitation</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var c in ViewBag.User)
+                                                            {
+                                                                <tr>
+                                                                    <td>@c.FirstName @c.LastName</td>
+                                                                    <td>@c.Email</td>
+                                                                    <td>
+                                                                        <a asp-action="recommendEmail" asp-controller="Home" asp-route-sID="@c.UserId" asp-route-m="@ViewBag.mid">
+                                                                            <button class="btn btn-primary">Send</button>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+
+
+                                                <!-- Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <p class="shape">@item.Theme.Title</p>
 

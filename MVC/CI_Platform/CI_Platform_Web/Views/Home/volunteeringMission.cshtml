@@ -2,6 +2,7 @@
     Layout = "_LayoutSingleHeader";
 }
 
+
 @{
     var missDetail = ViewBag.mission;
     var city = ViewBag.citylist;
@@ -260,7 +261,7 @@
                     }
                     @for (int i = ViewBag.rate + 1; i < 6; i++)
                     {
-                        <i class="bi bi-star-fill" id=@i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
+                        <i class="bi bi-star" id=@i onclick="myRate(@Context.Session.GetInt32("Id"),@ViewBag.mid,@j)"></i>
                         j++;
                     }
                 }
@@ -481,14 +482,26 @@
                 <hr>
                 <div class="ratingDiv">
                     <p class="mb-0">Rating</p>
-                    <img src="images/selected-star.png" alt="">
-                    <img src="images/selected-star.png" alt="">
-                    <img src="images/selected-star.png" alt="">
-                    <img src="images/selected-star.png" alt="">
-                    <img src="images/selected-star.png" alt="">
-                    <p class="mb-0">(by 125 volunteers)</p>
-                    <div>
-                    </div>
+                    @if (@ViewBag.Ratingcount == null)
+                    {
+                        <span class="ms-2">No Ratings</span>
+                    }
+                    else
+                    {
+
+                        @for (int i = 0; i < ViewBag.Ratingcount; i++)
+                        {
+                            <img src="~/images/selected-star.png" alt="" />
+                        }
+
+                        @for (int i = 0; i < 5 - ViewBag.Ratingcount; i++)
+                        {
+                            <img src="~/images/star-empty.png" alt="" class="emptyStar" />
+                        }
+
+                        <span class="mb-0">(by @ViewBag.totalRating volunteers)</span>
+                    }
+
                 </div>
             </div>
 

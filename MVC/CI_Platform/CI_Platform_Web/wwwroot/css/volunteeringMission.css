@@ -490,11 +490,19 @@ section {
     align-items: center;
 }
 
-    .skillDiv p, .daysDiv p, .ratingDiv p {
+    .skillDiv p, .daysDiv p{
         margin-right: 45px;
         color: #414141;
     }
 
+    .ratingDiv p {
+        margin-right:25px;
+    }
+
+    .emptyStar{
+        height:23px;
+        width:23px;
+    }
 .volunteersImage {
     display: grid;
     justify-content: space-around;

@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Web;
 using NuGet.Common;
 using Newtonsoft.Json.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -212,6 +213,10 @@ namespace CI_Platform_Web.Controllers
             //For shown the Skills list in the Dropdown
             List<Skill> skills = _cI_PlatformContext.Skills.ToList();
             ViewBag.Skills = skills;
+
+            //For Recommend to a Co-Worker
+            List<User> user = _cI_PlatformContext.Users.ToList();
+            ViewBag.User = user;
 
             List<GoalMission> goalMission = _cI_PlatformContext.GoalMissions.ToList();
             ViewBag.goalMission = goalMission;
@@ -426,7 +431,10 @@ namespace CI_Platform_Web.Controllers
             ViewBag.TotalPages = (int)Math.Ceiling(totalMissions / (double)pageSize);
             ViewBag.CurrentPage = pageIndex ?? 0;
 
+
             return View(Missions);
+
+
 
             //return View(Missions);
 
@@ -581,7 +589,7 @@ namespace CI_Platform_Web.Controllers
             //For Recommend to a Co-Worker
             List<User> user = _cI_PlatformContext.Users.ToList();
             ViewBag.User = user;
-    
+
 
             //For Mission Rating
             List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
@@ -609,7 +617,17 @@ namespace CI_Platform_Web.Controllers
             {
                 ViewData["NoComment"] = "NO ONE COMMENTED YET BE FIRST ONE TO COMMENT";
             }
-                
+
+            //For Shown the Average Rating of the Mission
+            List<MissionRating> temp = _cI_PlatformContext.MissionRatings.FromSqlInterpolated($"Select * from dbo.mission_rating where mission_id={missID}").ToList();
+            ViewBag.totalRating = temp.Count;
+
+            if (temp.Count != 0)
+            {
+                var avgRate = (int)temp.Average(x => x.Rating);
+                ViewBag.Ratingcount = avgRate;
+            }
+
             //For the releated mission
 
             long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
@@ -692,6 +710,38 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+        //For reccommendation to co-worker
+
+        public IActionResult recommendEmail(int sID, int m)
+        {
+            string user = _cI_PlatformContext.Users.Where(x => x.UserId == sID).FirstOrDefault().Email;
+            ViewBag.User = user;
+
+            var invitationLink = Url.Action("volunteeringMission", "Home", new { missID = m }, Request.Scheme);
+
+            var fromAddress = new MailAddress("computerengineermeet@gmail.com", "CI_Platform");
+            var toAddress = new MailAddress(user);
+            var subject = "Someone Recommended you to join Mission";
+            var body = $"Hi,Nirav Patel here, <br/> Someone has recommended you to join this mission...<br /><br />Please click on the following link to see mission details:<br /><br /><a href='{invitationLink}'>{invitationLink}</a>";
+            var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            };
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("computerengineermeet@gmail.com", "kknqzbwyupzddahv"),
+                EnableSsl = true
+            };
+            smtpClient.Send(message);
+
+            return RedirectToAction("volunteeringMission", "Home", new { missID = m });
+
+        }
+
 
         //For the User Comment
 
@@ -720,37 +770,6 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-        //For reccommendation to co-worker
-
-        public IActionResult recommendEmail(int sID,int m)
-        {
-            string user = _cI_PlatformContext.Users.Where(x => x.UserId == sID).FirstOrDefault().Email;
-            ViewBag.User = user;
-
-            var invitationLink = Url.Action("resetPassword", "Home", Request.Scheme);
-
-            var fromAddress = new MailAddress("computerengineermeet@gmail.com", "CI_Platform");
-            var toAddress = new MailAddress(user);
-            var subject = "Volunteer Mission Invitation";
-            var body = $"Hi,<br /><br />Please click on the following link to join the mission:<br /><br /><a href='{invitationLink}'>{invitationLink}</a>";
-            var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            };
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("computerengineermeet@gmail.com", "kknqzbwyupzddahv"),
-                EnableSsl = true
-            };
-            smtpClient.Send(message);
-
-            return RedirectToAction("volunteeringMission", "Home", new {missID = m});
-        }
-
 
         public IActionResult storyListingpage()
         {
@@ -763,37 +782,37 @@ namespace CI_Platform_Web.Controllers
         {
             return View();
         }
-
+            
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
 
 
 
 
-/*        public JsonResult Country()
-        {
-            var c = _cI_PlatformContext.Countries.ToList();
-            return new JsonResult(c);
 
-        }
+        /*        public JsonResult Country()
+                {
+                    var c = _cI_PlatformContext.Countries.ToList();
+                    return new JsonResult(c);
 
-        public JsonResult City(int id)
-        {
-            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
-            return new JsonResult(city);
+                }
 
-        }
+                public JsonResult City(int id)
+                {
+                    var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
+                    return new JsonResult(city);
 
-        public JsonResult Themes()
-        {
-            var theme = _cI_PlatformContext.MissionThemes.ToList();
-            return new JsonResult(theme);
-        }*/
+                }
+
+                public JsonResult Themes()
+                {
+                    var theme = _cI_PlatformContext.MissionThemes.ToList();
+                    return new JsonResult(theme);
+                }*/
 
 
     }

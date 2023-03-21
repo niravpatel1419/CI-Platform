@@ -55,8 +55,7 @@ function myRate(a, b, c) {
                         $('#' + i).css('color', 'yellow');
                     }
                     else {
-                        console.log("inside else")
-                        $('#' + i).css('color', 'black');
+                        console.log("inside else");
                     }
 
                 }
@@ -66,4 +65,5 @@ function myRate(a, b, c) {
             }
         }
     });
+    location.reload();
 }

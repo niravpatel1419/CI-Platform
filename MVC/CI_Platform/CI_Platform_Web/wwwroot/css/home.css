@@ -231,6 +231,12 @@ big {
     padding: 6px;
 }
 
+.my-custom-scrollbar {
+    position: relative;
+    height: 285px;
+    overflow: auto;
+}
+
 .shape {
     text-align: center;
     width: auto;
