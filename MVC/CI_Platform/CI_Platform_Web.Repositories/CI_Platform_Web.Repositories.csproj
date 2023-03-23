@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CI_Platform_Web.Entities\CI_Platform_Web.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

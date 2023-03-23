@@ -79,9 +79,10 @@
                        
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 
-                                <form class="mt-5 " asp-controller="Login" asp-action="Login">
+                                <form class="mt-5 " asp-controller="Access" asp-action="Login">
 
                                     <div class="mb-3">
+                                        <div class="mb-5 text-danger">@ViewData["AlertMessage"]</div>
                                         <div class="mb-5 text-danger" id="viewbag">@TempData["Message"]</div>
                                         <label asp-for="Email" class="form-label"><p class="formInput">Email address</p></label>
                                         <input asp-for="Email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email address" onkeyup="emailChange()">
@@ -97,11 +98,11 @@
                                     <button type="submit" class="btn btn-primary btnCustom">Login</button>
 
                                     <div class="lost mt-3">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>
                                     </div>
 
                                     <div class="lost mt-3">
-                                        <p class="losttext1">Don’t have an account? <a asp-area="" asp-controller="Home" asp-action="registration">Create an account</a></p>
+                                        <p class="losttext1">Don’t have an account? <a asp-area="" asp-controller="Access" asp-action="registration">Create an account</a></p>
                                     </div>
 
                                     <div class="lost mt-3">

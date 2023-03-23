@@ -65,7 +65,7 @@
                 <div class="row justify-content-center">
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                        <form class="mt-5" asp-controller="Home" asp-action="registration" method="post">
+                        <form class="mt-5" asp-controller="Access" asp-action="registration" method="post">
 
                             <div class="mb-3">
                                 <label asp-for="FirstName" class="form-label"><p class="formInput">First Name</p></label>
@@ -82,14 +82,14 @@
                             <div class="mb-3">
                                 <label asp-for="PhoneNumber" class="form-label"><p class="formInput">Mobile Number</p></label>
                                 <input asp-for="PhoneNumber" type="text" class="form-control" id="phoneNumber" placeholder="Enter mobile number">
-                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                @*<span asp-validation-for="PhoneNumber" class="text-danger"></span>*@
                             </div>
 
                             <div class="mb-3">
                                 <label asp-for="Email" class="form-label"><p class="formInput">Email Address</p></label>
                                 <input asp-for="Email" type="email" class="form-control" id="email" placeholder="Enter email address" onkeyup="emailchange()">
                                 <span asp-validation-for="Email" class="text-danger"></span>
-                                <div class="text-danger" id="viewbag">@ViewBag.RegEmail</div>
+                                <div class="text-danger" id="viewbag">@TempData["UserExist"]</div>
 
                             </div>
 
@@ -111,11 +111,11 @@
                             <button type="submit" class="btn btn-primary btnCustom" id="reg-btn">Register</button>
 
                             <div class="lost mt-3">
-                                <a asp-area="" asp-controller="Home" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>
+                                <a asp-area="" asp-controller="Access" asp-action="forgotPassword"><p class="losttext">Lost your password?</p></a>
                             </div>
 
                             <div class="lost mt-3">
-                                <p class="loginTag">Already registered? <a asp-area="" asp-controller="Home" asp-action="Index">Login now</a></p>
+                                <p class="loginTag">Already registered? <a asp-area="" asp-controller="Access" asp-action="Login">Login now</a></p>
                             </div>
 
                             <div class="lost mt-3">
@@ -135,12 +135,6 @@
 </body>
 
 <script>
-
-        function emailchange(){
-            document.getElementById("viewbag").style.display="none"
-        }
-
-        
 
         function validatePassword(){
             var x = document.getElementById("reg-pass").value;

@@ -1,4 +1,4 @@
-﻿@model List<CI_Platform_Web.Entities.Models.Mission>;
+﻿@model CI_Platform_Web.Entities.ViewModel.MissionListViewModel;
 
 @{
     Layout = "_LayoutHeader";
@@ -11,7 +11,7 @@
 
     if (usrid == null)
     {
-        Context.Response.Redirect("Index");
+        Context.Response.Redirect("Login");
     }
 
     else
@@ -61,7 +61,7 @@
         <div class="container grid-container">
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
 
-                @foreach (var item in Model)
+                @foreach (var item in Model.Missions)
                 {
 
                     <div class="col ">

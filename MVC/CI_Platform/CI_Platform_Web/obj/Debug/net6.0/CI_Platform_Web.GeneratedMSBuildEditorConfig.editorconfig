@@ -16,36 +16,36 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/forgotPassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxmb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/forgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXGZvcmdvdFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/ForgotPasswordConfirmation.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/ForgotPasswordConfirmation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXEZvcmdvdFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXFByaXZhY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/registration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXHJlZ2lzdHJhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Access/resetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjZXNzXHJlc2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxob21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/noMissionFound.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxub01pc3Npb25Gb3VuZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/registration.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxyZWdpc3RyYXRpb24uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/resetPassword.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxyZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Project 1/CI Platform/MVC/CI_Platform/CI_Platform_Web/Views/Home/storyListingPage.cshtml]

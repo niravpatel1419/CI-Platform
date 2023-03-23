@@ -14,6 +14,8 @@ using System.Web;
 using NuGet.Common;
 using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
+using CI_Platform_Web.Repositories.Interface;
+using CI_Platform_Web.Entities.ViewModel;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -21,170 +23,23 @@ namespace CI_Platform_Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CI_PlatformContext _cI_PlatformContext;
+        private readonly ICi_Platform _iCiPlat;
+
         int i = 0, i1 = 0, j = 0, j1 = 0, k = 0, k1 = 0;
 
-        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext)
+        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext, ICi_Platform iCiPlat)
         {
             _logger = logger;
             _cI_PlatformContext = cI_PlatformContext;
+            _iCiPlat = iCiPlat;
         }
 
 
-        public IActionResult Index()
+        //For Seesion Skip Login Redirect
+
+        public IActionResult Login()
         {
-            return View();
-        }
-
-
-        //For the User Registration
-
-        [HttpGet]
-        public IActionResult registration()
-        {
-            User user = new User();
-            return View(user);
-        }
-
-
-        [HttpPost]
-        public IActionResult registration(User user)
-        {
-            var compare = _cI_PlatformContext.Users.FirstOrDefault(u => u.Email == user.Email);
-
-            if (compare != null)
-            {
-
-                ViewBag.RegEmail = "Email Address Already Exists.Please use a different email address";
-
-            }
-            else
-            {
-                _cI_PlatformContext.Users.Add(user);
-                _cI_PlatformContext.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-
-        }
-
-
-
-        //For the ForgotPassword
-
-        [HttpGet]
-        public IActionResult forgotPassword()
-        {
-            return View();
-        }
-
-
-        [HttpPost]
-        public IActionResult forgotPassword(ForgotPassword _forogtpass)
-        {
-
-            var status = _cI_PlatformContext.Users.FirstOrDefault(m => m.Email == _forogtpass.Email);
-            if (status == null)
-            {
-
-                TempData["Error"] = "Email id is invalid or You are not registerd";
-                return View();
-
-            }
-
-            // Generate a password reset token for the user
-            var token = Guid.NewGuid().ToString();
-
-
-            // Store the token in the password resets table with the user's email
-            var passwordReset = new CI_Platform_Web.Entities.Models.PasswordReset
-            {
-                Email = _forogtpass.Email,
-                Token = token,
-            };
-
-            _cI_PlatformContext.Add(passwordReset);
-            _cI_PlatformContext.SaveChanges();
-
-
-            // Send an email with the password reset link to the user's email address
-            var resetLink = Url.Action("resetPassword", "Home", new { email = _forogtpass.Email, token }, Request.Scheme);
-
-            var fromAddress = new MailAddress("computerengineermeet@gmail.com", "CI_Platform");
-            var toAddress = new MailAddress(_forogtpass.Email);
-            var subject = "Password reset request";
-            var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-            var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            };
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("computerengineermeet@gmail.com", "kknqzbwyupzddahv"),
-                EnableSsl = true
-            };
-            smtpClient.Send(message);
-
-            return RedirectToAction("ForgotPasswordConfirmation", "Home");
-
-        }
-
-
-
-        //For ForgotPasswordConfirmation
-
-        public IActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-
-
-        // For ResetPassword
-
-        [HttpGet]
-        public IActionResult resetPassword(string token, string email)
-        {
-            if (token == null || email == null)
-            {
-                ModelState.AddModelError("", "Invalid Password Reset Token");
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult resetPassword(ResetPasswordView model)
-
-        {
-            if (ModelState.IsValid)
-            {
-                var user = _cI_PlatformContext.Users.FirstOrDefault(m => m.Email == model.Email);
-                if (user == null)
-                {
-                    return RedirectToAction("forgotPassword", "Home");
-
-                }
-
-                user.Password = model.Password;
-                _cI_PlatformContext.SaveChanges();
-                TempData["AlertMessage"] = "Your Password Changed Successfully...! Login with the new password now.";
-                return RedirectToAction("Index", "Home");
-            }
-            return RedirectToAction("forgotPassword", "Home");
-        }
-
-
-
-
-        //For Logout
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Access");
         }
 
 
@@ -222,21 +77,19 @@ namespace CI_Platform_Web.Controllers
             ViewBag.goalMission = goalMission;
 
 
+
+            //For Shown the Mission Detalis On the Card
+            MissionListViewModel missionlist = new MissionListViewModel();
+            missionlist = _iCiPlat.DisplayMissions();
+
+
             //For Shown the Mission Details On the Card
 
             List<Mission> mission = _cI_PlatformContext.Missions.ToList();
             List<Mission> finalmission = _cI_PlatformContext.Missions.ToList();
             List<Mission> newmission = _cI_PlatformContext.Missions.ToList();
 
-            foreach (var item in mission)
-            {
-                var City = _cI_PlatformContext.Cities.FirstOrDefault(u => u.CityId == item.CityId);
-                var Theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(u => u.MissionThemeId == item.ThemeId);
-
-            }
-
-            mission = _cI_PlatformContext.Missions.ToList();
-
+    
 
             //For Country Filter
             if (ACountries != null && ACountries.Length > 0)
@@ -364,18 +217,18 @@ namespace CI_Platform_Web.Controllers
             switch (Order)
             {
                 case 1:
-                    mission = newmission.OrderByDescending(m => m.StartDate).ToList();
+                    missionlist.Missions = missionlist.Missions.OrderByDescending(m => m.StartDate).ToList();
                     ViewBag.sortby = "Newest";
                     break;
                 case 2:
-                    mission = newmission.OrderBy(m => m.StartDate).ToList();
+                    missionlist.Missions = missionlist.Missions.OrderBy(m => m.StartDate).ToList();
                     ViewBag.sortby = "Oldest";
                     break;
                 case 3:
-                    mission = mission.OrderBy(m => int.Parse(m.Availability)).ToList();
+                    missionlist.Missions = missionlist.Missions.OrderBy(m => int.Parse(m.Availability)).ToList();
                     break;
                 case 4:
-                    mission = mission.OrderBy(m => m.EndDate).ToList();
+                    missionlist.Missions = missionlist.Missions.OrderBy(m => m.EndDate).ToList();
                     break;
             }
             //    case "Highest seats":
@@ -410,9 +263,11 @@ namespace CI_Platform_Web.Controllers
 
             if (searchQuery != null)
             {
-                mission = _cI_PlatformContext.Missions.Where(m => m.Title.Contains(searchQuery)).ToList();
+                string s = searchQuery.ToLower();
+                missionlist.Missions = missionlist.Missions.Where(m => m.Title.ToLower().Contains(s)).ToList();
+
                 ViewBag.searchQuery = searchQuery;
-                if (mission.Count() == 0)
+                if (missionlist.Missions.Count() == 0)
                 {
                     return RedirectToAction("noMissionFound", "Home");
                 }
@@ -422,21 +277,21 @@ namespace CI_Platform_Web.Controllers
 
             int pageSize = 6;
             int skip = (pageIndex ?? 0) * pageSize;
-            var Missions = mission.Skip(skip).Take(pageSize).ToList();
 
+            var totalmission = missionlist.Missions;
+            var Missions = totalmission.Skip(skip).Take(pageSize).ToList();
+                
+            int totalMissions = totalmission.Count();
+            missionlist.Missions = Missions;
 
-            int totalMissions = mission.Count();
             ViewBag.TotalMission = totalMissions;
 
             ViewBag.TotalPages = (int)Math.Ceiling(totalMissions / (double)pageSize);
             ViewBag.CurrentPage = pageIndex ?? 0;
 
 
-            return View(Missions);
+            return View(missionlist);
 
-
-
-            //return View(Missions);
 
         }
 
@@ -556,11 +411,6 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult volunteeringMission(int missID)
         {
-
-            //For shown the Theme list in  the Dropdown
-
-            List<MissionTheme> missionThemes = _cI_PlatformContext.MissionThemes.ToList();
-            ViewBag.MissionThemes = missionThemes;
 
 
             //For mission info
@@ -771,7 +621,7 @@ namespace CI_Platform_Web.Controllers
 
 
 
-        public IActionResult storyListingpage()
+        public IActionResult storyListingPage()
         {
             return View();
         }
