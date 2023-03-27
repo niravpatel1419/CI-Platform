@@ -527,41 +527,23 @@
                 <hr>
                 <div class="volunteersImage">
 
-                    @foreach (var user in ViewBag.User)
+                    @*     @foreach (var user in ViewBag.User)
                     {
+                    <div class="imageDiv">
+                    <img src="~/images/user-img.png" alt="">
+                    <p class="name">@user.FirstName @user.LastName</p>
+                    </div>
+                    }*@
+
+                    @for (int i = 0; i < Model.users.Count(); i++)
+                    {
+
                         <div class="imageDiv">
                             <img src="~/images/user-img.png" alt="">
-                            <p class="name">@user.FirstName @user.LastName</p>
+                            <span>@Model.users.ElementAt(i).FirstName</span>
                         </div>
                     }
 
-
-                    @*                        <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson</p>
-
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson</p>*@
-
-                    @*                    <div class="imageDiv">
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson2</p>
-
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson2</p>
-
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson2</p>
-                    </div>
-                    <div class="imageDiv">
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson3</p>
-
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson3</p>
-
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">Andrew Johnson3</p>
-                    </div>*@
                 </div>
             </div>
         </div>
@@ -581,7 +563,6 @@
 
 }
 
-
 else
 {
 
@@ -592,7 +573,7 @@ else
     <div class="container grid-container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
 
-            @foreach (var item in ViewBag.relatedmission1)
+            @foreach (var item in Model.relatedMissions.Missions)
             {
 
                 <div class="col ">
@@ -618,8 +599,7 @@ else
                             <div class="card-body mt-10">
                                 <h4 class="card-title">@item.Title</h4>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This content is a little bit longer.
+                                    @item.ShortDescription
                                 </p>
 
                                 <div class="cardBodyFooter">
@@ -692,17 +672,17 @@ else
 
     //For Apply Mission
     $(document).ready(function () {
-    console.log("ready document");
-    testfun();
-    //debugger
-    if (@Model.Applied== true){
-        $('#applybtn').text("Applied");
-        $('#applybtn').css("color", "white");
-        $('#applybtn').css("background", "green");
-        $('#applybtn').css("border-color", "green");
-        $('#applybtn').prop('disabled', true);
-    }
-})
+        console.log("ready document");
+        testfun();
+        //debugger
+        if (@Model.Applied== true) {
+            $('#applybtn').text("Applied");
+            $('#applybtn').css("color", "white");
+            $('#applybtn').css("background", "green");
+            $('#applybtn').css("border-color", "green");
+            $('#applybtn').prop('disabled', true);
+        }
+    })
 
 </script>
 <script src="~/js/volunteering.js"></script>

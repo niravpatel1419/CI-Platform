@@ -1,13 +1,14 @@
 ﻿using CI_Platform_Web.Entities.Data;
 using CI_Platform_Web.Entities.Models;
+using CI_Platform_Web.Repositories.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
-using CI_Platform_Web.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using CI_Platform_Web.Repositories.Repositories;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace CI_Platform_Web.Controllers
             _iCiPlat = iCiPlat;
         }
 
-        //For the User Login
+        //For the User Login 
 
         [AllowAnonymous]
         public IActionResult Login()
@@ -76,6 +77,9 @@ namespace CI_Platform_Web.Controllers
             ViewData["ValidateMessage"] = "Email id or Password does not match";
             return View();
         }
+
+
+
 
 
         //For the User Registration
@@ -208,7 +212,5 @@ namespace CI_Platform_Web.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Access");
         }
-
-
     }
 }

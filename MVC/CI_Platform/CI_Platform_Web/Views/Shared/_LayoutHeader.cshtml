@@ -31,7 +31,7 @@
 
                     <ul class="menu">
 
-                        <a href="./stories.html">Stories</a>
+                        <a class="topHeader" asp-controller="Home" asp-action="storyListingPage">Stories</a>
 
                         <div class="dropdown policy-1">
                             <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown"
@@ -161,7 +161,7 @@
                     <!-- Top-Header Shown On PC/Laptop -->
 
 
-                    <a href="./stories.html" class="topHeader">Stories</a>
+                    <a class="topHeader" asp-controller="Home" asp-action="storyListingPage" >Stories</a>
 
                     <div class="dropdown topHeader">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -184,12 +184,7 @@
 
                         <div class="dropdown ">
                             <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                @{
-                                    if (@usrid != null)
-                                    {
-                                        <span class="txt text-dark">@usrid</span>
-                                    }
-                                }
+                                <span class="txt text-dark">@ViewBag.FirstName</span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">My Profile</a></li>
@@ -441,19 +436,23 @@
 
 
 
-
         // For the Grid View And List View
 
-        function showList(e) {
+        gridList();
+        if (localStorage.getItem("view") === "list") {
+            showList();
+        }
+
+        function showList() {
             localStorage.setItem("view", "list");
             var $gridCont = $('.grid-container');
-            e.preventDefault();
+           // e.preventDefault();
             $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
         }
-        function gridList(e) {
+        function gridList() {
             localStorage.setItem("view", "grid");
             var $gridCont = $('.grid-container')
-            e.preventDefault();
+          //  e.preventDefault();
             $gridCont.removeClass('list-view');
         }
 

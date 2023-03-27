@@ -16,7 +16,12 @@ namespace CI_Platform_Web.Entities.ViewModel
         public IEnumerable<Country> countries { get; set; }
 
         public IEnumerable<MissionTheme> MissionThemes { get; set; }
+        public IEnumerable<MissionMedium> missionMedias { get; set; }
 
         public List<int> MissionRatingss { get; set; }
+        public List<bool> FavMission { get; set; }
+        public List<string> MissionApplicationlist { get; set; }
+
+        public IEnumerable<GoalMission> Goals { get; set; }
     }
 }

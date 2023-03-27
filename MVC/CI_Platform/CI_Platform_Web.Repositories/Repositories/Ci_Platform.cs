@@ -134,6 +134,22 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         }
 
+        //For Applied to Mission Check
+        public string IsApplied(long userId, int missionId)
+        {
+            List<MissionApplication> f = _cI_PlatformContext.MissionApplications.Where(f => f.UserId == userId && f.MissionId == missionId).ToList();
+            if (f.Count == 0)
+            {
+                return "false";
+            }
+            else
+            {
+                return "true";
+
+            }
+
+        }
+
         //For The User Rating Check
         public int RatedValue(long userId, int missionId)
         {
@@ -264,7 +280,44 @@ namespace CI_Platform_Web.Repositories.Repositories
             return false;
         }
 
+        //For Getting Recent Volunteers
+        public List<User> GetRecentVol(int missionId)
+        {
+            //  return _context.MissionApplications.Where(x => x.MissionId == missionId).ToList();
+            List<User> i = _cI_PlatformContext.Users.FromSqlInterpolated($"select u.* from [user] as u inner join mission_application  m On u.user_id=m.user_id where m.mission_id={missionId}  ").ToList();
+            return i;
+        }
 
+        //For Shown The Story From DB
+        public StoryListViewModel FetchStoryDetails()
+        {
+            StoryListViewModel v = new StoryListViewModel();
+
+            v.users = _cI_PlatformContext.Users.FromSqlInterpolated($"select u.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
+            v.storyLists = _cI_PlatformContext.Stories.FromSqlInterpolated($"select s.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
+            v.StoryMedias = _cI_PlatformContext.StoryMedia.ToList();
+            return v;
+        }
+
+        //For Save The Story In DB
+        public bool SaveStrory(long userId, int missionId, string title, string stext, string date)
+        {
+
+            if (userId == 0)
+            {
+                return false;
+            }
+            Story s = new Story();
+            s.UserId = userId;
+            s.Title = title;
+            s.MissionId = missionId;
+            s.PublishedAt = DateTime.Parse(date);
+            s.Description = stext;
+            _cI_PlatformContext.Add(s);
+            _cI_PlatformContext.SaveChanges();
+            return true;
+
+        }
     }
 
 }

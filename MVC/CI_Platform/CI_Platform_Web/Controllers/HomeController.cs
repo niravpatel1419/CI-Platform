@@ -577,6 +577,11 @@ namespace CI_Platform_Web.Controllers
             //To store the mission id
             ViewBag.mid = missID;
 
+            //For Recent Volunteers
+            vm.users = _iCiPlat.GetRecentVol(missID);
+
+            //For Applied to Mission Or Not
+            vm.Applied = _iCiPlat.IsApplied(userId, missID);
 
             //For Add to Favourite Mission
 
@@ -616,18 +621,42 @@ namespace CI_Platform_Web.Controllers
 
             //For the releated mission
 
-            long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
-            long cityid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CityId;
-            //long countryid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CountryId;
+            /*            long themeid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).ThemeId;
+                        long cityid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CityId;
+                        //long countryid = _cI_PlatformContext.Missions.FirstOrDefault(x => x.MissionId == missID).CountryId;
 
-            IEnumerable<Mission> relatedmission1 = _cI_PlatformContext.Missions.Where(x => (x.CityId == cityid || x.ThemeId == themeid) && x.MissionId != missID).ToList().Take(3);
-            ViewBag.relatedmission1 = relatedmission1;
+                        IEnumerable<Mission> relatedmission1 = _cI_PlatformContext.Missions.Where(x => (x.CityId == cityid || x.ThemeId == themeid) && x.MissionId != missID).ToList().Take(3);
+                        ViewBag.relatedmission1 = relatedmission1;
 
-            if (relatedmission1.Count() == 0)
+                        if (relatedmission1.Count() == 0)
+                        {
+                            ViewData["NoRelatedMission"] = "No Related Mission Available";
+                        }*/
+
+            if (vm.relatedMissions.Missions.Count() == 0)
             {
                 ViewData["NoRelatedMission"] = "No Related Mission Available";
             }
 
+            List<int> ab = new List<int>(3);
+            List<Mission> temp = vm.relatedMissions.Missions.Take(3).ToList();
+            List<MissionMedium> m = new List<MissionMedium>();
+            List<bool> b = new List<bool>();
+            List<string> c = new List<string>();
+            foreach (var i in temp)
+            {
+                var a = _iCiPlat.GetRating((int)i.MissionId);
+                ab.Add(a);
+              /*  var ji = vm.relatedMissions.missionMedias.Where(x => x.MissionId == i.MissionId).FirstOrDefault();
+                m.Add(ji);*/
+                b.Add(_iCiPlat.IsFav(userId, (int)i.MissionId));
+                c.Add(_iCiPlat.IsApplied(userId, (int)i.MissionId));
+            }
+            vm.relatedMissions.Missions = temp;
+            vm.relatedMissions.MissionRatingss = ab;
+           /* vm.relatedMissions.missionMedias = m.ToArray();*/
+            vm.relatedMissions.FavMission = b;
+            vm.relatedMissions.MissionApplicationlist = c;
             return View(vm);
 
         }
@@ -736,6 +765,9 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
+
+        //Story Listing Page
         public IActionResult storyListingPage()
         {
             return View();
