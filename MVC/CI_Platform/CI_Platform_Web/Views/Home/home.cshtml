@@ -1,4 +1,6 @@
-﻿@model CI_Platform_Web.Entities.ViewModel.MissionListViewModel;
+﻿@*@model List<CI_Platform_Web.Entities.Models.Mission>;*@
+
+@model CI_Platform_Web.Entities.ViewModel.MissionListViewModel;
 
 @{
     Layout = "_LayoutHeader";
@@ -6,263 +8,192 @@
 }
 
 
-@{
-    var usrid = Context.Session.GetString("userID");
 
-    if (usrid == null)
-    {
-        Context.Response.Redirect("Login");
-    }
+<!DOCTYPE html>
+<html lang="en">
 
-    else
-    {
+<head>
 
-        <!DOCTYPE html>
-        <html lang="en">
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
 
-        <head>
-
-            <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-
-        </head>
+</head>
 
 
 
 
-        <!------------------------------------------------ Mission Section -------------------------------------------------------------------->
-        <!--Explore Mission  -->
-        <div class="container exploreMission">
-            <div class="row align-items-center">
-                <p class="heading col-8">Explore <big>@ViewBag.TotalMission Missions</big></p>
+<!------------------------------------------------ Mission Section -------------------------------------------------------------------->
+<!--Explore Mission  -->
+<div class="container exploreMission">
+    <div class="row align-items-center">
+        <p class="heading col-8">Explore <big>@ViewBag.TotalMission Missions</big></p>
 
-                <div class="dropdown  col-2">
-                    <button class="btn dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sort by
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="1">Newest</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="2">Oldest</a></li>
-                        <li><a class="dropdown-item" asp-action="home" asp-route-Order="4">Registration deadline</a></li>
-                    </ul>
-                </div>
-
-                <div class="container mb-3 mt-3 col-2 gridListDiv">
-                    <button class=" btn-grid gridBtn"><img src="~/images/grid.png" alt="Grid View"></button>
-                    <button class=" btn-list listBtn"><img src="~/images/list.png" alt="List View"></button>
-                </div>
-
-            </div>
+        <div class="dropdown  col-2">
+            <button class="btn dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-action="home" asp-route-Order="1">Newest</a></li>
+                <li><a class="dropdown-item" asp-action="home" asp-route-Order="2">Oldest</a></li>
+                <li><a class="dropdown-item" asp-action="home" asp-route-Order="4">Registration deadline</a></li>
+            </ul>
         </div>
 
+        <div class="container mb-3 mt-3 col-2 gridListDiv">
+            <button class=" btn-grid gridBtn"><img src="~/images/grid.png" alt="Grid View"></button>
+            <button class=" btn-list listBtn"><img src="~/images/list.png" alt="List View"></button>
+        </div>
 
-        <!--Mission Cards  -->
-    @ViewData["nomission"]
-
-        <div class="container grid-container">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
-
-                @foreach (var item in Model.Missions)
-                {
-
-                    <div class="col ">
-                        <div class="card h-100">
-
-                            <div class="cardHead">
-
-                                <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
-                                <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
-                                <div class="landing-page-bottom-right d-flex flex-column">
-
-                                    @*For Add To Favourite*@
-
-                                    <button class="mb-2 landing-page-btn-img">
-                                        <img src="~/images/heart.png" alt="">
-                                    </button>
-
-                                    @*For Recommendation to User*@
-
-                                    <button class="landing-page-btn-img" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
-                                        <img src="~/images/user.png" alt="">
-                                    </button>
-                                    <div class="modal" id="myModal">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Recommend to a Co-Worker</h4>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                </div>
-
-                                                <!-- Modal body -->
-                                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">Name</th>
-                                                                <th scope="col">Email</th>
-                                                                <th scope="col">Send An Invitation</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach (var c in ViewBag.User)
-                                                            {
-                                                                <tr>
-                                                                    <td>@c.FirstName @c.LastName</td>
-                                                                    <td>@c.Email</td>
-                                                                    <td>
-                                                                        <a asp-action="recommendEmail" asp-controller="Home" asp-route-sID="@c.UserId" asp-route-m="@ViewBag.mid">
-                                                                            <button class="btn btn-primary">Send</button>
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-
-                                                            }
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
+    </div>
+</div>
 
 
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                                </div>
+<!--Mission Cards  -->
+@ViewData["nomission"]
 
-                                            </div>
-                                        </div>
-                                    </div>
+<div class="container grid-container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="myItems">
 
+        @foreach (var item in Model.Missions)
+        {
+
+            <div class="col ">
+                <div class="card h-100">
+
+                    <div class="cardHead">
+
+                        <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
+                        <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
+                        <div class="landing-page-bottom-right d-flex flex-column">
+                            <button class="mb-2 landing-page-btn-img">
+                                <img src="~/images/heart.png" alt="">
+                            </button><button class="landing-page-btn-img">
+                                <img src="~/images/user.png"
+                                 alt="">
+                            </button>
+                        </div>
+                        <p class="shape">@item.Theme.Title</p>
+
+                    </div>
+
+                    <div class="cardBodyMain">
+                        <div class="card-body mt-10">
+                            <h4 class="card-title">@item.Title</h4>
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural lead-in to
+                                additional content. This content is a little bit longer.
+                            </p>
+
+                            <div class="cardBodyFooter">
+                                <p class="ngoName">@item.OrganizationName</p>
+                                <div class="rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/selected-star.png" alt="Rating">
+                                    <img src="~/images/star.png" alt="Rating">
+                                    <img src="~/images/star.png" alt="Rating">
                                 </div>
-                                <p class="shape">@item.Theme.Title</p>
+                            </div>
+                        </div>
+
+
+                        @if (item.MissionType == "time")
+                        {
+                            <div class="missionDurationDiv">
+                                <hr class="durationLine">
+                                <button class="missionDuration">From @item.StartDate.ToString().Split(" ")[0] until @item.EndDate.ToString().Split(" ")[0]</button>
+                                <hr class="durationLine">
+                            </div>
+
+                            <div class="missionDeadLine  d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                    <div class="d-flex flex-column ms-2">
+                                        <p class="d-inline mb-0 pt-2">10</p>
+                                        <p class="seat">Seats Left</p>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="~/images/deadline.png" height="33px" width="33px" alt="">
+                                    <div class="d-flex flex-column ms-2">
+                                        <p class="d-inline mb-0 pt-2">@item.StartDate.ToString().Split(" ")[0]</p>
+                                        <p class="seat">Deadline</p>
+                                    </div>
+                                </div>
 
                             </div>
 
-                            <div class="cardBodyMain">
-                                <div class="card-body mt-10">
-                                    <h4 class="card-title">@item.Title</h4>
-                                    <p class="card-text">
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </p>
+                        }
 
-                                    <div class="cardBodyFooter">
-                                        <p class="ngoName">@item.OrganizationName</p>
-                                        <div class="rating">
-                                            <img src="~/images/selected-star.png" alt="Rating">
-                                            <img src="~/images/selected-star.png" alt="Rating">
-                                            <img src="~/images/selected-star.png" alt="Rating">
-                                            <img src="~/images/star.png" alt="Rating">
-                                            <img src="~/images/star.png" alt="Rating">
-                                        </div>
+                        else
+                        {
+                            <div class="missionDurationDiv">
+                                <hr class="durationLine">
+                                <button class="missionDuration">It is a Goal base mission</button>
+                                <hr class="durationLine">
+                            </div>
+
+                            <div class="missionDeadLine  d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row align-items-center">
+                                    <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                    <div class="d-flex flex-column ms-2">
+                                        <p class="d-inline mb-0 pt-2">10</p>
+                                        <p class="seat">Seats Left</p>
                                     </div>
                                 </div>
 
-
-                                @if (item.MissionType == "time")
-                                {
-                                    <div class="missionDurationDiv">
-                                        <hr class="durationLine">
-                                        <button class="missionDuration">From @item.StartDate.ToString().Split(" ")[0] until @item.EndDate.ToString().Split(" ")[0]</button>
-                                        <hr class="durationLine">
+                                <div class="ms-auto me-2"><img src="~/images/achieved.png" class="mt-2"></div>
+                                <div class="ms-2 me-5" stye="width:100%">
+                                    <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar bg-warning" style="width: 25%">25%</div>
                                     </div>
-
-                                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                                            <div class="d-flex flex-column ms-2">
-                                                <p class="d-inline mb-0 pt-2">10</p>
-                                                <p class="seat">Seats Left</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="~/images/deadline.png" height="33px" width="33px" alt="">
-                                            <div class="d-flex flex-column ms-2">
-                                                <p class="d-inline mb-0 pt-2">@item.StartDate.ToString().Split(" ")[0]</p>
-                                                <p class="seat">Deadline</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                }
-
-                                else
-                                {
-                                    <div class="missionDurationDiv">
-                                        <hr class="durationLine">
-                                        <button class="missionDuration">It is a Goal base mission</button>
-                                        <hr class="durationLine">
-                                    </div>
-
-                                    <div class="missionDeadLine  d-flex flex-row justify-content-between">
-                                        <div class="d-flex flex-row align-items-center">
-                                            <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                                            <div class="d-flex flex-column ms-2">
-                                                <p class="d-inline mb-0 pt-2">10</p>
-                                                <p class="seat">Seats Left</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="ms-auto me-2"><img src="~/images/achieved.png" class="mt-2"></div>
-                                        <div class="ms-2 me-5" stye="width:100%">
-                                            <div class="progress mt-2" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar bg-warning" style="width: 25%">25%</div>
-                                            </div>
-                                            <fs-5>Deadline</fs-5>
-                                        </div>
-                                    </div>
-
-                                }
-
-                                <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                                    <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
+                                    <fs-5>Deadline</fs-5>
                                 </div>
                             </div>
 
+                        }
+
+                        <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
+                            <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
                         </div>
                     </div>
 
-                }
-
+                </div>
             </div>
-        </div>
+
+        }
+
+    </div>
+</div>
 
 
-        <!--For The Pagination-->
-        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+<!--For The Pagination-->
+<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
 
-            <ul class="pagination">
+    <ul class="pagination">
 
-                <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">
-                    <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
+        <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">
+            <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
 
-                @for (int i = 0; i < ViewBag.TotalPages; i++)
-                {
-                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@i">@((i + 1).ToString())</a>
-                    </li>
-                }
+        @for (int i = 0; i < ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@i">@((i + 1).ToString())</a>
+            </li>
+        }
 
-                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages - 1 ? "disabled" : "")">
-                    <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage + 1)" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+        <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages - 1 ? "disabled" : "")">
+            <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
 
-            </ul>
-        </nav>
-        </html>
-
-    }
+    </ul>
+</nav>
+</html>
 
 
-
-
-}
 

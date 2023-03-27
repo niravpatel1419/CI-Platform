@@ -10,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CI_PlatformContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddSession();
-builder.Services.AddScoped<ICi_Platform, Ci_Platform>();
+builder.Services.AddScoped<ICI_Platform, CI_Platform>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
+{
+    option.LoginPath = "/Access/Login";
+    option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

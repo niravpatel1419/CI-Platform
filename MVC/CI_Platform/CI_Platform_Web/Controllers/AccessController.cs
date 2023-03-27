@@ -5,50 +5,75 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using System.Net;
 using CI_Platform_Web.Repositories.Interface;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace CI_Platform_Web.Controllers
 {
     public class AccessController : Controller
     {
         private readonly CI_PlatformContext _cI_PlatformContext;
-        private readonly ICi_Platform _iCiPlat;
+        private readonly ICI_Platform _iCiPlat;
 
-        public AccessController(CI_PlatformContext cI_PlatformContext, ICi_Platform iCiPlat)
+        public AccessController(CI_PlatformContext cI_PlatformContext, ICI_Platform iCiPlat)
         {
             _cI_PlatformContext = cI_PlatformContext;
             _iCiPlat = iCiPlat;
         }
 
-        //For the User Login 
+        //For the User Login
 
         [AllowAnonymous]
         public IActionResult Login()
         {
+            ClaimsPrincipal claimUser = HttpContext.User;
+            if (claimUser.Identity.IsAuthenticated)
+            {
+
+                return RedirectToAction("home", "Home");
+            }
             return View();
         }
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(User userLogin)
+        public async Task<IActionResult> Login(User userLogin)
         {
-            if (ModelState.IsValid)
+            if (userLogin.Email == null || userLogin.Password == null)
             {
-                var user = _iCiPlat.Login(userLogin);
+                ViewData["ValidateMessage"] = "Email id or Password Can not be Empty";
+                return View();
 
-                if (user != null)
+            }
+            else
+            {
+                User u = new User();
+                u = _iCiPlat.Login(userLogin);
+
+                if (u != null)
                 {
-                    var username = user.FirstName;
-                    HttpContext.Session.SetString("userID", username);
-                    HttpContext.Session.SetInt32("Id", (int)user.UserId);
+                    List<Claim> claims = new List<Claim>()
+                     {
+                        new Claim(ClaimTypes.NameIdentifier, u.Email),
+                        new Claim(ClaimTypes.Name, u.FirstName),
+                        new Claim(ClaimTypes.Sid, u.UserId.ToString()),
+                        new Claim("Other Propert","Exaple role")
+                     };
+
+
+                    ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    AuthenticationProperties properties = new AuthenticationProperties()
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = true,
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), properties);
                     return RedirectToAction(nameof(HomeController.home), "Home");
                 }
-                else
-                {
-                    TempData["Message"] = "Email id or password is invalid";
-                    return View();
-                }
             }
+            ViewData["ValidateMessage"] = "Email id or Password does not match";
             return View();
         }
 

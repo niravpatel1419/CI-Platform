@@ -19,15 +19,16 @@ using CI_Platform_Web.Entities.ViewModel;
 
 namespace CI_Platform_Web.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly CI_PlatformContext _cI_PlatformContext;
-        private readonly ICi_Platform _iCiPlat;
+        private readonly ICI_Platform _iCiPlat;
 
         int i = 0, i1 = 0, j = 0, j1 = 0, k = 0, k1 = 0;
 
-        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext, ICi_Platform iCiPlat)
+        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext, ICI_Platform iCiPlat)
         {
             _logger = logger;
             _cI_PlatformContext = cI_PlatformContext;
@@ -35,20 +36,31 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-        //For Seesion Skip Login Redirect
+        //For Logout
 
-        public IActionResult Login()
+        public async Task<IActionResult> Logout()
         {
+            HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "Access");
         }
-
-
 
 
         //For LandingPage
 
         public IActionResult home(string searchQuery, long id, int? pageIndex, int Order, long[] ACountries, long[] ACities, long[] ATheme)
         {
+
+
+
+            var identity = User.Identity as ClaimsIdentity;
+            var userEmail = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+
+            ViewBag.FirstName = userName;
+            ViewBag.UserId = userId;
 
 
             //For shown the Country list in the Dropdown
@@ -89,7 +101,7 @@ namespace CI_Platform_Web.Controllers
             List<Mission> finalmission = _cI_PlatformContext.Missions.ToList();
             List<Mission> newmission = _cI_PlatformContext.Missions.ToList();
 
-    
+
 
             //For Country Filter
             if (ACountries != null && ACountries.Length > 0)
@@ -280,7 +292,7 @@ namespace CI_Platform_Web.Controllers
 
             var totalmission = missionlist.Missions;
             var Missions = totalmission.Skip(skip).Take(pageSize).ToList();
-                
+
             int totalMissions = totalmission.Count();
             missionlist.Missions = Missions;
 
@@ -296,106 +308,246 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-        /* public IActionResult home(string searchQuery, string sortOrder, int? pageIndex)
-        {
-
-            //For shown the Country list in the Dropdown
-                
-            List<Country> country = _cI_PlatformContext.Countries.ToList();
-            ViewBag.Country = country;
-
-            //For shown the City list in the Dropdown
-
-            List<City> city = _cI_PlatformContext.Cities.ToList();
-            ViewBag.City = city;
-
-            //For shown the Theme list in  the Dropdown
-
-            List<MissionTheme> missionThemes = _cI_PlatformContext.MissionThemes.ToList();
-            ViewBag.MissionThemes = missionThemes;
-
-            //For shown the Skills list in the Dropdown
-
-            List<Skill> skills = _cI_PlatformContext.Skills.ToList();
-            ViewBag.Skill = skills;
+        /* public IActionResult home(string searchQuery, long id, int? pageIndex, int Order, long[] ACountries, long[] ACities, long[] ATheme)
+         {
 
 
-            //For Shown the Mission Details On the Card
+             //For shown the Country list in the Dropdown
+             List<Country> Countries = _cI_PlatformContext.Countries.ToList();
+             ViewBag.Country = Countries;
 
-            List<Mission> mission = _cI_PlatformContext.Missions.ToList();
-            foreach (var i in mission)
-            {
-                var City = _cI_PlatformContext.Cities.FirstOrDefault(u => u.CityId == i.CityId);
-                var Theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(u => u.MissionThemeId == i.ThemeId);
-                var Country = _cI_PlatformContext.Countries.FirstOrDefault(u => u.CountryId == i.CountryId);
-            }
+             List<Country> countryElements = _cI_PlatformContext.Countries.ToList();
 
+             //For shown the City list in the Dropdown
+             List<City> Cities = _cI_PlatformContext.Cities.ToList();
+             ViewBag.City = Cities;
 
+             //For shown the Theme list in  the Dropdown
+             List<MissionTheme> Themes = _cI_PlatformContext.MissionThemes.ToList();
+             ViewBag.MissionThemes = Themes;
 
-            //for sort by filter
+             //For shown the Skills list in the Dropdown
+             List<Skill> skills = _cI_PlatformContext.Skills.ToList();
+             ViewBag.Skills = skills;
 
-            switch (sortOrder)
-            {
-                case "Newest":
-                    mission = (List<Mission>)mission.OrderByDescending(m => m.StartDate).ToList();
-                        break;
-
-                case "Oldest":
-                    mission = (List<Mission>)mission.OrderBy(m => m.StartDate).ToList();
-                    break;
-
-                case "Lowest available seats":
-                    mission = (List<Mission>)mission.OrderBy(m => m.Availability).ToList();
-                    break;
-
-                case "Highest available seats":
-                    mission = (List<Mission>)mission.OrderByDescending(m => m.Availability).ToList();
-                    break;
-
-                case "My favourites":
-                    mission = (List<Mission>)mission.OrderBy(m => m.FavouriteMissions).ToList();
-                    break;
-
-                case "Registration deadline":
-                    mission = (List<Mission>)mission.OrderBy(m => m.EndDate).ToList();
-                    break;
-
-                default:
-                    mission = (List<Mission>)mission.OrderByDescending(m => m.StartDate).ToList();
-                    break;
-            }
+             List<GoalMission> goalMission = _cI_PlatformContext.GoalMissions.ToList();
+             ViewBag.goalMission = goalMission;
 
 
+             //For Shown the Mission Details On the Card
 
-            //for search the mission
+             List<Mission> mission = _cI_PlatformContext.Missions.ToList();
+             List<Mission> finalmission = _cI_PlatformContext.Missions.ToList();
+             List<Mission> newmission = _cI_PlatformContext.Missions.ToList();
 
-            if (searchQuery != null)
-            {
-                mission = _cI_PlatformContext.Missions.Where(m => m.Title.Contains(searchQuery)).ToList();
-                ViewBag.searchQuery = searchQuery;
-                if (mission.Count() == 0)
-                {
-                    return RedirectToAction("noMissionFound");
-                }
-            }
+             foreach (var item in mission)
+             {
+                 var City = _cI_PlatformContext.Cities.FirstOrDefault(u => u.CityId == item.CityId);
+                 var Theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(u => u.MissionThemeId == item.ThemeId);
+
+             }
+
+             mission = _cI_PlatformContext.Missions.ToList();
 
 
-            //For the Pagination
+             //For Country Filter
+             if (ACountries != null && ACountries.Length > 0)
+             {
 
-            int pageSize = 6;
-            int skip = (pageIndex ?? 0) * pageSize;
-            var Missions = mission.Skip(skip).Take(pageSize).ToList();
+                 foreach (var c1 in ACountries)
+                 {
+                     //mission = mission.Where(m => m.CountryId == country).ToList();
+                     if (i == 0)
+                     {
+                         mission = mission.Where(m => m.CountryId == c1 + 500).ToList();
+                         i++;
+                     }
 
-    
-            int totalMissions = mission.Count();
-            ViewBag.TotalMission = totalMissions;
+                     finalmission = newmission.Where(m => m.CountryId == c1).ToList();
 
-            ViewBag.TotalPages = (int)Math.Ceiling(totalMissions / (double)pageSize);
-            ViewBag.CurrentPage = pageIndex ?? 0;
+                     mission.AddRange(finalmission);
+                     if (mission.Count() == 0)
+                     {
+                         return RedirectToAction("noMissionFound", "Home");
+                     }
+                     ViewBag.countryId = c1;
+                     if (ViewBag.countryId != null)
+                     {
+                         var countryElement = _cI_PlatformContext.Countries.Where(m => m.CountryId == c1).ToList();
+                         if (i1 == 0)
+                         {
+                             countryElements = _cI_PlatformContext.Countries.Where(m => m.CountryId == c1 + 50000).ToList();
+                             i1++;
+                         }
+                         countryElements.AddRange(countryElement);
+                         //var c1 = _CiPlatformContext.Countries.FirstOrDefault(m => m.CountryId == country);
+                         //ViewBag.country = c1.Name;
+                     }
+                 }
+                 ViewBag.countries = countryElements;
+                 //Countries = _CiPlatformContext.Countries.ToList();
 
-            return View(Missions);
 
-        }*/
+             }
+
+             //For City filter
+             if (ACities != null && ACities.Length > 0)
+             {
+                 foreach (var city in ACities)
+                 {
+                     //mission = mission.Where(m => m.CityId == city).ToList();
+
+                     if (j == 0)
+                     {
+                         mission = mission.Where(m => m.CityId == city + 500).ToList();
+                         j++;
+                     }
+
+                     finalmission = newmission.Where(m => m.CityId == city).ToList();
+
+                     mission.AddRange(finalmission);
+                     if (mission.Count() == 0)
+                     {
+                         return RedirectToAction("noMissionFound", "Home");
+                     }
+                     ViewBag.cities = city;
+                     if (ViewBag.city != null)
+                     {
+                         var city1 = _cI_PlatformContext.Cities.Where(m => m.CityId == city).ToList();
+                         if (j1 == 0)
+                         {
+                             Cities = _cI_PlatformContext.Cities.Where(m => m.CityId == city + 50000).ToList();
+                             j1++;
+                         }
+                         Cities.AddRange(city1);
+                         //var c1 = _CiPlatformContext.Cities.FirstOrDefault(m => m.CityId == city);
+                         //ViewBag.city = c1.Name;
+                     }
+                 }
+                 ViewBag.cities = Cities;
+                 Cities = _cI_PlatformContext.Cities.ToList();
+
+
+             }
+
+             //For theme filter
+             if (ATheme != null && ATheme.Length > 0)
+             {
+                 foreach (var theme in ATheme)
+                 {
+
+                     if (k == 0)
+                     {
+                         mission = mission.Where(m => m.ThemeId == theme + 500).ToList();
+                         k++;
+                     }
+
+                     finalmission = newmission.Where(m => m.ThemeId == theme).ToList();
+
+                     mission.AddRange(finalmission);
+
+                     if (mission.Count() == 0)
+                     {
+                         return RedirectToAction("noMissionFound", "Home");
+                     }
+                     ViewBag.theme = theme;
+                     if (ViewBag.theme != null)
+                     {
+                         var theme1 = _cI_PlatformContext.MissionThemes.Where(m => m.MissionThemeId == theme).ToList();
+                         if (k1 == 0)
+                         {
+                             Themes = _cI_PlatformContext.MissionThemes.Where(m => m.MissionThemeId == theme + 50000).ToList();
+                             k1++;
+                         }
+                         Themes.AddRange(theme1);
+                         //var c1 = _CiPlatformContext.MissionThemes.FirstOrDefault(m => m.MissionThemeId == theme);
+                         //ViewBag.theme = c1.Title;
+                     }
+                 }
+                 ViewBag.theme = Themes;
+                 Themes = _cI_PlatformContext.MissionThemes.ToList();
+
+             }
+
+
+
+             //For Sort By Feature
+
+             switch (Order)
+             {
+                 case 1:
+                     mission = newmission.OrderByDescending(m => m.StartDate).ToList();
+                     ViewBag.sortby = "Newest";
+                     break;
+                 case 2:
+                     mission = newmission.OrderBy(m => m.StartDate).ToList();
+                     ViewBag.sortby = "Oldest";
+                     break;
+                 case 3:
+                     mission = mission.OrderBy(m => int.Parse(m.Availability)).ToList();
+                     break;
+                 case 4:
+                     mission = mission.OrderBy(m => m.EndDate).ToList();
+                     break;
+             }
+             //    case "Highest seats":
+             //        mission = mission.OrderByDescending(m => int.Parse(m.Availability)).ToList();
+             //        break;
+             //    case "Registration deadline":
+             //        mission = mission.OrderBy(m => m.EndDate).ToList();
+             //        break;
+
+             //}
+
+
+             // Get the current URL
+             UriBuilder uriBuilder = new UriBuilder(Request.Scheme, Request.Host.Host);
+             if (Request.Host.Port.HasValue)
+             {
+                 uriBuilder.Port = Request.Host.Port.Value;
+             }
+             uriBuilder.Path = Request.Path;
+
+             // Remove the query parameter you want to exclude
+             var query = HttpUtility.ParseQueryString(Request.QueryString.ToString());
+             query.Remove("pageIndex");
+             uriBuilder.Query = query.ToString();
+
+
+
+             ViewBag.currentUrl = uriBuilder.ToString();
+
+
+             //for search the mission
+
+             if (searchQuery != null)
+             {
+                 mission = _cI_PlatformContext.Missions.Where(m => m.Title.Contains(searchQuery)).ToList();
+                 ViewBag.searchQuery = searchQuery;
+                 if (mission.Count() == 0)
+                 {
+                     return RedirectToAction("noMissionFound", "Home");
+                 }
+             }
+
+             //For the Pagination
+
+             int pageSize = 6;
+             int skip = (pageIndex ?? 0) * pageSize;
+             var Missions = mission.Skip(skip).Take(pageSize).ToList();
+
+
+             int totalMissions = mission.Count();
+             ViewBag.TotalMission = totalMissions;
+
+             ViewBag.TotalPages = (int)Math.Ceiling(totalMissions / (double)pageSize);
+             ViewBag.CurrentPage = pageIndex ?? 0;
+
+             return View(Missions);
+
+             //return View(Missions);
+
+         }*/
 
 
 
@@ -411,30 +563,28 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult volunteeringMission(int missID)
         {
+            VolunteeringMissionPageViewModel vm = _iCiPlat.VolunteeringPageLoad(missID);
 
+            //USer Details From Claim Authentication
+            var identity = User.Identity as ClaimsIdentity;
+            var userEmail = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+            ViewBag.UserId = userId;
+            ViewBag.FirstName = userName;
 
-            //For mission info
-
-            var mission = _cI_PlatformContext.Missions.FirstOrDefault(i => i.MissionId == missID);
-            ViewBag.mission = mission;
-
-            if (mission.MissionType == "goal")
-            {
-                ViewBag.goaltext = _cI_PlatformContext.GoalMissions.Where(s => s.MissionId == missID).ToList()[0].GoalObjectiveText.ToString();
-            }
-            else
-            {
-                ViewBag.goaltext = "It is a time base mission";
-            }
+            //To store the mission id
+            ViewBag.mid = missID;
 
 
             //For Add to Favourite Mission
-            ViewBag.mid = missID;
-            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
-            if (f.Count == 0)
+
+            if (!_iCiPlat.IsFav(userId, missID))
             {
-                ViewBag.favmission = "Add";
+                ViewBag.favmission = "Set";
             }
+
 
             //For Recommend to a Co-Worker
             List<User> user = _cI_PlatformContext.Users.ToList();
@@ -442,39 +592,25 @@ namespace CI_Platform_Web.Controllers
 
 
             //For Mission Rating
-            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == (long)HttpContext.Session.GetInt32("Id") && x.MissionId == missID).ToList();
-            if (rr.Count != 0)
+
+            int rateCount = _iCiPlat.RatedValue(userId, missID);
+            if (rateCount != 0)
             {
-                ViewBag.rate = rr[0].Rating;
+                ViewBag.rate = rateCount;
             }
 
-            //For Mission City Info
-            City city = _cI_PlatformContext.Cities.FirstOrDefault(s => s.CityId == mission.CityId);
-            ViewBag.citylist = city;
-
-            //For Mission Theme Info
-            MissionTheme theme = _cI_PlatformContext.MissionThemes.FirstOrDefault(s => s.MissionThemeId == mission.ThemeId);
-            ViewBag.themelist = theme;
-
-            //For Mission Organization Info
-            var orgName = _cI_PlatformContext.Missions.FirstOrDefault(i => i.OrganizationName == mission.OrganizationName);
-            ViewBag.orgname = orgName;
 
             //For Comment
-            IEnumerable<Comment> Comment = _cI_PlatformContext.Comments.Where(x => x.MissionId == missID).ToList();
-            ViewBag.comment = Comment;
-            if (Comment.Count() == 0)
+            if (vm.comments.Count() == 0)
             {
                 ViewData["NoComment"] = "NO ONE COMMENTED YET BE FIRST ONE TO COMMENT";
             }
 
-            //For Shown the Average Rating of the Mission
-            List<MissionRating> temp = _cI_PlatformContext.MissionRatings.FromSqlInterpolated($"Select * from dbo.mission_rating where mission_id={missID}").ToList();
-            ViewBag.totalRating = temp.Count;
 
-            if (temp.Count != 0)
+            //For Shown the Average Rating of the Mission
+            int avgRate = _iCiPlat.GetRating(missID);
+            if (avgRate != 0)
             {
-                var avgRate = (int)temp.Average(x => x.Rating);
                 ViewBag.Ratingcount = avgRate;
             }
 
@@ -492,69 +628,76 @@ namespace CI_Platform_Web.Controllers
                 ViewData["NoRelatedMission"] = "No Related Mission Available";
             }
 
-            return View();
+            return View(vm);
 
         }
 
 
 
         //For Add to Favourite Mission
-
         public int addToFav(int id, int mid)
         {
 
-            List<FavouriteMission> r = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == id && x.MissionId == mid).ToList();
+            int fav1 = _iCiPlat.AddRemoveFav(id, mid);
 
-            if (r.Count == 0)
-            {
-                FavouriteMission f = new FavouriteMission();
-                f.MissionId = mid;
-                f.UserId = id;
-                _cI_PlatformContext.FavouriteMissions.Add(f);
-                _cI_PlatformContext.SaveChanges();
-
-                return 1;
-            }
-
-            else
-            {
-                FavouriteMission fav = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == id && x.MissionId == mid).FirstOrDefault();
-                _cI_PlatformContext.Remove(fav);
-                _cI_PlatformContext.SaveChanges();
-                return 0;
-            }
+            return fav1;
 
         }
 
 
-
         //For User Rating in Volunteering Mission Page
-
         public int Ratee(int uid, int mid, int rating)
         {
-            List<MissionRating> p = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == uid && x.MissionId == mid).ToList();
-            if (p.Count == 0)
+            MissionRating r = new MissionRating();
+            r.Rating = rating;
+            r.UserId = uid;
+            r.MissionId = mid;
+            bool temp = _iCiPlat.AddRating(r);
+            if (temp)
             {
-                MissionRating r = new MissionRating();
-                r.Rating = rating;
-                r.MissionId = mid;
-                r.UserId = uid;
-                _cI_PlatformContext.MissionRatings.Add(r);
-                _cI_PlatformContext.SaveChanges();
-
                 return 1;
+            }
+            else { return 3; }
+
+        }
+
+
+        //For Apply to Mission
+        public bool Apply(int missionId)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            long userId = long.Parse(identity?.FindFirst(ClaimTypes.Sid)?.Value);
+            return _iCiPlat.ApplyForMission(userId, missionId);
+
+        }
+
+
+        //For the User Comment
+
+        [HttpPost]
+        public IActionResult AddComment()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+
+            string s = Request.Form["comment"].ToString();
+            long l = long.Parse(Request.Form["mid"].ToString());
+
+            if (s == "")
+            {
+                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
             }
             else
             {
-                /*  MissionRating r = new MissionRating();
-                  r.MissionRatingId = p[0].MissionRatingId;*/
-                p[0].Rating = rating;
-                /* r.MissionId = mid;
-                 r.UserId = uid;*/
-                _cI_PlatformContext.MissionRatings.Update(p[0]);
-                _cI_PlatformContext.SaveChanges();
+                Comment comment = new Comment();
+                comment.UserId = userId;
 
-                return 3;
+                comment.Commenttext = s;
+                comment.MissionId = l;
+                bool t = _iCiPlat.AddComment(comment);
+
+                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
             }
 
         }
@@ -593,34 +736,6 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-        //For the User Comment
-
-        [HttpPost]
-        public IActionResult AddComment()
-        {
-            string s = Request.Form["comment"].ToString();
-            long l = long.Parse(Request.Form["mid"].ToString());
-
-            if (s == "")
-            {
-                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
-            }
-            else
-            {
-                Comment comment = new Comment();
-                comment.UserId = (int)HttpContext.Session.GetInt32("Id");
-
-                comment.Commenttext = s;
-                comment.MissionId = l;
-                _cI_PlatformContext.Comments.Add(comment);
-                _cI_PlatformContext.SaveChanges();
-                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
-            }
-
-        }
-
-
-
         public IActionResult storyListingPage()
         {
             return View();
@@ -632,7 +747,7 @@ namespace CI_Platform_Web.Controllers
         {
             return View();
         }
-            
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
