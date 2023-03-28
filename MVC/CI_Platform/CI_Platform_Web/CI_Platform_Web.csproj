@@ -22,4 +22,8 @@
     <ProjectReference Include="..\CI_Platform_Web.Repositories\CI_Platform_Web.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Story\" />
+  </ItemGroup>
+
 </Project>

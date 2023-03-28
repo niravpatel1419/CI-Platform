@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.EntityFrameworkCore;
 using CI_Platform_Web.Repositories.Interface;
 using CI_Platform_Web.Entities.ViewModel;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -25,14 +26,17 @@ namespace CI_Platform_Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly CI_PlatformContext _cI_PlatformContext;
         private readonly ICI_Platform _iCiPlat;
+        private readonly Microsoft.AspNetCore.Hosting.IHostingEnvironment _hostingEnvironment;
+
 
         int i = 0, i1 = 0, j = 0, j1 = 0, k = 0, k1 = 0;
 
-        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext, ICI_Platform iCiPlat)
+        public HomeController(ILogger<HomeController> logger, CI_PlatformContext cI_PlatformContext, ICI_Platform iCiPlat, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
         {
             _logger = logger;
             _cI_PlatformContext = cI_PlatformContext;
             _iCiPlat = iCiPlat;
+            _hostingEnvironment = hostingEnvironment;
         }
 
 
@@ -766,12 +770,94 @@ namespace CI_Platform_Web.Controllers
 
 
 
-
-        //Story Listing Page
+        //For StoryListing Page
         public IActionResult storyListingPage()
         {
-            return View();
+
+            //User Details From Claim Authentication
+            var identity = User.Identity as ClaimsIdentity;
+            var userEmail = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+            ViewBag.UserId = userId;
+            ViewBag.FirstName = userName;
+
+            //IEnumerable<StoryListViewModel> c;
+            // c = _iCiPlat.FetchStoryDetails();
+            //return View(c);
+
+            var cii = _iCiPlat.GetStoryListData();
+            return View(cii);
         }
+
+
+        //For Share Your Story Page
+        public IActionResult shareStory()
+        {
+            //User Details From Claim Authentication
+            var identity = User.Identity as ClaimsIdentity;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            ViewBag.UserId = userId;
+            ViewBag.FirstName = userName;
+
+
+            ShareStoryViewModel v = _iCiPlat.GetSavedStory(userId);
+            v.missionlist = _iCiPlat.DisplayMissions();
+            return View(v);
+
+
+            // _iciplat.SaveStrory(userId,missionId,title,stext,date);
+
+            //return RedirectToAction("Storylist","Home");  
+
+        }
+
+
+        [HttpPost]
+        public IActionResult shareStory(ShareStoryViewModel v, string button)
+        {
+            string d = Request.Form["editor1"].ToString();
+            var identity = User.Identity as ClaimsIdentity;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            int missionId = v.missionId;
+            string t = v.stories.Title;
+            string url = v.media.Path;
+
+            //string d = v.stories.Description;
+            string date = v.stories.PublishedAt.ToString();
+            bool b = _iCiPlat.SaveStrory(userId, missionId, t, d, date, url, button);
+
+
+            
+
+            if (v.missionId != null)
+            {
+                //_iciplat.AddShareStoryData(vmmission, Convert.ToInt32(uid));
+                // _iciplat.SaveStrory(userId, missionId, t, d, date, url, button);
+                foreach (var i in v.attachment)
+                {
+                    if (i != null)
+                    {
+                        string UploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "images//Story");
+                        string filename = Guid.NewGuid().ToString() + "_" + i.FileName;
+                        string filepath = Path.Combine(UploadsFolder, filename);
+
+                        using (var fileStream = new FileStream(filepath, FileMode.Create))
+                        {
+                            i.CopyTo(fileStream);
+                        }
+                        _iCiPlat.AddStoryMedia(Convert.ToString(i.ContentType.Split("/")[1]), Convert.ToString(filename), missionId, userId);
+                    }
+                }
+            }
+
+
+
+            return RedirectToAction("storyListingPage", "Home");
+        }
+
 
 
         //For the Privacy Page

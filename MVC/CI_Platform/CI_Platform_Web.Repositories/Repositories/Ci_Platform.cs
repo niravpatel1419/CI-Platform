@@ -288,36 +288,158 @@ namespace CI_Platform_Web.Repositories.Repositories
             return i;
         }
 
-        //For Shown The Story From DB
-        public StoryListViewModel FetchStoryDetails()
+        //For Shown story from the database
+        public IEnumerable<StoryListViewModel> FetchStoryDetails()
         {
             StoryListViewModel v = new StoryListViewModel();
-
-            v.users = _cI_PlatformContext.Users.FromSqlInterpolated($"select u.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
-            v.storyLists = _cI_PlatformContext.Stories.FromSqlInterpolated($"select s.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
+            List<StoryListViewModel> vm = new List<StoryListViewModel>();
+            // v.users = _context.Users.FromSql($"select u.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
+            //  v.storyLists= _context.Stories.FromSql($"select s.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
+            // v.StoryMedias= _context.StoryMedia.FromSql($"select Sm.* from story S left join story_MEDIA SM ON S.STORY_ID=SM.STORY_ID").ToList();
+            v.users = _cI_PlatformContext.Users.ToList();
+            v.storyLists = _cI_PlatformContext.Stories.ToList();
             v.StoryMedias = _cI_PlatformContext.StoryMedia.ToList();
-            return v;
+            //var id = from e1 in v.users
+            //         join e2 in v.storyLists on e1.UserId equals e2.UserId
+            //         join
+            //         e3 in v.StoryMedias on e2.StoryId equals e3.StoryId
+            //         select new StoryListViewModel
+            //         {
+            //             user = e1,
+            //             storyList = e2,
+            //             StoryMedia = e3,
+            //         };
+            //var iid = from e1 in v.storyLists
+            //          join e2 in v.StoryMedias  on e1.StoryId equals e2.StoryId into eg
+            //          from e2 in eg.DefaultIfEmpty()
+            //          join e3 in v.users on e1.UserId equals e3.UserId
+            //          select new StoryListViewModel
+            //          {
+            //              StoryMedia= e2,
+            //              storyList=e1,
+            //              user=e3
+            //          };
+            List<Story> s = _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).ToList();
+            return vm;
         }
 
-        //For Save The Story In DB
-        public bool SaveStrory(long userId, int missionId, string title, string stext, string date)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public IEnumerable<Story> GetStoryListData()
+        {
+            //return _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).Where(x => x.Status != "DRAFT").ToList();
+            return _cI_PlatformContext.Stories.Include(x => x.User).Where(x => x.Status != "DRAFT").ToList();
+        }
+
+
+        //For save the story details
+        public bool SaveStrory(long userId, int missionId, string title, string stext, string date, string url, string status)
         {
 
             if (userId == 0)
             {
                 return false;
             }
-            Story s = new Story();
-            s.UserId = userId;
-            s.Title = title;
-            s.MissionId = missionId;
-            s.PublishedAt = DateTime.Parse(date);
-            s.Description = stext;
-            _cI_PlatformContext.Add(s);
-            _cI_PlatformContext.SaveChanges();
+            Story s = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT").FirstOrDefault();
+            if (s != null)
+            {
+                s.UserId = userId;
+                s.Title = title;
+                s.MissionId = missionId;
+                s.PublishedAt = DateTime.Parse(date);
+                s.Description = stext;
+                s.Status = status;
+                _cI_PlatformContext.Update(s);
+                _cI_PlatformContext.SaveChanges();
+            }
+            else
+            {
+                Story s1 = new Story();
+                s1.UserId = userId;
+                s1.Title = title;
+                s1.MissionId = missionId;
+                s1.PublishedAt = DateTime.Parse(date);
+                s1.Description = stext;
+                s1.Status = status;
+
+                _cI_PlatformContext.Add(s1);
+                _cI_PlatformContext.SaveChanges();
+
+                //Story s1 = new Story();
+
+
+            }
+
+
+
+
+            StoryMedium m = new StoryMedium();
+            /* m.StoryId=_context.Stories.Where(x=>x.UserId==userId && x.MissionId==missionId && x.PublishedAt==s.PublishedAt).FirstOrDefault().StoryId;
+             m.Path= url;
+
+             _context.Add(m);
+             _context.SaveChanges();*/
             return true;
 
+        }
+
+
+        //For Add the media in story
+        public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid)
+        {
+            var storyId = _cI_PlatformContext.Stories.OrderByDescending(e => e.CreatedAt).Where(e => (e.MissionId == mid) && (e.UserId == uid)).FirstOrDefault();
+            var storymedia = _cI_PlatformContext.StoryMedia.Where(e => e.StoryId == storyId.StoryId).FirstOrDefault();
+
+            StoryMedium sm = new StoryMedium();
+            sm.StoryId = storyId.StoryId;
+            sm.Type = mediaType;
+            sm.Path = "/images/Story/" + mediaPath;
+            _cI_PlatformContext.Add(sm);
+            _cI_PlatformContext.SaveChanges();
+
+        }
+
+
+        //For Save the story details entered by the user
+        public ShareStoryViewModel GetSavedStory(long userId)
+        {
+            ShareStoryViewModel v = new ShareStoryViewModel();
+            var i = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT").ToList();
+            if (i.Count() > 0)
+            {
+                v.stories = i.FirstOrDefault();
+                v.media = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId).FirstOrDefault();
+                /*   if (v.media == null)
+                   {
+                       v.missionId = -1;
+                   }
+                   */
+            }
+            return v;
         }
     }
 
 }
+    

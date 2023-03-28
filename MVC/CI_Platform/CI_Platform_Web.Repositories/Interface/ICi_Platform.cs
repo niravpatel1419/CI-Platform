@@ -26,8 +26,11 @@ namespace CI_Platform_Web.Repositories.Interface
         public bool ApplyForMission(long userId, int missionId);
         public bool AddComment(Comment c);
         public List<User> GetRecentVol(int missionId);
-        public bool SaveStrory(long userId, int missionId, string title, string stext, string date);
-        public StoryListViewModel FetchStoryDetails();
+        public bool SaveStrory(long userId, int missionId, string title, string stext, string date, string url, string status);
+        public IEnumerable<StoryListViewModel> FetchStoryDetails();
+        public IEnumerable<Story> GetStoryListData();
+        public ShareStoryViewModel GetSavedStory(long UserId);
+        public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
 
     }
 }

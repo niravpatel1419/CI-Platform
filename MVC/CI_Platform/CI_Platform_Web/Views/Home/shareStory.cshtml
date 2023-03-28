@@ -1,0 +1,205 @@
+﻿
+@using CI_Platform_Web.Entities.ViewModel;
+
+
+@{
+    Layout = "_LayoutSingleHeader";
+}
+@model ShareStoryViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="~/css/shareStory.css" class="rel" />
+
+
+    <title>Document</title>
+</head>
+<body>
+   
+    <form asp-action="ShareStory" asp-controller="Home" method="post" enctype="multipart/form-data">
+        <div class="container sharestorymaincont">
+            <h3>Share your story</h3>
+            <div class="row">
+                <div class="col-lg-4">
+                    <label>Select Mission</label>
+                    <select asp-for="missionId" class="selectmission" id="miiid">
+                        <option>Select mission</option>
+                        @foreach (var i in Model.missionlist.Missions)
+                        {
+                            if (Model.stories != null && @i.MissionId == Model.stories.MissionId)
+                            {
+                                <option value="@i.MissionId" selected> @i.Title</option>
+                            }
+                            else
+                            {
+                                <option value="@i.MissionId"> @i.Title</option>
+
+                            }
+
+
+                        }
+                    </select>
+
+                </div>
+                <div class="col-lg-4">
+                    <label for="">Enter Title</label>
+                    @if (Model.stories != null)
+                    {
+                        <input asp-for="stories.Title" type="text" class="titletext" id="texttitle" value=@Model.stories.Title>
+
+                    }
+                    else
+                    {
+                        <input asp-for="stories.Title" type="text" class="titletext" id="texttitle">
+
+                    }
+
+                </div>
+                <div class="col-lg-4">
+                    <label for="">Date </label>
+                    @if (Model.stories != null)
+                    {
+                        <input asp-for="stories.PublishedAt" type="date" class="titletext" id="date" value=@Model.stories.PublishedAt.Value.ToString("yyyy/MM/dd")>
+
+                    }
+                    else
+                    {
+                        <input asp-for="stories.PublishedAt" type="date" class="titletext" id="date">
+
+                    }
+                </div>
+                <div class="col-12 MyStory">
+                    <span class="">MyStory</span>
+                    <textarea asp-for="stories.Description" name="editor1" id="ckeditorcontent">{@Model.stories.Description}</textarea>
+                    <script>
+                        CKEDITOR.replace('editor1');
+                        CKEDITOR.config.width = '100%';
+                        CKEDITOR.config.height = '30%';
+                    </script>
+                </div>
+
+
+                <div class="enterurl col-12 mt-2">
+                    <label for="">Enter VIdeo Url</label>
+                    @if (@Model.media == null)
+                    {
+
+                        <input asp-for="media.Path" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url">
+
+                    }
+                    else
+                    {
+
+                        <input asp-for="media.Path" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url" value="@Model.media.Path">
+
+                    }
+                </div>
+
+
+                <div class=" col-12 mt-2">
+                    <label for="">Upload your photos</label>
+                </div>
+
+
+
+            </div>
+            <div class="row mt-2">
+                <!-- HTML FOR UPLOAD IMAGE -->
+                <!-- CHintu -->
+                <div class="input-div position-relative text-center font-weight-bold text-muted d-block p-3 mt-2"
+                     style="height: 100px; border: 2px dashed #ccc">
+                    <img src="~/images/drag-and-drop.png" />
+                    <input asp-for="attachment" id="uploadFile"
+                           type="file"
+                           class="file position-absolute top-0 start-0 opacity-0 file-input"
+                           multiple
+                           accept="image/jpeg,image/png,image/jpg"
+                           style="height: 100%; width: 100%" />
+                </div>
+
+                <div class="col-12 pt-2">
+                    <output id="preview"
+                            class="d-flex flex-wrap overflow-scroll"
+                            style="max-height: 150px"></output>
+                </div>
+                <div class="mydiv">
+
+                    <output id="outa"></output>
+
+                </div>
+                <!-- HTML FOR UPLOAD IMAGE -->
+            </div>
+
+            <div class="row buttons mt-2">
+                <div class=" col-6 cancel"><button class="cancelbtn">Cancel</button></div>
+                <div class=" col-6 savediv">
+                    <button name="button" type="submit" class="cancelbtn" value="DRAFT">Save</button>
+                    <button name="button" type="submit" class="cancelbtn" value="PENDING">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+
+
+
+
+    <script>
+        const input = document.getElementById("image-upload");
+
+        const inputDiv = document.querySelector(".input-div");
+        const uploadFile = document.querySelector("#uploadFile");
+        const preview = document.querySelector("#preview");
+        let imagesArray = [];
+        var img_src = [];
+
+        uploadFile.addEventListener("change", () => {
+            const files = uploadFile.files;
+            for (let i = 0; i < files.length; i++) {
+                imagesArray.push(files[i]);
+            }
+            console.log(imagesArray);
+            displayImages();
+        });
+        inputDiv.addEventListener("drop", () => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            for (let i = 0; i < files.length; i++) {
+                if (!files[i].type.match("image")) continue;
+
+                if (imagesArray.every((image) => image.name !== files[i].name))
+                    imagesArray.push(files[i]);
+            }
+            displayImages();
+        });
+        function displayImages() {
+            var images = "";
+            imagesArray.forEach((image, index) => {
+                images += `<img src="${URL.createObjectURL(image)}" id="img_src" alt="image" style="height:50px;width:90px"/><span onclick="deleteImage(${index})">X</i></span>`;
+            });
+            //document.getElementById('outa').insertBefore(span, null);
+            document.getElementById("outa").innerHTML = images;
+            //preview.innerHTML = images;
+        }
+
+        function deleteImage(index) {
+            imagesArray.splice(index, 1);
+            displayImages();
+            console.log(imagesArray);
+        }
+    </script>
+
+
+
+
+    <!-- HTML FOR UPOAD IMAGE -->
+</body>
+</html>

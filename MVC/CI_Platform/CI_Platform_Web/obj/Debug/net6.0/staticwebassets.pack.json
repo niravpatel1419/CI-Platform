@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\css\\resetPassword.css"
     },
     {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\shareStory.css",
+      "PackagePath": "staticwebassets\\css\\shareStory.css"
+    },
+    {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -155,6 +159,22 @@
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Seats-left.png",
       "PackagePath": "staticwebassets\\images\\Seats-left.png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\2c5e6215-144f-429e-91ad-bbd15e795387_Screenshot (29).png",
+      "PackagePath": "staticwebassets\\images\\Story\\2c5e6215-144f-429e-91ad-bbd15e795387_Screenshot (29).png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\ba51820b-5f68-4b51-9d48-58a1aa3dffa4_Screenshot (31).png",
+      "PackagePath": "staticwebassets\\images\\Story\\ba51820b-5f68-4b51-9d48-58a1aa3dffa4_Screenshot (31).png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\c072fa7d-f5c4-41f6-af30-9ee736279b93_Screenshot (11).png",
+      "PackagePath": "staticwebassets\\images\\Story\\c072fa7d-f5c4-41f6-af30-9ee736279b93_Screenshot (11).png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\e6cc9a9c-573c-41cd-832a-0d03404dec31_Screenshot (11).png",
+      "PackagePath": "staticwebassets\\images\\Story\\e6cc9a9c-573c-41cd-832a-0d03404dec31_Screenshot (11).png"
     },
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Volunteering-Rank.png",
