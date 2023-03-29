@@ -60,10 +60,53 @@ function myRate(a, b, c) {
 
                 }
 
-
-
             }
         }
     });
     location.reload();
+}
+
+
+//For Apply to Mission
+function apply(missionId) {
+    console.log(missionId);
+    $.ajax({
+        url: 'Apply?missionId=' + missionId,
+        success: function (data) {
+            if (data) {
+                $('#applybtn').text("Applied");
+                $('#applybtn').css("color", "white");
+                $('#applybtn').css("background", "green");
+                $('#applybtn').css("border-color", "green");
+                $('#applybtn').prop('disabled', true);
+                console.log("success");
+            }
+        }
+    });
+}
+
+
+//For Add Comment
+function addcomment(mission) {
+    console.log("inside add comment");
+    var a = $('#commentArea').val();
+    console.log(a);
+    console.log(mission);
+
+    $.ajax({
+        type: 'POST',
+        url: '/Home/AddComment',
+        data: {
+            missionId: mission,
+            text: a
+        },
+
+        success: function (data) {
+            console.log("inside add comment");
+            console.log(data);
+            var a = $($.parseHTML(data)).find("#shcomment").html();
+            $('.commentDiv').html(a);
+            $('#commentArea').val('');
+        }
+    });
 }

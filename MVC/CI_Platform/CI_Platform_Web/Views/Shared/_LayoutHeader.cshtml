@@ -161,7 +161,7 @@
                     <!-- Top-Header Shown On PC/Laptop -->
 
 
-                    <a class="topHeader" asp-controller="Home" asp-action="storyListingPage" >Stories</a>
+                    <a class="topHeader" asp-controller="Home" asp-action="storyListingPage">Stories</a>
 
                     <div class="dropdown topHeader">
                         <button class="btn btn-secondary dropdown-toggle btnCustom" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -237,7 +237,7 @@
                             Country
                         </button>
 
-                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:scroll;">
+                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:scroll;" id="countryList" onchange="anyChange()">
 
                             <!-- for country data in drop down -->
                             @if (ViewBag.Country != null)
@@ -246,10 +246,10 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlCountry()" value="@category.Name" id=@category.CountryId name="country" />
-                                                <label class="form-check-label" for="Checkme1">@category.Name</label>
-                                            </div>
+
+                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.Name" id=@category.Name name="country" />
+                                            <label class="form-check-label" for="Checkme1">@category.Name</label>
+
                                         </a>
                                     </li>
                                 }
@@ -264,7 +264,7 @@
                             City
                         </button>
 
-                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:auto; overflow-x:hidden">
+                        <ul class="dropdown-menu" style="height:250px; width:max-content; overflow-y:auto; overflow-x:hidden" id="cityList" onchange="anyChange()">
 
                             <!-- for city data in drop down -->
                             @if (ViewBag.City != null)
@@ -273,10 +273,10 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlCities()" value="@category.Name" id=@category.CityId name="city" />
-                                                <label class="form-check-label" for="Checkme1">@category.Name</label>
-                                            </div>
+
+                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.Name" id=@category.Name name="city" />
+                                            @category.Name
+
                                         </a>
                                     </li>
                                 }
@@ -291,7 +291,7 @@
                             Theme
                         </button>
 
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden">
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden" id="themeList" onchange="anyChange()">
 
                             <!--for theme data in drop down-->
                             @if (ViewBag.MissionThemes != null)
@@ -300,10 +300,10 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlTheme()" value="@category.Title" id=@category.MissionThemeId name="theme" />
-                                                <label class="form-check-label" for="Checkme1">@category.Title</label>
-                                            </div>
+
+                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.Title" id=@category.Title name="theme" />
+                                            @category.Title
+
                                         </a>
                                     </li>
                                 }
@@ -318,7 +318,7 @@
                             Skill
                         </button>
 
-                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden">
+                        <ul class="dropdown-menu" style="height:250px; overflow-y:auto ; overflow-x:hidden" onchange="anyChange()">
 
                             <!--for skill data in drop down-->
                             @if (ViewBag.Skills != null)
@@ -327,10 +327,10 @@
                                 {
                                     <li>
                                         <a class="dropdown-item" href="#">
-                                            <div class="form-check">
-                                                <input class="form-check-input checkbox" type="checkbox" onchange="updateUrlTheme()" value="@category.Title" id=@category.MissionThemeId name="theme" />
-                                                <label class="form-check-label" for="Checkme1">@category.Title</label>
-                                            </div>
+
+                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.Title" id=@category.Title name="theme" />
+                                            @category.Title
+
                                         </a>
                                     </li>
                                 }
@@ -349,53 +349,15 @@
         <hr class="line mt-0">
 
         <!-- Mission Filter Btn -->
-        @*      <div class="container">
+        <div class="container">
 
-        <div class="row">
-        <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
-        </div>
-        </div>
-
-        </div>*@
-
-        <div class="container d-flex mt-2">
-            @if (@ViewBag.countries != null)
-            {
-                @foreach (var country in @ViewBag.countries)
-                {
-                    <div class="filter-list ms-2 ps-2" id="co">
-                        <span class="ps-1">@country.Name</span><button type="button" class="filter-close-button me-2" aria-label="Close" onclick="countryBtn(this.id)" id=@country.CountryId><img src="~/images/cancel.png" /></button>
-
-                    </div>
-                }
-            }
-            @if (@ViewBag.cities != null)
-            {
-                @foreach (var city in @ViewBag.cities)
-                {
-                    <div class="filter-list ms-2 ps-2" id="ci">
-                        <span class="ps-1">@city.Name</span><button type="button" class="filter-close-button me-2" aria-label="Close" onclick="cityBtn(this.id)" id=@city.CityId><img src="~/images/cancel.png" /></button>
-
-                    </div>
-                }
-            }
-            @if (@ViewBag.theme != null)
-            {
-                @foreach (var theme in @ViewBag.theme)
-                {
-                    <div class="filter-list ms-2 ps-2" id="th">
-                        <span class="ps-1">@theme.Title</span><button type="button" class="filter-close-button me-2" aria-label="Close" onclick="themeBtn(this.id)" id=@theme.MissionThemeId><img src="~/images/cancel.png" /></button>
-                    </div>
-                }
-
-            }
-            @if (@ViewBag.countries != null || @ViewBag.cities != null || @ViewBag.theme != null)
-            {
-                <div class="filter-list ms-2" style="padding-right: 10px;padding-left: 10px;">
-                    <button type="button" class="clearall border-0" onclick="clearall()" id="clearall" style="background:white;">Clear All</button>
+            <div class="row">
+                <div class="filterSection d-flex align-items-center flex-wrap justify-content-center">
                 </div>
-            }
+            </div>
+
         </div>
+
 
 
         @RenderBody()
@@ -446,19 +408,82 @@
         function showList() {
             localStorage.setItem("view", "list");
             var $gridCont = $('.grid-container');
-           // e.preventDefault();
+            // e.preventDefault();
             $gridCont.hasClass('list-view') ? $gridCont.removeClass('list-view') : $gridCont.addClass('list-view');
         }
         function gridList() {
             localStorage.setItem("view", "grid");
             var $gridCont = $('.grid-container')
-          //  e.preventDefault();
+            //  e.preventDefault();
             $gridCont.removeClass('list-view');
         }
 
         $(document).on('click', '.btn-grid', gridList);
         $(document).on('click', '.btn-list', showList);
 
+
+        //For Filtering AJAX
+
+        $(document).ready(function () {
+
+        });
+
+        anyChange()
+        function anyChange() {
+            console.log("anychange called");
+            var country = [];
+
+            var searchQuery = $('#search-bar').val();
+            console.log(searchQuery)
+
+
+
+            $('#countryList').find("input:checked").each(function (i, v) {
+                country.push($(v).val())
+
+            });
+            var city = [];
+            $('#cityList').find("input:checked").each(function (i, v) {
+                city.push($(v).val())
+
+            });
+            var theme = [];
+            $('#themeList').find("input:checked").each(function (i, v) {
+                theme.push($(v).val())
+
+            });
+            $.ajax({
+                type: 'post',
+                url: '/Home/LoadMissions',
+
+                data: {
+                    "countryList": country,
+                    "cityList": city,
+                    "themeList": theme,
+                    "searchQuery": searchQuery
+                },
+                success: function (data) {
+                    var a = $($.parseHTML(data)).find("#myItems").html();
+                    //console.log(data);
+                    $('.item').html(a);
+                    var b = $($.parseHTML(data)).find("#titalmissionTitle").html();
+                    $('.titalmissionTitle').html(b);
+                    var c = $($.parseHTML(data)).find("#paginationNav").html();
+                    $('.paginationNav').html(c);
+                    // paginationNav
+                    //titalmissionTitle
+                    //$('.bodyy').html(data);
+                    //console.log("success");
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            });
+
+
+        }
 
     </script>
     @await RenderSectionAsync("Scripts", required: false)

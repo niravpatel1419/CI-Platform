@@ -50,12 +50,11 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
         //For LandingPage
 
-        public IActionResult home(string searchQuery, long id, int? pageIndex, int Order, long[] ACountries, long[] ACities, long[] ATheme)
+        public IActionResult home(string searchQuery, long id, int? pageIndex, int Order, string[] countryList, string[] cityList, string[] themeList)
         {
-
-
 
             var identity = User.Identity as ClaimsIdentity;
             var userEmail = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -101,130 +100,58 @@ namespace CI_Platform_Web.Controllers
 
             //For Shown the Mission Details On the Card
 
-            List<Mission> mission = _cI_PlatformContext.Missions.ToList();
-            List<Mission> finalmission = _cI_PlatformContext.Missions.ToList();
-            List<Mission> newmission = _cI_PlatformContext.Missions.ToList();
-
-
-
-            //For Country Filter
-            if (ACountries != null && ACountries.Length > 0)
+            var newMissions = missionlist.Missions;
+            List<Mission> filteredMission = new List<Mission>();
+            List<Mission> filteredMission1 = new List<Mission>();
+            List<Mission> filteredMission2 = new List<Mission>();
+            if (countryList.Count() > 0 || themeList.Count() > 0 || cityList.Count() > 0)
             {
-
-                foreach (var c1 in ACountries)
+                long id2 = 0;
+                List<Mission> temp = new List<Mission>();
+                if (countryList.Count() > 0)
                 {
-                    //mission = mission.Where(m => m.CountryId == country).ToList();
-                    if (i == 0)
+                    foreach (var country in countryList)
                     {
-                        mission = mission.Where(m => m.CountryId == c1 + 500).ToList();
-                        i++;
-                    }
+                        id2 = missionlist.countries.Where(x => x.Name == country).FirstOrDefault().CountryId;
+                        temp = missionlist.Missions.Where(x => x.CountryId == id2).ToList();
+                        filteredMission.AddRange(temp);
 
-                    finalmission = newmission.Where(m => m.CountryId == c1).ToList();
 
-                    mission.AddRange(finalmission);
-                    if (mission.Count() == 0)
-                    {
-                        return RedirectToAction("noMissionFound", "Home");
                     }
-                    ViewBag.countryId = c1;
-                    if (ViewBag.countryId != null)
-                    {
-                        var countryElement = _cI_PlatformContext.Countries.Where(m => m.CountryId == c1).ToList();
-                        if (i1 == 0)
-                        {
-                            countryElements = _cI_PlatformContext.Countries.Where(m => m.CountryId == c1 + 50000).ToList();
-                            i1++;
-                        }
-                        countryElements.AddRange(countryElement);
-                        //var c1 = _CiPlatformContext.Countries.FirstOrDefault(m => m.CountryId == country);
-                        //ViewBag.country = c1.Name;
-                    }
+                    missionlist.Missions = filteredMission;
                 }
-                ViewBag.countries = countryElements;
-                //Countries = _CiPlatformContext.Countries.ToList();
+                if (cityList.Count() > 0)
+                {
+                    foreach (var city in cityList)
+                    {
+                        id2 = missionlist.Cities.Where(x => x.Name == city).FirstOrDefault().CityId;
+                        temp = missionlist.Missions.Where(x => x.CityId == id2).ToList();
+                        filteredMission1.AddRange(temp);
+
+
+                    }
+                    missionlist.Missions = filteredMission1;
+
+                }
+                if (themeList.Count() > 0)
+                {
+
+                    foreach (var theme in themeList)
+                    {
+
+                        id2 = missionlist.MissionThemes.Where(x => x.Title == theme).FirstOrDefault().MissionThemeId;
+                        temp = missionlist.Missions.Where(x => x.ThemeId == id2).ToList();
+                        filteredMission2.AddRange(temp);
+                    }
+
+                    missionlist.Missions = filteredMission2;
+                }
 
 
             }
 
-            //For City filter
-            if (ACities != null && ACities.Length > 0)
-            {
-                foreach (var city in ACities)
-                {
-                    //mission = mission.Where(m => m.CityId == city).ToList();
-
-                    if (j == 0)
-                    {
-                        mission = mission.Where(m => m.CityId == city + 500).ToList();
-                        j++;
-                    }
-
-                    finalmission = newmission.Where(m => m.CityId == city).ToList();
-
-                    mission.AddRange(finalmission);
-                    if (mission.Count() == 0)
-                    {
-                        return RedirectToAction("noMissionFound", "Home");
-                    }
-                    ViewBag.cities = city;
-                    if (ViewBag.city != null)
-                    {
-                        var city1 = _cI_PlatformContext.Cities.Where(m => m.CityId == city).ToList();
-                        if (j1 == 0)
-                        {
-                            Cities = _cI_PlatformContext.Cities.Where(m => m.CityId == city + 50000).ToList();
-                            j1++;
-                        }
-                        Cities.AddRange(city1);
-                        //var c1 = _CiPlatformContext.Cities.FirstOrDefault(m => m.CityId == city);
-                        //ViewBag.city = c1.Name;
-                    }
-                }
-                ViewBag.cities = Cities;
-                Cities = _cI_PlatformContext.Cities.ToList();
 
 
-            }
-
-            //For theme filter
-            if (ATheme != null && ATheme.Length > 0)
-            {
-                foreach (var theme in ATheme)
-                {
-
-                    if (k == 0)
-                    {
-                        mission = mission.Where(m => m.ThemeId == theme + 500).ToList();
-                        k++;
-                    }
-
-                    finalmission = newmission.Where(m => m.ThemeId == theme).ToList();
-
-                    mission.AddRange(finalmission);
-
-                    if (mission.Count() == 0)
-                    {
-                        return RedirectToAction("noMissionFound", "Home");
-                    }
-                    ViewBag.theme = theme;
-                    if (ViewBag.theme != null)
-                    {
-                        var theme1 = _cI_PlatformContext.MissionThemes.Where(m => m.MissionThemeId == theme).ToList();
-                        if (k1 == 0)
-                        {
-                            Themes = _cI_PlatformContext.MissionThemes.Where(m => m.MissionThemeId == theme + 50000).ToList();
-                            k1++;
-                        }
-                        Themes.AddRange(theme1);
-                        //var c1 = _CiPlatformContext.MissionThemes.FirstOrDefault(m => m.MissionThemeId == theme);
-                        //ViewBag.theme = c1.Title;
-                    }
-                }
-                ViewBag.theme = Themes;
-                Themes = _cI_PlatformContext.MissionThemes.ToList();
-
-            }
 
 
 
@@ -708,29 +635,32 @@ namespace CI_Platform_Web.Controllers
         //For the User Comment
 
         [HttpPost]
-        public IActionResult AddComment()
+        public IActionResult AddComment(int missionId, string text)
         {
             var identity = User.Identity as ClaimsIdentity;
             var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
             long userId = long.Parse(suserId);
 
-            string s = Request.Form["comment"].ToString();
-            long l = long.Parse(Request.Form["mid"].ToString());
+            //string s = Request.Form["comment"].ToString();
+            // long l = long.Parse(Request.Form["mid"].ToString());
 
-            if (s == "")
+            if (text == "")
             {
-                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
+                return RedirectToAction("volunteeringMission", "Home", new { missID = missionId });
             }
             else
             {
+
                 Comment comment = new Comment();
                 comment.UserId = userId;
 
-                comment.Commenttext = s;
-                comment.MissionId = l;
+
+                comment.Commenttext = text;
+                comment.MissionId = missionId;
                 bool t = _iCiPlat.AddComment(comment);
 
-                return RedirectToAction("volunteeringMission", "Home", new { missID = l });
+
+                return RedirectToAction("volunteeringMission", "Home", new { missID = missionId });
             }
 
         }

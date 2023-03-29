@@ -435,15 +435,13 @@
                 <!--Add Comment section-->
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 
-                    <form asp-action="AddComment" asp-controller="Home">
-                        <textarea name="comment" id="comment" cols="" rows="5" placeholder="  Enter your comments..." style="width: 100%;" maxlength="600"></textarea>
-                        <input type="text" value=@ViewBag.mid id="mid" name="mid" hidden />
-                        <div class="mt-2">
-                            <button class="buttonsi py-2" type="submit">Post Comment</button>
-                        </div>
-                    </form>
+                    <textarea name="commentArea" id="commentArea" cols="" rows="5" placeholder="  Enter your comments..." style="width: 100%;" maxlength="600"></textarea>
+                    <input type="text" value=@ViewBag.mid id="mid" name="mid" hidden />
+                    <div class="mt-2">
+                        <button class="buttonsi py-2" type="" onclick="addcomment(@ViewBag.mid)">Post Comment</button>
+                    </div>
 
-                    <div class="commentDiv bg-light rounded-3  p-4 mt-3">
+                    <div class="commentDiv bg-light rounded-3  p-4 mt-3" id="shcomment">
                         @if (ViewData["NoComment"] != null)
                         {
                             <span>@ViewData["NoComment"]</span>
@@ -667,13 +665,13 @@ else
     </div>
 
 }
-
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script>
 
     //For Apply Mission
-    $(document).ready(function () {
+    $(document).ready(function (){
         console.log("ready document");
-        testfun();
+        //testfun();
         //debugger
         if (@Model.Applied== true) {
             $('#applybtn').text("Applied");
@@ -682,7 +680,8 @@ else
             $('#applybtn').css("border-color", "green");
             $('#applybtn').prop('disabled', true);
         }
-    })
+    });
+
 
 </script>
 <script src="~/js/volunteering.js"></script>

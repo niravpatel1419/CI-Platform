@@ -350,7 +350,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         public IEnumerable<Story> GetStoryListData()
         {
             //return _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).Where(x => x.Status != "DRAFT").ToList();
-            return _cI_PlatformContext.Stories.Include(x => x.User).Where(x => x.Status != "DRAFT").ToList();
+            return _cI_PlatformContext.Stories.Include(x => x.User).Where(x => x.Status == "DRAFT").ToList();
         }
 
 
