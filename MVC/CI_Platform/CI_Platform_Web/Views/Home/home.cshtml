@@ -25,16 +25,19 @@
 <!--Explore Mission  -->
 <div class="container exploreMission">
     <div class="row align-items-center">
-        <p class="heading col-8">Explore <big>@ViewBag.TotalMission Missions</big></p>
+        <div class="titalmissionTitle col-8" id="titalmissionTitle">
+            <p class="heading">Explore <big>@ViewBag.TotalMission Missions</big></p>
+        </div>
+
 
         <div class="dropdown  col-2">
             <button class="btn dropdown-toggle  missionSort" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Sort by
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" asp-action="home" asp-route-Order="1">Newest</a></li>
-                <li><a class="dropdown-item" asp-action="home" asp-route-Order="2">Oldest</a></li>
-                <li><a class="dropdown-item" asp-action="home" asp-route-Order="4">Registration deadline</a></li>
+                <li onclick="anyChange(1)"><a class="dropdown-item" style="cursor:pointer;">Newest</a></li>
+                <li onclick="anyChange(2)"><a class="dropdown-item" style="cursor:pointer;">Oldest</a></li>
+                <li onclick="anyChange(4)"><a class="dropdown-item" style="cursor:pointer;">Registration deadline</a></li>
             </ul>
         </div>
 

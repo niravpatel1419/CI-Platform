@@ -53,7 +53,7 @@ namespace CI_Platform_Web.Controllers
 
         //For LandingPage
 
-        public IActionResult home(string searchQuery, long id, int? pageIndex, int Order, string[] countryList, string[] cityList, string[] themeList)
+        public IActionResult home(string searchQuery, long id, int? pageIndex, int sortId, string[] countryList, string[] cityList, string[] themeList)
         {
 
             var identity = User.Identity as ClaimsIdentity;
@@ -98,12 +98,13 @@ namespace CI_Platform_Web.Controllers
             missionlist = _iCiPlat.DisplayMissions();
 
 
-            //For Shown the Mission Details On the Card
+            //For Filtering The Mission
 
             var newMissions = missionlist.Missions;
             List<Mission> filteredMission = new List<Mission>();
             List<Mission> filteredMission1 = new List<Mission>();
             List<Mission> filteredMission2 = new List<Mission>();
+
             if (countryList.Count() > 0 || themeList.Count() > 0 || cityList.Count() > 0)
             {
                 long id2 = 0;
@@ -115,8 +116,6 @@ namespace CI_Platform_Web.Controllers
                         id2 = missionlist.countries.Where(x => x.Name == country).FirstOrDefault().CountryId;
                         temp = missionlist.Missions.Where(x => x.CountryId == id2).ToList();
                         filteredMission.AddRange(temp);
-
-
                     }
                     missionlist.Missions = filteredMission;
                 }
@@ -127,8 +126,6 @@ namespace CI_Platform_Web.Controllers
                         id2 = missionlist.Cities.Where(x => x.Name == city).FirstOrDefault().CityId;
                         temp = missionlist.Missions.Where(x => x.CityId == id2).ToList();
                         filteredMission1.AddRange(temp);
-
-
                     }
                     missionlist.Missions = filteredMission1;
 
@@ -138,7 +135,6 @@ namespace CI_Platform_Web.Controllers
 
                     foreach (var theme in themeList)
                     {
-
                         id2 = missionlist.MissionThemes.Where(x => x.Title == theme).FirstOrDefault().MissionThemeId;
                         temp = missionlist.Missions.Where(x => x.ThemeId == id2).ToList();
                         filteredMission2.AddRange(temp);
@@ -151,13 +147,9 @@ namespace CI_Platform_Web.Controllers
             }
 
 
-
-
-
-
             //For Sort By Feature
 
-            switch (Order)
+            switch (sortId)
             {
                 case 1:
                     missionlist.Missions = missionlist.Missions.OrderByDescending(m => m.StartDate).ToList();
@@ -183,23 +175,6 @@ namespace CI_Platform_Web.Controllers
 
             //}
 
-
-            // Get the current URL
-            UriBuilder uriBuilder = new UriBuilder(Request.Scheme, Request.Host.Host);
-            if (Request.Host.Port.HasValue)
-            {
-                uriBuilder.Port = Request.Host.Port.Value;
-            }
-            uriBuilder.Path = Request.Path;
-
-            // Remove the query parameter you want to exclude
-            var query = HttpUtility.ParseQueryString(Request.QueryString.ToString());
-            query.Remove("pageIndex");
-            uriBuilder.Query = query.ToString();
-
-
-
-            ViewBag.currentUrl = uriBuilder.ToString();
 
 
             //for search the mission
@@ -788,6 +763,13 @@ namespace CI_Platform_Web.Controllers
             return RedirectToAction("storyListingPage", "Home");
         }
 
+
+        //For Story Detail
+
+        public IActionResult storyDetail()
+        {
+            return View();
+        }
 
 
         //For the Privacy Page

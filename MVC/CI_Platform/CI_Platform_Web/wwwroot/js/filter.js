@@ -53,9 +53,11 @@ function addElement(current, value) {
 
         console.log(elementToBeRemoved);
         console.log(current);
-        elementToBeRemoved.remove();
 
+
+        elementToBeRemoved.remove();
         current.checked = false;
+        anyChange(0);
     })
 
     crossButton.innerHTML = cross;

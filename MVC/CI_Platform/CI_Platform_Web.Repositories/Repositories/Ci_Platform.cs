@@ -182,7 +182,7 @@ namespace CI_Platform_Web.Repositories.Repositories
             long countryid = vm.missions.CountryId;
             vm.relatedMissions = DisplayMissions(themeid, cityid, countryid);
             vm.users = _cI_PlatformContext.Users.ToList();
-            vm.comments = _cI_PlatformContext.Comments.Where(x => x.MissionId == missionId).ToList();
+            vm.comments = _cI_PlatformContext.Comments.Where(x => x.MissionId == missionId).OrderByDescending(x => x.CreatedAt).ToList();
             vm.cities = _cI_PlatformContext.Cities.Where(x => x.CityId == cityid).FirstOrDefault();
             vm.countries = _cI_PlatformContext.Countries.Where(x => x.CountryId == countryid).FirstOrDefault();
             vm.themes = _cI_PlatformContext.MissionThemes.Where(x => x.MissionThemeId == themeid).FirstOrDefault();
@@ -322,29 +322,6 @@ namespace CI_Platform_Web.Repositories.Repositories
             List<Story> s = _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).ToList();
             return vm;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         public IEnumerable<Story> GetStoryListData()

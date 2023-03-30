@@ -422,14 +422,17 @@
         $(document).on('click', '.btn-list', showList);
 
 
-        //For Filtering AJAX
+
+
+        //For Filtering AJAX Script
 
         $(document).ready(function () {
 
         });
 
-        anyChange()
-        function anyChange() {
+       // anyChange()
+        function anyChange(id) {
+            console.log(id);
             console.log("anychange called");
             var country = [];
 
@@ -454,13 +457,14 @@
             });
             $.ajax({
                 type: 'post',
-                url: '/Home/LoadMissions',
+                url: '/Home/home',
 
                 data: {
                     "countryList": country,
                     "cityList": city,
                     "themeList": theme,
-                    "searchQuery": searchQuery
+                    "searchQuery": searchQuery,
+                    "sortId":id
                 },
                 success: function (data) {
                     var a = $($.parseHTML(data)).find("#myItems").html();
@@ -468,12 +472,13 @@
                     $('.item').html(a);
                     var b = $($.parseHTML(data)).find("#titalmissionTitle").html();
                     $('.titalmissionTitle').html(b);
-                    var c = $($.parseHTML(data)).find("#paginationNav").html();
-                    $('.paginationNav').html(c);
+
+                    //var c = $($.parseHTML(data)).find("#paginationNav").html();
+                    //$('.paginationNav').html(c);
                     // paginationNav
                     //titalmissionTitle
                     //$('.bodyy').html(data);
-                    //console.log("success");
+                    console.log("success");
 
                 },
                 error: function (error) {
