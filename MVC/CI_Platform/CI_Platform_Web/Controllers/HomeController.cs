@@ -207,9 +207,23 @@ namespace CI_Platform_Web.Controllers
             ViewBag.TotalPages = (int)Math.Ceiling(totalMissions / (double)pageSize);
             ViewBag.CurrentPage = pageIndex ?? 0;
 
+            List<int> missionratings = new List<int>();
+            List<MissionMedium> m = new List<MissionMedium>();
+            List<bool> b = new List<bool>();
+            List<string> c = new List<string>();
+            foreach (var i in missionlist.Missions)
+            {
+                missionratings.Add(_iCiPlat.GetRating((int)i.MissionId));
+                /* m.Add(missionlist.missionMedias.Where(x => x.MissionId == i.MissionId).FirstOrDefault());*/
+                b.Add(_iCiPlat.IsFav(userId, (int)i.MissionId));
+                c.Add(_iCiPlat.IsApplied(userId, (int)i.MissionId));
+            }
+            missionlist.MissionRatingss = missionratings;
+            missionlist.missionMedias = m.ToArray();
+            missionlist.FavMission = b;
+            missionlist.MissionApplicationlist = c;
 
             return View(missionlist);
-
 
         }
 
@@ -643,7 +657,7 @@ namespace CI_Platform_Web.Controllers
 
         //For reccommendation to co-worker
 
-        public IActionResult recommendEmail(int sID, int m)
+        public bool recommendEmail(int sID, int m)
         {
             string user = _cI_PlatformContext.Users.Where(x => x.UserId == sID).FirstOrDefault().Email;
             ViewBag.User = user;
@@ -669,7 +683,8 @@ namespace CI_Platform_Web.Controllers
             };
             smtpClient.Send(message);
 
-            return RedirectToAction("volunteeringMission", "Home", new { missID = m });
+            return true;
+           // return RedirectToAction("volunteeringMission", "Home", new { missID = m });
 
         }
 
@@ -766,9 +781,15 @@ namespace CI_Platform_Web.Controllers
 
         //For Story Detail
 
-        public IActionResult storyDetail()
+        public IActionResult storyDetail(long storyId)
         {
-            return View();
+            var identity = User.Identity as ClaimsIdentity;
+            string fName = identity.FindFirst(ClaimTypes.Name).Value;
+            ViewBag.FirstName = fName;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+
+            StoryDetailsVM v = _iCiPlat.GetStoryDetails(storyId);
+            return View(v);
         }
 
 

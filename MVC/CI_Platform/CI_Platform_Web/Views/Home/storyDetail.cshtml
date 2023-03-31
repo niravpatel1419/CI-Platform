@@ -2,6 +2,8 @@
     Layout = "_LayoutSingleHeader";
 }
 
+@model CI_Platform_Web.Entities.ViewModel.StoryDetailsVM;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +103,7 @@
                 <div class="firstSideDiv mt-3">
                     <div class="userInfoDiv">
                         <img src="~/images/volunteer2.png" class="userImg" alt="user-img">
-                        <p class="mb-0">Charles Zampa</p>
+                        <p class="mb-0">@Model.stories.User.FirstName @Model.stories.User.LastName</p>
                     </div>
                     <div class="views">
                         <span class="ispan">
@@ -129,10 +131,62 @@
                 </div>
 
                 <div class="buttonDiv">
-                    <button class="recommendetionBtn">
+                    <button class="recommendetionBtn" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
                         <img src="~/images/add1.png" alt=""> Recommend to a
                         Co-Worker
                     </button>
+
+                    <!--Recommendation Model-->
+                    <div class="modal" id="myModal">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Recommend to a Co-Worker</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Send An Invitation</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var p = 0;
+                                            }
+                                            @foreach (var c in Model.users)
+                                            {
+                                                <tr>
+                                                    <td>@c.FirstName @c.LastName</td>
+                                                    <td>@c.Email</td>
+                                                    <td>
+                                                        <button class="btn sendBtn" onclick="recommendCoWorker(@c.UserId,@Model.stories.MissionId,@p)" id="@p">Send</button>
+                                                    </td>
+                                                </tr>
+                                                p++;
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                     <button class="openMissionBtn">Open Mission <i class="bi bi-arrow-right"></i></button>
                 </div>
 
@@ -144,7 +198,7 @@
     <!--More Information Of The Mission-->
     <div class="container mt-5">
         <div class="row">
-            <h5>Grow Trees - On the path to environment sustainability</h5>
+            <h5>@Model.stories.Title</h5>
         </div>
         <hr>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi quidem aliquam itaque quibusdam laudantium voluptatibus at veritatis aperiam qui possimus.</p>
@@ -173,5 +227,35 @@
     </div>
 
 </body>
+
+<script>
+
+    //For Recommendation To Co-Worker
+
+    function recommendCoWorker(userId, missionId, id) {
+        $('#' + id).text("Sending");
+        console.log(missionId);
+        console.log('#' + id);
+        console.log("Recommend functuion Called");
+
+        $.ajax({
+            url: 'recommendEmail?sID=' + userId + '&m=' + missionId,
+            success: function (data) {
+                if (data) {
+                    console.log("inside success");
+                    //$('#'+id).attr('disabled', true);
+                    $('#' + id).text("Sent");
+                    $('#' + id).css("color", "black");
+                    $('#' + id).css("border", "1px solid black");
+                    $('#' + id).attr('disabled', true);
+
+                    // var a = $('#'+id);
+                    //console.log(a);
+                }
+            }
+        });
+    }
+
+</script>
 
 </html>

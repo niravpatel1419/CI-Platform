@@ -31,6 +31,6 @@ namespace CI_Platform_Web.Repositories.Interface
         public IEnumerable<Story> GetStoryListData();
         public ShareStoryViewModel GetSavedStory(long UserId);
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
-
+        public StoryDetailsVM GetStoryDetails(long storyId);
     }
 }

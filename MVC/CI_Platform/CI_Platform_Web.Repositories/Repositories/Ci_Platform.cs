@@ -416,6 +416,21 @@ namespace CI_Platform_Web.Repositories.Repositories
             }
             return v;
         }
+
+
+        //For Story Detail Page
+        public StoryDetailsVM GetStoryDetails(long storyId)
+        {
+            StoryDetailsVM v = new StoryDetailsVM();
+
+            v.stories = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).Include(x => x.StoryMedia).Include(x => x.User).Include(x => x.StoryMedia).FirstOrDefault();
+            v.users = _cI_PlatformContext.Users.ToList();
+            /*   Story s = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).FirstOrDefault();
+               s.TotalViews = s.TotalViews + 1;
+               _cI_PlatformContext.Update(s);
+               _cI_PlatformContext.SaveChanges();*/
+            return v;
+        }
     }
 
 }

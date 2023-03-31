@@ -55,7 +55,10 @@
 
 <div class="container grid-container">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 item" id="myItems">
-
+        @{
+            int j = 0;
+        }
+        
         @foreach (var item in Model.Missions)
         {
 
@@ -67,9 +70,21 @@
                         <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
                         <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
                         <div class="landing-page-bottom-right d-flex flex-column">
-                            <button class="mb-2 landing-page-btn-img">
-                                <img src="~/images/heart.png" alt="">
-                            </button><button class="landing-page-btn-img">
+
+                            <button class="mb-2 landing-page-btn-img" onclick="addfav(@ViewBag.UserId,@item.MissionId)" id="@item.MissionId">
+
+                                @if (Model.FavMission[j])
+                                {
+                                    <i class="bi bi-heart-fill" style="color:red"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-heart"></i>
+                                }
+
+                            </button>
+
+                            <button class="landing-page-btn-img">
                                 <img src="~/images/user.png"
                                  alt="">
                             </button>
@@ -89,11 +104,24 @@
                             <div class="cardBodyFooter">
                                 <p class="ngoName">@item.OrganizationName</p>
                                 <div class="rating">
-                                    <img src="~/images/selected-star.png" alt="Rating">
-                                    <img src="~/images/selected-star.png" alt="Rating">
-                                    <img src="~/images/selected-star.png" alt="Rating">
-                                    <img src="~/images/star.png" alt="Rating">
-                                    <img src="~/images/star.png" alt="Rating">
+                                    @if (@Model.MissionRatingss[j] == 0)
+                                    {
+                                        <span class="ms-2">No Ratings</span>
+                                    }
+                                    else
+                                    {
+
+                                        @for (int i = 0; i < @Model.MissionRatingss[j]; i++)
+                                        {
+                                            <i class="bi bi-star-fill" style="color:orange"></i>
+                                        }
+
+                                        @for (int i = 0; i < 5 - @Model.MissionRatingss[j]; i++)
+                                        {
+                                            <i class="bi bi-star"></i>
+                                        }
+
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -159,6 +187,9 @@
                         <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
                             <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
                         </div>
+                        @{
+                            j = j + 1;
+                        }
                     </div>
 
                 </div>
