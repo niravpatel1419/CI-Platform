@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\css\\test.css"
     },
     {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\userEditProfile.css",
+      "PackagePath": "staticwebassets\\css\\userEditProfile.css"
+    },
+    {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\volunteeringMission.css",
       "PackagePath": "staticwebassets\\css\\volunteeringMission.css"
     },

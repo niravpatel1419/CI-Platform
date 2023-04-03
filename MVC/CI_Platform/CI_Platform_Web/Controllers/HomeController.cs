@@ -793,6 +793,14 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+        //For User Edit Profile
+
+        public IActionResult userEditProfile()
+        {
+            return View();
+        }
+
+
         //For the Privacy Page
         public IActionResult Privacy()
         {

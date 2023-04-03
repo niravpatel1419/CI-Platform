@@ -58,11 +58,11 @@
         @{
             int j = 0;
         }
-        
+
         @foreach (var item in Model.Missions)
         {
 
-            <div class="col ">
+            <div class="col "> 
                 <div class="card h-100">
 
                     <div class="cardHead">
@@ -71,7 +71,7 @@
                         <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
                         <div class="landing-page-bottom-right d-flex flex-column">
 
-                            <button class="mb-2 landing-page-btn-img" onclick="addfav(@ViewBag.UserId,@item.MissionId)" id="@item.MissionId">
+                            <button class="mb-2 landing-page-btn-img" onclick="addfav(@ViewBag.UserId,@item.MissionId)" id="item_@item.MissionId">
 
                                 @if (Model.FavMission[j])
                                 {
@@ -185,7 +185,20 @@
                         }
 
                         <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
-                            <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">Apply <img src="~/images/right-arrow.png" alt="Right Arrow"></a>
+                            <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">
+                              
+                                @if (Model.MissionApplicationlist[j] == "true")
+                                {
+                                    @:&nbsp;View Details &nbsp;&nbsp;
+                                }
+                                else
+                                {
+                                    @:&nbsp;Apply &nbsp;&nbsp;
+
+                                }
+                                <img src="~/images/right-arrow.png" alt="Right Arrow">
+
+                            </a>
                         </div>
                         @{
                             j = j + 1;
@@ -227,6 +240,46 @@
 
     </ul>
 </nav>
+
+<script>
+
+    //For Add To Favourite In The Home Page
+
+    function addfav(i, j) {
+
+        var a = j;
+        console.log("A");
+        $.ajax({
+            url: '/Home/addToFav?id=' + i + '&mid=' + j,
+            success: function (data) {
+                console.log("success");
+
+                console.log(data);
+                if (data == 1) {
+                    //$('#fafav').style.color="#F88634";
+                    debugger;
+
+                    $("#item_" + j + " .bi").removeClass("bi-heart");
+                    $("#item_" + j + " .bi").addClass("bi-heart-fill");
+                    $("#item_" + j + " .bi").css("color", "red");
+                }
+                else {
+                    //$('#fafav').style.color="#F88634";
+                    $("#item_" + j + " .bi").addClass("bi-heart");
+                    $("#item_" + j + " .bi").removeClass("bi-heart-fill");
+                    $("#item_" + j + " .bi").css("color", "black");
+                    //document.getElementById(a + "+a").style.color = "#000000";
+                    //document.getElementById("favtext").innerHTML="added";
+                    // $("#favtext").text("Add to Favourite");
+                }
+
+
+            }
+        });
+    }
+
+</script>
+
 </html>
 
 

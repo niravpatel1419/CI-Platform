@@ -299,7 +299,7 @@ big {
 }
 
 .applyBtn {
-    width: 120px;
+    width: auto;
     height: 48px;
     background: #F8863400 0% 0% no-repeat padding-box;
     border: 2px solid #F88634;
