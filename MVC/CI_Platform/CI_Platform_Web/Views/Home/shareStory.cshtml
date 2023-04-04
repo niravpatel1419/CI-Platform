@@ -25,6 +25,12 @@
     <form asp-action="ShareStory" asp-controller="Home" method="post" enctype="multipart/form-data">
         <div class="container sharestorymaincont">
             <h3>Share your story</h3>
+
+            @if (ViewBag.InvalidData != null)
+            {
+                <h5 class="text-danger">@ViewBag.InvalidData</h5>
+            }
+
             <div class="row">
                 <div class="col-lg-4">
                     <label>Select Mission</label>

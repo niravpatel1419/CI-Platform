@@ -16,6 +16,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public void ForgetPassword(string email, string token);
         public MissionListViewModel DisplayMissions();
         public MissionListViewModel DisplayMissions(long? themeId, long? cityId, long? countryId);
+        public User GetUserDetails(long userId);
         public int GetRating(int missionId);
         public bool IsFav(long userId, int missionId);
         public string IsApplied(long userId, int missionId);
@@ -32,5 +33,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public ShareStoryViewModel GetSavedStory(long UserId);
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
+        public bool UpdateUserDetails(User u);
+       
     }
 }

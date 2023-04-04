@@ -2,6 +2,8 @@
     Layout = "_LayoutSingleHeader";
 }
 
+@model CI_Platform_Web.Entities.ViewModel.UserDetailsViewModel;
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,14 +23,14 @@
             <div class="col-md-3 col-sm-12">
                 <div class="userImageDiv">
                     <img src="~/images/user-img-large.png" alt="User Image" class="userImg mt-3">
-                    <p class="mb-0" style="font-size: 20px;">Evan Donohue</p>
+                    <p class="mb-0" style="font-size: 20px;">@Model.users.FirstName @Model.users.LastName</p>
                     <a href="#" class="changePassword mb-2">Change Password</a>
                 </div>
             </div>
 
             <div class="col-md-9 col-sm-12 infomationDiv">
 
-                <form action="">
+                <form asp-controller="Home" asp-action="userEditProfile" method="post">
                     <div class="container">
                         <h3 class="innerTitle">Basic Information</h3>
                         <hr>
@@ -36,49 +38,48 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Name" class="form-label" style="color: #414141;">Name*</label>
-                                <input type="text" class="form-control" placeholder="Enter your name" value="">
+                                <input asp-for="users.FirstName" type="text" class="form-control" placeholder="Enter Your Name" value="@Model.users.FirstName" />
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Surname" class="form-label" style="color: #414141;">Surname*</label>
-                                <input type="text" class="form-control" placeholder="Enter your surname" value="">
+                                <input asp-for="users.LastName" type="text" class="form-control" placeholder="Enter Your Surname" value="@Model.users.LastName" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="empID" class="form-label" style="color: #414141;">Employee ID</label>
-                                <input type="text" class="form-control" placeholder="Enter your employee id" value="">
+                                <input asp-for="users.EmployeeId" type="text" class="form-control" placeholder="Enter Your Employee ID" value="@Model.users.EmployeeId" />
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="managerDetails" class="form-label" style="color: #414141;">Manager</label>
-                                <input type="text" class="form-control" placeholder="Enter your manager details"
-                                       value="">
+                                <input asp-for="users.Manager" type="text" class="form-control" placeholder="Enter Your Manager" value="@Model.users.Manager" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="title" class="form-label" style="color: #414141;">Title</label>
-                                <input type="text" class="form-control" placeholder="Enter your title" value="">
+                                <input asp-for="users.Title" type="text" class="form-control" placeholder="Enter Your Title" value="@Model.users.Title" />
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="department" class="form-label" style="color: #414141;">Department</label>
-                                <input type="text" class="form-control" placeholder="Enter your department" value="">
+                                <input asp-for="users.Department" type="text" class="form-control" placeholder="Enter Your Department" value="@Model.users.Department" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12">
-                                <label for="" class="form-label" style="color: #414141;">My Profile*</label>
-                                <textarea name="" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;"></textarea>
+                                <label asp-for="users.ProfileText" class="form-label" style="color: #414141;">My Profile*</label>
+                                <textarea name="ProfileText" id="" rows="5" class="" placeholder=" Enter your comments..."
+                                          style="width: 100%;">@Model.users.ProfileText</textarea>
                             </div>
                             <div class="col-12 mt-2">
-                                <label for="" class="form-label" style="color: #414141;">Why I Volunteer?*</label>
-                                <textarea name="" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;"></textarea>
+                                <label asp-for="users.WhyIVolunteer" class="form-label" style="color: #414141;">Why I Volunteer?*</label>
+                                <textarea name="WhyIVolunteer" id="" rows="5" class="" placeholder=" Enter your comments..."
+                                          style="width: 100%;">@Model.users.WhyIVolunteer</textarea>
                             </div>
                         </div>
 
@@ -89,12 +90,18 @@
                         <hr />
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                <label for="" class="form-label">City*</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Name" value="" />
+                                <label for="" class="form-label">Country*</label>
+                                <select asp-for="users.CountryId" class="form-select" id="Country" aria-label="Default select example">
+                                    <option selected>Select Your Country</option>
+                                </select>
+                                @*<input type="text" class="form-control" placeholder="Enter Your Name" value="" />*@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                                <label for="" class="form-label">Country*</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Surname" value="" />
+                                <label for="" class="form-label">City*</label>
+                                <select asp-for="users.CityId" class="form-select" id="City" aria-label="Default select example">
+                                    <option selected>Select Your City</option>
+                                </select>
+                                @*<input type="text" class="form-control" placeholder="Enter Your Surname" value="" />*@
                             </div>
                         </div>
                     </div>
@@ -105,11 +112,18 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">Availability</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Name" value="" />
+                                <select asp-for="users.Availability" class="form-select" aria-label="Default select example">
+                                    <option selected>Select Your Availability</option>
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                                @*<input type="text" class="form-control" placeholder="Enter Your Name" value="" />*@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">Linked In</label>
-                                <input type="text" class="form-control" placeholder="Enter Your Surname" value="" />
+                                <input asp-for="users.LinkedInUrl" type="text" class="form-control" placeholder="Enter Your LinkedIn" value="@Model.users.LinkedInUrl" />
                             </div>
                         </div>
                     </div>
@@ -180,7 +194,7 @@
                     </div>
 
                     <div class="container saveBtnDiv">
-                        <button class="saveBtn">Save</button>
+                        <button type="submit" class="saveBtn">Save</button>
                     </div>
                 </form>
 
@@ -191,4 +205,5 @@
     <hr>
 
 </body>
+<script src="~/js/countrycity.js"></script>
 </html>

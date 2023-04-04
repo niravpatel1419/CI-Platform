@@ -741,6 +741,15 @@ namespace CI_Platform_Web.Controllers
             string d = Request.Form["editor1"].ToString();
             var identity = User.Identity as ClaimsIdentity;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+
+            if (v.missionId == 0 || v.stories.PublishedAt == null || v.stories.Title == null || d == "")
+            {
+                ViewBag.InvalidData = "ONE OF THE FIELD IS BLANK";
+                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId);
+                vm.missionlist = _iCiPlat.DisplayMissions();
+                return View(vm);
+            }
+
             int missionId = v.missionId;
             string t = v.stories.Title;
             string url = v.media.Path;
@@ -750,12 +759,8 @@ namespace CI_Platform_Web.Controllers
             bool b = _iCiPlat.SaveStrory(userId, missionId, t, d, date, url, button);
 
 
-            
-
             if (v.missionId != null)
             {
-                //_iciplat.AddShareStoryData(vmmission, Convert.ToInt32(uid));
-                // _iciplat.SaveStrory(userId, missionId, t, d, date, url, button);
                 foreach (var i in v.attachment)
                 {
                     if (i != null)
@@ -772,9 +777,6 @@ namespace CI_Platform_Web.Controllers
                     }
                 }
             }
-
-
-
             return RedirectToAction("storyListingPage", "Home");
         }
 
@@ -797,9 +799,31 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult userEditProfile()
         {
-            return View();
+            var identity = User.Identity as ClaimsIdentity;
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            ViewBag.FirstName = userName;
+
+            UserDetailsViewModel u = new UserDetailsViewModel();
+            u.users = _iCiPlat.GetUserDetails(userId);
+            
+            return View(u);
         }
 
+        [HttpPost]
+        public IActionResult userEditProfile(UserDetailsViewModel u,string ProfileText, string WhyIVolunteer)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            
+            u.users.ProfileText = ProfileText;
+            u.users.WhyIVolunteer = WhyIVolunteer;
+            u.users.UserId= userId;
+
+            _iCiPlat.UpdateUserDetails(u.users);
+            return RedirectToAction("userEditProfile","Home");
+        }
 
         //For the Privacy Page
         public IActionResult Privacy()
@@ -814,30 +838,17 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+        public JsonResult Country()
+        {
+            var c = _cI_PlatformContext.Countries.ToList();
+            return new JsonResult(c);
+        }
 
-
-
-
-        /*        public JsonResult Country()
-                {
-                    var c = _cI_PlatformContext.Countries.ToList();
-                    return new JsonResult(c);
-
-                }
-
-                public JsonResult City(int id)
-                {
-                    var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
-                    return new JsonResult(city);
-
-                }
-
-                public JsonResult Themes()
-                {
-                    var theme = _cI_PlatformContext.MissionThemes.ToList();
-                    return new JsonResult(theme);
-                }*/
-
+        public JsonResult City(int id)
+        {
+            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
+            return new JsonResult(city);
+        }
 
     }
 }

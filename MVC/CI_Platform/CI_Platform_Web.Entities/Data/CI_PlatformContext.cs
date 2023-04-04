@@ -966,6 +966,11 @@ namespace CI_Platform_Web.Entities.Data
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.Availability)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("availability");
+
                 entity.Property(e => e.Avatar)
                     .HasMaxLength(2048)
                     .IsUnicode(false)
@@ -1013,6 +1018,10 @@ namespace CI_Platform_Web.Entities.Data
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("linked_in_url");
+
+                entity.Property(e => e.Manager)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(225)

@@ -104,6 +104,13 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         }
 
+
+        //For Get The User Details
+        public User GetUserDetails(long userId)
+        {
+            return _cI_PlatformContext.Users.Where(x => x.UserId == userId).FirstOrDefault();
+        }
+
         //For Get the Average Rating
         public int GetRating(int missionId)
         {
@@ -430,6 +437,34 @@ namespace CI_Platform_Web.Repositories.Repositories
                _cI_PlatformContext.Update(s);
                _cI_PlatformContext.SaveChanges();*/
             return v;
+        }
+
+
+        //For Edit User Profile
+
+        public bool UpdateUserDetails(User u)
+        {
+            User temp = _cI_PlatformContext.Users.Where(x => x.UserId == u.UserId).FirstOrDefault();
+            
+            temp.FirstName = u.FirstName;
+            temp.LastName = u.LastName;
+            temp.EmployeeId = u.EmployeeId;
+            temp.Manager = u.Manager;
+            temp.Title = u.Title;
+            temp.Department = u.Department;
+            temp.ProfileText = u.ProfileText;
+            temp.WhyIVolunteer = u.WhyIVolunteer;
+            temp.CountryId = u.CountryId;
+            temp.CityId = u.CityId;
+            temp.Availability = u.Availability;
+            temp.LinkedInUrl = u.LinkedInUrl;
+            temp.UpdatedAt = DateTime.Now;
+
+            _cI_PlatformContext.Users.Update(temp);
+            _cI_PlatformContext.SaveChanges();
+
+            return true;
+            
         }
     }
 

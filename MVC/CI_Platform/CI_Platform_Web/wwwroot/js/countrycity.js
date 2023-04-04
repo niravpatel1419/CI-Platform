@@ -6,7 +6,7 @@ console.log("Script working");
 
 $(document).ready(function () {
     console.log("javascript working");
-    GetCountry();
+ 
 
     $('#Country').change(function () {
         console.log("Onchange called")
@@ -31,7 +31,7 @@ $(document).ready(function () {
     });
 
 });
-    
+
 
 function GetCountry() {
     $.ajax(
@@ -40,7 +40,7 @@ function GetCountry() {
             success: function (data) {
                 console.log(data);
                 $.each(data, function (i, result) {
-                   //console.log(result.name);
+                    //console.log(result.name);
                     $('#Country').append('<option value=' + result.countryId + '>' + result.name + '</option>');
                     //$('#Country').append('<li style="padding:5px"><input class="form-check-input checkbox" id="' + result.name + '"style="margin-right:10px" type="checkbox" value="' + result.countryId + '">' + '<label class="form-check-label" for="flexCheckDefault">' + result.name + '</lable></li>');
                 });
@@ -49,23 +49,6 @@ function GetCountry() {
     );
 }
 
-
-/*function GetThemes() {
-    $.ajax(
-
-        {
-            url: '/Home/Themes',
-            success: function (data) {
-                console.log(data);
-                $.each(data, function (i, result) {
-                    //console.log(result.name);
-                    $('#Themes').append('<option value=' + result.missionThemeId + '>' + result.title + '</option>');
-                    // $('#state').append('<li><div class= "form-check"> <input class="form-check-input" type="checkbox"value="' + result.name + '"id="flexCheckDefault"/><label class="form-check-label" for="flexCheckDefault">' + result.name + '</label </div ></li >');
-                });
-            }
-        }
-    );
-}*/
 
 
 

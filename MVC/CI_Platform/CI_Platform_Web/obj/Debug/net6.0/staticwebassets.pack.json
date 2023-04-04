@@ -509,6 +509,10 @@
       "PackagePath": "staticwebassets\\js\\bootstrap.bundle.min.js"
     },
     {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\js\\countrycity.js",
+      "PackagePath": "staticwebassets\\js\\countrycity.js"
+    },
+    {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\js\\filter.js",
       "PackagePath": "staticwebassets\\js\\filter.js"
     },
