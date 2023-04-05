@@ -62,7 +62,7 @@
         @foreach (var item in Model.Missions)
         {
 
-            <div class="col "> 
+            <div class="col ">
                 <div class="card h-100">
 
                     <div class="cardHead">
@@ -84,10 +84,63 @@
 
                             </button>
 
-                            <button class="landing-page-btn-img">
+                            <button class="landing-page-btn-img" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
                                 <img src="~/images/user.png"
                                  alt="">
                             </button>
+
+                            <!--Recommendation Model-->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Recommend to a Co-Worker</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Email</th>
+                                                        <th scope="col">Send An Invitation</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        var p = 0;
+                                                    }
+                                                    @foreach (var c in ViewBag.User)
+                                                    {
+                                                        <tr>
+                                                            <td>@c.FirstName @c.LastName</td>
+                                                            <td>@c.Email</td>
+                                                            <td>
+                                                                <button class="btn sendBtn" onclick="recommendCoWorker(@c.UserId,@item.MissionId,@p)" id="@p">Send</button>
+                                                            </td>
+                                                        </tr>
+                                                        p++;
+                                                    }
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <p class="shape">@item.Theme.Title</p>
 
@@ -186,7 +239,7 @@
 
                         <div class="card-footer d-flex justify-content-center" style="background-color: #ffffff;">
                             <a asp-action="volunteeringMission" asp-route-missID="@item.MissionId" class="applyBtn btn">
-                              
+
                                 @if (Model.MissionApplicationlist[j] == "true")
                                 {
                                     @:&nbsp;View Details &nbsp;&nbsp;
@@ -274,6 +327,33 @@
                 }
 
 
+            }
+        });
+    }
+
+
+    //For Recommendation To Co-Worker
+
+    function recommendCoWorker(userId, missionId, id) {
+        $('#' + id).text("Sending");
+        console.log(missionId);
+        console.log('#' + id);
+        console.log("Recommend functuion Called");
+
+        $.ajax({
+            url: 'recommendEmail?sID=' + userId + '&m=' + missionId,
+            success: function (data) {
+                if (data) {
+                    console.log("inside success");
+                    //$('#'+id).attr('disabled', true);
+                    $('#' + id).text("Sent");
+                    $('#' + id).css("color", "black");
+                    $('#' + id).css("border", "1px solid black");
+                    $('#' + id).attr('disabled', true);
+
+                    // var a = $('#'+id);
+                    //console.log(a);
+                }
             }
         });
     }

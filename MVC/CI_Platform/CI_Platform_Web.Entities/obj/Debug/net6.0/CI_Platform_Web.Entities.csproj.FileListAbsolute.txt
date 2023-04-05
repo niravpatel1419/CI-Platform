@@ -12,3 +12,17 @@ D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.pdb
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.genruntimeconfig.cache
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\refint\CI_Platform_Web.Entities.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.deps.json
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.runtimeconfig.json
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\bin\Debug\net6.0\CI_Platform_Web.Entities.pdb
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.csproj.AssemblyReference.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.AssemblyInfoInputs.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.AssemblyInfo.cs
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.csproj.CoreCompileInputs.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\refint\CI_Platform_Web.Entities.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.pdb
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\CI_Platform_Web.Entities.genruntimeconfig.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Entities\obj\Debug\net6.0\ref\CI_Platform_Web.Entities.dll

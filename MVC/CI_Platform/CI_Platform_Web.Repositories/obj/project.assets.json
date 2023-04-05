@@ -10162,11 +10162,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
+      "projectUniqueName": "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
       "projectName": "CI_Platform_Web.Repositories",
-      "projectPath": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
+      "projectPath": "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
       "packagesPath": "C:\\Users\\pct124\\.nuget\\packages\\",
-      "outputPath": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\obj\\",
+      "outputPath": "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -10188,8 +10188,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Entities\\CI_Platform_Web.Entities.csproj": {
-              "projectPath": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Entities\\CI_Platform_Web.Entities.csproj"
+            "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Entities\\CI_Platform_Web.Entities.csproj": {
+              "projectPath": "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Entities\\CI_Platform_Web.Entities.csproj"
             }
           }
         }

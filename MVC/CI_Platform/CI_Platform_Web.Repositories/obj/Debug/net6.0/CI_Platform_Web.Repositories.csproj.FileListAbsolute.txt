@@ -15,3 +15,20 @@ D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Entities.dll
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Entities.pdb
 D:\Project 1\CI Platform\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.csproj.CopyComplete
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Repositories.deps.json
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Repositories.runtimeconfig.json
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Repositories.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Repositories.pdb
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Entities.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\bin\Debug\net6.0\CI_Platform_Web.Entities.pdb
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.csproj.AssemblyReference.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.AssemblyInfoInputs.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.AssemblyInfo.cs
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.csproj.CoreCompileInputs.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.csproj.CopyComplete
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\refint\CI_Platform_Web.Repositories.dll
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.pdb
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\CI_Platform_Web.Repositories.genruntimeconfig.cache
+D:\CI-Platform-master\CI-Platform-master\MVC\CI_Platform\CI_Platform_Web.Repositories\obj\Debug\net6.0\ref\CI_Platform_Web.Repositories.dll

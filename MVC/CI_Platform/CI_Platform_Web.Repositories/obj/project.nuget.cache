@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tJQGVmnYV75dId2jyA0bpFHTiDKugSmZHcGRk3NT60EGTyrFbVsrXLYFbR6Mm9EbQ2rDjUZBbueXscMmAryS8A==",
+  "dgSpecHash": "8UW3AvpmHV2PI7KFiSeulWRYjB05v0Im+2KJnGFEb1d75KuaL08xJfS+znadKaOHGFJTyFlVTtjLu7xu+pGrwQ==",
   "success": true,
-  "projectFilePath": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
+  "projectFilePath": "D:\\CI-Platform-master\\CI-Platform-master\\MVC\\CI_Platform\\CI_Platform_Web.Repositories\\CI_Platform_Web.Repositories.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pct124\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\pct124\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

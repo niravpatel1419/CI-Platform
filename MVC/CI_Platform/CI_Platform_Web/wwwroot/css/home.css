@@ -231,9 +231,17 @@ big {
     padding: 6px;
 }
 
+.sendBtn {
+    width: 100px;
+    color: #F88634;
+    background-color: white;
+    border-radius: 30px;
+    border: 2px solid #F88634;
+}
+
 .my-custom-scrollbar {
     position: relative;
-    height: 285px;
+    height: 500px;
     overflow: auto;
 }
 
