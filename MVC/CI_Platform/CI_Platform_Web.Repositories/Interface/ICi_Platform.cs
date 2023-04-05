@@ -34,6 +34,6 @@ namespace CI_Platform_Web.Repositories.Interface
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
         public bool UpdateUserDetails(User u);
-       
+        public bool changeUserPassword(UserDetailsViewModel u);
     }
 }

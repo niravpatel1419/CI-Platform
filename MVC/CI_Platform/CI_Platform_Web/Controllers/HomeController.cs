@@ -185,10 +185,7 @@ namespace CI_Platform_Web.Controllers
                 missionlist.Missions = missionlist.Missions.Where(m => m.Title.ToLower().Contains(s)).ToList();
 
                 ViewBag.searchQuery = searchQuery;
-                if (missionlist.Missions.Count() == 0)
-                {
-                    return RedirectToAction("noMissionFound", "Home");
-                }
+                    
             }
 
             //For the Pagination
@@ -824,6 +821,47 @@ namespace CI_Platform_Web.Controllers
             _iCiPlat.UpdateUserDetails(u.users);
             return RedirectToAction("userEditProfile","Home");
         }
+        public JsonResult Country()
+        {
+            var c = _cI_PlatformContext.Countries.ToList();
+            return new JsonResult(c);
+        }
+
+        public JsonResult City(int id)
+        {
+            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
+            return new JsonResult(city);
+        }
+
+
+        //For Change Password In User Edit Profile Section
+
+        public bool changePassword(UserDetailsViewModel u)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            u.users.UserId = userId;
+
+
+            if (u.oldPassword == null || u.newPassword == null || u.confirmNewPassword == null )
+            {
+                ViewData["Error"] = "One of the field is empty";
+                return false;
+            }
+
+            if(u.newPassword != u.confirmNewPassword)
+            {
+                ViewData["PasswordNotMatch"] = "New Password and Confirm New Password Must Be Match";
+                return false;
+            }
+            else
+            {
+                return _iCiPlat.changeUserPassword(u);
+            }
+
+        }
+
+
 
         //For the Privacy Page
         public IActionResult Privacy()
@@ -838,17 +876,8 @@ namespace CI_Platform_Web.Controllers
         }
 
 
-        public JsonResult Country()
-        {
-            var c = _cI_PlatformContext.Countries.ToList();
-            return new JsonResult(c);
-        }
 
-        public JsonResult City(int id)
-        {
-            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
-            return new JsonResult(city);
-        }
+
 
     }
 }

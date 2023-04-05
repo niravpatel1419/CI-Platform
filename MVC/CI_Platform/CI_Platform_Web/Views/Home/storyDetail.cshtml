@@ -108,7 +108,10 @@
                     <div class="views">
                         <span class="ispan">
                             <img src="~/images/eye.png" alt="eyeImg">
-                            12,000 Views
+                            @{
+                                var j = (long)0 + @Model.stories.TotalViews;
+                            } 
+                            @j Views
                         </span>
                     </div>
                 </div>

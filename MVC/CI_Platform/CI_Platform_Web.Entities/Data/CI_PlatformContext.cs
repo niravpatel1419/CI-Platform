@@ -803,6 +803,8 @@ namespace CI_Platform_Web.Entities.Data
                     .IsUnicode(false)
                     .HasColumnName("title");
 
+                entity.Property(e => e.TotalViews).HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")
                     .HasColumnName("updated_at");

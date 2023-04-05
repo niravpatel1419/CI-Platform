@@ -432,10 +432,10 @@ namespace CI_Platform_Web.Repositories.Repositories
 
             v.stories = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).Include(x => x.StoryMedia).Include(x => x.User).Include(x => x.StoryMedia).FirstOrDefault();
             v.users = _cI_PlatformContext.Users.ToList();
-            /*   Story s = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).FirstOrDefault();
-               s.TotalViews = s.TotalViews + 1;
-               _cI_PlatformContext.Update(s);
-               _cI_PlatformContext.SaveChanges();*/
+            Story s = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).FirstOrDefault();
+            s.TotalViews = s.TotalViews + 1;
+            _cI_PlatformContext.Update(s);
+            _cI_PlatformContext.SaveChanges();
             return v;
         }
 
@@ -465,6 +465,26 @@ namespace CI_Platform_Web.Repositories.Repositories
 
             return true;
             
+        }
+
+        //For Change The User Password In The User Edit Profile Section
+
+        public bool changeUserPassword(UserDetailsViewModel u)
+        {
+            User user = _cI_PlatformContext.Users.Where(x => x.UserId == u.users.UserId).FirstOrDefault();
+
+            if(user.Password != u.oldPassword)
+            {
+                return false;
+            }
+            else
+            {
+                user.Password = u.newPassword;
+                _cI_PlatformContext.Update(user);
+                _cI_PlatformContext.SaveChanges();
+
+                return true;
+            }
         }
     }
 

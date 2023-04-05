@@ -10,7 +10,7 @@ namespace CI_Platform_Web.Entities.ViewModel
 {
     public class UserDetailsViewModel
     {
-        public User users { get; set; }
+        public User users { get; set; } = new User();
 
         [Required]
         public string oldPassword { get; set; }
