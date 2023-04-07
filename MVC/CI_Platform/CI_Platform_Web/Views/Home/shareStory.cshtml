@@ -27,14 +27,6 @@
             <div class="row">
                 <div class="col-lg-4">
                     <label>Select Mission</label>
-                    @*                    <select asp-for="missionId" class="selectmission form-select" id="miiid" onchange="selectedMissionChanged()>
-                    <option selected>Select mission</option>
-                    @foreach (var i in Model.missionlist.Missions)
-                    {
-                    <option value="@i.MissionId"> @i.Title</option>
-                    }
-                    </select>*@
-
                     <select asp-for="missionId" class="selectmission form-select" id="miiid" onclick="selectedMissionChanged()">
                         <option selected>Select Mission</option>
                         @foreach (var i in Model.missionlist.Missions)
@@ -175,7 +167,6 @@
                     CKEDITOR.instances['ckeditorcontent'].setData(data.description);
                 }
             
-
             });
         }
 

@@ -522,6 +522,24 @@ namespace CI_Platform_Web.Repositories.Repositories
                 return true;
             }
         }
+
+        //For Country in user edit profile page
+        public List<Country> GetCountryList()
+        {
+            return _cI_PlatformContext.Countries.ToList();
+        }
+
+        //For Add skills in user edit profile page
+        public List<Skill> GetAllSkills()
+        {
+            return _cI_PlatformContext.Skills.ToList();
+        }
+
+        public List<UserSkill> GetUsersSkills(long userId)
+        {
+            return _cI_PlatformContext.UserSkills.Where(x => x.UserId == userId).ToList();
+        }
+
     }
 
 }

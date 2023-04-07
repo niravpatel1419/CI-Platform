@@ -1,8 +1,5 @@
 ﻿@using CI_Platform_Web.Entities.Models;
 
-@{
-    var usrid = Context.Session.GetString("userID");
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -139,8 +136,8 @@
                                     {
                                         <li>
                                             <a class="dropdown-item p-0 mt-1" href="#">
-                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.skill_name">
-                                                @item.skill_name
+                                                <input type="checkbox" id="" class="checkbox ms-3 " value="@item.SkillName">
+                                                @item.SkillName
                                             </a>
                                         </li>
                                     }
@@ -328,8 +325,8 @@
                                     <li>
                                         <a class="dropdown-item" href="#">
 
-                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.Title" id=@category.Title name="theme" />
-                                            @category.Title
+                                            <input class="form-check-input checkbox" id="" type="checkbox" value="@category.SkillName" id=@category.SkillName name="theme" />
+                                            @category.SkillName
 
                                         </a>
                                     </li>

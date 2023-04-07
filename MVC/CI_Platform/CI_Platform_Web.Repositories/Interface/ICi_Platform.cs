@@ -35,5 +35,8 @@ namespace CI_Platform_Web.Repositories.Interface
         public StoryDetailsVM GetStoryDetails(long storyId);
         public bool UpdateUserDetails(User u);
         public bool changeUserPassword(UserDetailsViewModel u);
+        public List<Country> GetCountryList();
+        public List<Skill> GetAllSkills();
+        public List<UserSkill> GetUsersSkills(long userId);
     }
 }

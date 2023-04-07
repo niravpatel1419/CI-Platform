@@ -825,30 +825,36 @@ namespace CI_Platform_Web.Controllers
         public IActionResult userEditProfile()
         {
             var identity = User.Identity as ClaimsIdentity;
-            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
-            ViewBag.FirstName = userName;
-
             UserDetailsViewModel u = new UserDetailsViewModel();
             u.users = _iCiPlat.GetUserDetails(userId);
-            
+            ViewBag.img = u.users.Avatar;
+            ViewBag.FirstName = u.users.FirstName;
+            u.allcountries = _iCiPlat.GetCountryList();
+            u.allskills = _iCiPlat.GetAllSkills();
+            u.userSkillsList = _iCiPlat.GetUsersSkills(userId);
             return View(u);
         }
 
         [HttpPost]
         public IActionResult userEditProfile(UserDetailsViewModel u,string ProfileText, string WhyIVolunteer)
         {
+            List<int> userSkillsIds = new List<int>();
+            if (u.userSkills != null)
+            {
+                u.userSkills = u.userSkills.Remove(u.userSkills.Length - 1, 1);
+                userSkillsIds = u.userSkills.Split(',').Select(int.Parse).ToList();
+            }
+
             var identity = User.Identity as ClaimsIdentity;
-            var userName = identity?.FindFirst(ClaimTypes.Name)?.Value;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
-            
             u.users.ProfileText = ProfileText;
             u.users.WhyIVolunteer = WhyIVolunteer;
-            u.users.UserId= userId;
 
-            _iCiPlat.UpdateUserDetails(u.users);
             return RedirectToAction("userEditProfile","Home");
         }
+
+
         public JsonResult Country()
         {
             var c = _cI_PlatformContext.Countries.ToList();
