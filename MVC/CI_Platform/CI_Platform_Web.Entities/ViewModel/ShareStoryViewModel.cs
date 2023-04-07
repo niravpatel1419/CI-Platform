@@ -16,5 +16,6 @@ namespace CI_Platform_Web.Entities.ViewModel
         public StoryMedium media { get; set; }
         public int missionId { get; set; }
         public List<IFormFile> attachment { get; set; }
+        public string url { get; set; }
     }
 }

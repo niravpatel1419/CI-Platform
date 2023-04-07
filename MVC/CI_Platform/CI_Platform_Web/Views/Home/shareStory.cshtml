@@ -1,5 +1,4 @@
-﻿
-@using CI_Platform_Web.Entities.ViewModel;
+﻿@using CI_Platform_Web.Entities.ViewModel;
 
 
 @{
@@ -13,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
-   
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/shareStory.css" class="rel" />
 
@@ -21,38 +20,35 @@
     <title>Document</title>
 </head>
 <body>
-   
+
     <form asp-action="ShareStory" asp-controller="Home" method="post" enctype="multipart/form-data">
-        <div class="container sharestorymaincont">
+        <div class="container sharestorymaincont" id="mainform">
             <h3>Share your story</h3>
-
-            @if (ViewBag.InvalidData != null)
-            {
-                <h5 class="text-danger">@ViewBag.InvalidData</h5>
-            }
-
             <div class="row">
                 <div class="col-lg-4">
                     <label>Select Mission</label>
-                    <select asp-for="missionId" class="selectmission" id="miiid">
-                        <option>Select mission</option>
+                    @*                    <select asp-for="missionId" class="selectmission form-select" id="miiid" onchange="selectedMissionChanged()>
+                    <option selected>Select mission</option>
+                    @foreach (var i in Model.missionlist.Missions)
+                    {
+                    <option value="@i.MissionId"> @i.Title</option>
+                    }
+                    </select>*@
+
+                    <select asp-for="missionId" class="selectmission form-select" id="miiid" onclick="selectedMissionChanged()">
+                        <option selected>Select Mission</option>
                         @foreach (var i in Model.missionlist.Missions)
                         {
-                            if (Model.stories != null && @i.MissionId == Model.stories.MissionId)
-                            {
-                                <option value="@i.MissionId" selected> @i.Title</option>
-                            }
-                            else
-                            {
-                                <option value="@i.MissionId"> @i.Title</option>
-
-                            }
-
-
+                            <option value="@i.MissionId">@i.Title</option>
                         }
                     </select>
 
+                    @if (ViewBag.Mission != null)
+                    {
+                        <span class="text-danger">@ViewBag.Mission</span>
+                    }
                 </div>
+
                 <div class="col-lg-4">
                     <label for="">Enter Title</label>
                     @if (Model.stories != null)
@@ -65,8 +61,12 @@
                         <input asp-for="stories.Title" type="text" class="titletext" id="texttitle">
 
                     }
-
+                    @if (ViewBag.Title != null)
+                    {
+                        <span class="text-danger">@ViewBag.Title</span>
+                    }
                 </div>
+
                 <div class="col-lg-4">
                     <label for="">Date </label>
                     @if (Model.stories != null)
@@ -79,7 +79,12 @@
                         <input asp-for="stories.PublishedAt" type="date" class="titletext" id="date">
 
                     }
+                    @if (ViewBag.PublishedAt != null)
+                    {
+                        <span class="text-danger">@ViewBag.PublishedAt</span>
+                    }
                 </div>
+
                 <div class="col-12 MyStory">
                     <span class="">MyStory</span>
                     <textarea asp-for="stories.Description" name="editor1" id="ckeditorcontent">{@Model.stories.Description}</textarea>
@@ -88,25 +93,23 @@
                         CKEDITOR.config.width = '100%';
                         CKEDITOR.config.height = '30%';
                     </script>
+                    @if (ViewBag.description != null)
+                    {
+                        <span class="text-danger">@ViewBag.description</span>
+                    }
                 </div>
-
 
                 <div class="enterurl col-12 mt-2">
                     <label for="">Enter VIdeo Url</label>
                     @if (@Model.media == null)
                     {
-
-                        <input asp-for="media.Path" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url">
-
+                        <input asp-for="url" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url">
                     }
                     else
                     {
-
-                        <input asp-for="media.Path" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url" value="@Model.media.Path">
-
+                        <input asp-for="url" class="form-control" type="url" class="videourl" placeholder="Enter Your Url" style="width:100%" id="url" value="@Model.url">
                     }
                 </div>
-
 
                 <div class=" col-12 mt-2">
                     <label for="">Upload your photos</label>
@@ -117,7 +120,7 @@
             </div>
             <div class="row mt-2">
                 <!-- HTML FOR UPLOAD IMAGE -->
-                
+
                 <div class="input-div position-relative text-center font-weight-bold text-muted d-block p-3 mt-2"
                      style="height: 100px; border: 2px dashed #ccc">
                     <img src="~/images/drag-and-drop.png" />
@@ -143,7 +146,7 @@
             </div>
 
             <div class="row buttons mt-2">
-                <div class=" col-6 cancel"><button class="cancelbtn">Cancel</button></div>
+                <div class=" col-6 cancel"><button name="button" type="submit" class="cancelbtn" value="CANCEL">Cancel</button></div>
                 <div class=" col-6 savediv">
                     <button name="button" type="submit" class="cancelbtn" value="DRAFT">Save</button>
                     <button name="button" type="submit" class="cancelbtn" value="PENDING">Submit</button>
@@ -152,6 +155,32 @@
         </div>
 
     </form>
+
+    <script>
+
+        function selectedMissionChanged() {
+            var a = $('#miiid').val();
+            console.log(a);
+            $.ajax({
+                type: 'get',
+                url: '/Home/LoadStory?missionId=' + a,
+                success: function (data) {
+                    console.log("inside success")
+                    console.log(data);
+                    $('#texttitle').val(data.title)
+                    // $('#newID').val(data.description)
+                    // $('#newID').text(data.description)
+                    $('#date').val(data.date)
+                    $('#url').val(data.url)
+                    CKEDITOR.instances['ckeditorcontent'].setData(data.description);
+                }
+            
+
+            });
+        }
+
+    </script>
+
 
     <script>
         const input = document.getElementById("image-upload");
@@ -196,6 +225,7 @@
             displayImages();
             console.log(imagesArray);
         }
+
     </script>
 
 

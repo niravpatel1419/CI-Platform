@@ -710,7 +710,7 @@ namespace CI_Platform_Web.Controllers
 
 
         //For Share Your Story Page
-        public IActionResult shareStory()
+        public IActionResult shareStory(int missionId)
         {
             //User Details From Claim Authentication
             var identity = User.Identity as ClaimsIdentity;
@@ -719,8 +719,7 @@ namespace CI_Platform_Web.Controllers
             ViewBag.UserId = userId;
             ViewBag.FirstName = userName;
 
-
-            ShareStoryViewModel v = _iCiPlat.GetSavedStory(userId);
+            ShareStoryViewModel v = _iCiPlat.GetSavedStory(userId,missionId);
             v.missionlist = _iCiPlat.DisplayMissions();
             return View(v);
 
@@ -735,28 +734,57 @@ namespace CI_Platform_Web.Controllers
         [HttpPost]
         public IActionResult shareStory(ShareStoryViewModel v, string button)
         {
+            if (button == "CANCEL")
+            {
+                return RedirectToAction("storyListingPage", "Home");
+            }
+
             string d = Request.Form["editor1"].ToString();
             var identity = User.Identity as ClaimsIdentity;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
 
-            if (v.missionId == 0 || v.stories.PublishedAt == null || v.stories.Title == null || d == "")
+            if (v.missionId == 0)
             {
-                ViewBag.InvalidData = "ONE OF THE FIELD IS BLANK";
-                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId);
+                ViewBag.Mission = "Select a valid mission";
+                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId,v.missionId);
+                vm.missionlist = _iCiPlat.DisplayMissions();
+                return View(vm);
+            }
+
+            if (v.stories.Title == null)
+            {
+                ViewBag.Title = "Please enter a valid title";
+                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId,v.missionId);
+                vm.missionlist = _iCiPlat.DisplayMissions();
+                return View(vm);
+            }
+
+            if(v.stories.PublishedAt == null)
+            {
+                ViewBag.PublishedAt = "Please choose a published date";
+                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId, v.missionId);
+                vm.missionlist = _iCiPlat.DisplayMissions();
+                return View(vm);
+            }
+
+            if(d == "")
+            {
+                ViewBag.description = "Please enter a valid description";
+                ShareStoryViewModel vm = _iCiPlat.GetSavedStory(userId, v.missionId);
                 vm.missionlist = _iCiPlat.DisplayMissions();
                 return View(vm);
             }
 
             int missionId = v.missionId;
             string t = v.stories.Title;
-            string url = v.media.Path;
+            string url = v.url;
 
             //string d = v.stories.Description;
             string date = v.stories.PublishedAt.ToString();
             bool b = _iCiPlat.SaveStrory(userId, missionId, t, d, date, url, button);
 
 
-            if (v.missionId != null)
+            if (v.attachment != null)
             {
                 foreach (var i in v.attachment)
                 {
@@ -875,7 +903,34 @@ namespace CI_Platform_Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult LoadStory(int missionId)
+        {
 
+
+            var identity = User.Identity as ClaimsIdentity;
+            long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
+            //ViewBag.FirstName = identity.FindFirst(ClaimTypes.Name).Value;
+            ShareStoryViewModel v = _iCiPlat.GetSavedStory(userId, missionId);
+            v.missionlist = _iCiPlat.DisplayMissions();
+            JsonResult j = new JsonResult(v);
+            // List<int> missions = new List<int>();
+            //missions.Add(1);
+            //var temp = new { title = null, Description = null, date = null, url = null };
+
+
+            if (v.stories != null)
+            {
+
+                var temp = new { title = v.stories.Title, Description = v.stories.Description, date = v.stories.PublishedAt.Value.ToString("yyyy-MM-dd"), url = v.url };
+                JsonResult i = new JsonResult(temp);
+                return i;
+            }
+            else
+            {
+                return Json(false);
+            }
+
+        }
 
 
 

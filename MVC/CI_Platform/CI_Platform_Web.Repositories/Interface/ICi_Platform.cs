@@ -30,7 +30,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public bool SaveStrory(long userId, int missionId, string title, string stext, string date, string url, string status);
         public IEnumerable<StoryListViewModel> FetchStoryDetails();
         public IEnumerable<Story> GetStoryListData();
-        public ShareStoryViewModel GetSavedStory(long UserId);
+        public ShareStoryViewModel GetSavedStory(long UserId,int missionId);
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
         public bool UpdateUserDetails(User u);

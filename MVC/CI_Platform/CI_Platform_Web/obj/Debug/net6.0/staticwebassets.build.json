@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wcajjkyKEPKmgkKhsKQVg99/bDpG4tb5KsrMrtI26bw=",
+  "Hash": "3JnM5y9SM5HNaUJSCrvMJuM8hfmgkwbjnDyNT8HTISw=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -1868,6 +1868,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Story\\c072fa7d-f5c4-41f6-af30-9ee736279b93_Screenshot (11).png"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\c4443d47-4635-4ee9-abf8-710446496611_Screenshot (19).png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Story/c4443d47-4635-4ee9-abf8-710446496611_Screenshot (19).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Story\\c4443d47-4635-4ee9-abf8-710446496611_Screenshot (19).png"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\e6cc9a9c-573c-41cd-832a-0d03404dec31_Screenshot (11).png",

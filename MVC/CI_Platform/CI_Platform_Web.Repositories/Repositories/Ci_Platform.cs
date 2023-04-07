@@ -342,11 +342,11 @@ namespace CI_Platform_Web.Repositories.Repositories
         public bool SaveStrory(long userId, int missionId, string title, string stext, string date, string url, string status)
         {
 
-            if (userId == 0)
+            if (userId == 0 || missionId == 0)
             {
                 return false;
             }
-            Story s = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT").FirstOrDefault();
+            Story s = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT" && x.MissionId == missionId).FirstOrDefault();
             if (s != null)
             {
                 s.UserId = userId;
@@ -357,14 +357,53 @@ namespace CI_Platform_Web.Repositories.Repositories
                 s.Status = status;
                 _cI_PlatformContext.Update(s);
                 _cI_PlatformContext.SaveChanges();
+
+                var id = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == missionId && x.PublishedAt == s.PublishedAt).OrderByDescending(x => x.CreatedAt).FirstOrDefault().StoryId;
+                StoryMedium ma = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == id && x.Type == "video").FirstOrDefault();
+                if (ma != null)
+                {
+                    if (url != null)
+                    {
+                        ma.StoryId = id;
+                        ma.Path = url;
+                        ma.Type = "video";
+                        _cI_PlatformContext.Update(ma);
+                        _cI_PlatformContext.SaveChanges();
+                    }
+                    else
+                    {
+                        _cI_PlatformContext.Remove(ma);
+                        _cI_PlatformContext.SaveChanges();
+                    }
+
+                }
+
+                else
+                {
+                    if (url != null)
+                    {
+                        StoryMedium m = new StoryMedium();
+                        m.StoryId = id;
+                        m.Type = "video";
+
+                        m.Path = url;
+                        _cI_PlatformContext.Add(m);
+                        _cI_PlatformContext.SaveChanges();
+                    }   
+
+                }
+
             }
+
+
             else
             {
                 Story s1 = new Story();
                 s1.UserId = userId;
                 s1.Title = title;
                 s1.MissionId = missionId;
-                s1.PublishedAt = DateTime.Parse(date);
+                var publishdate = DateTime.Parse(date);
+                s1.PublishedAt = publishdate;
                 s1.Description = stext;
                 s1.Status = status;
 
@@ -372,19 +411,20 @@ namespace CI_Platform_Web.Repositories.Repositories
                 _cI_PlatformContext.SaveChanges();
 
                 //Story s1 = new Story();
+                if (url != null)
+                {
+                    var id = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == status && x.PublishedAt == publishdate).FirstOrDefault().StoryId;
 
+                    StoryMedium m = new StoryMedium();
+                    m.StoryId = id;
+                    m.Type = "video";
+                    m.Path = url;
+                    _cI_PlatformContext.Update(m);
+                    _cI_PlatformContext.SaveChanges();
+                }
 
             }
 
-
-
-
-            StoryMedium m = new StoryMedium();
-            /* m.StoryId=_context.Stories.Where(x=>x.UserId==userId && x.MissionId==missionId && x.PublishedAt==s.PublishedAt).FirstOrDefault().StoryId;
-             m.Path= url;
-
-             _context.Add(m);
-             _context.SaveChanges();*/
             return true;
 
         }
@@ -407,19 +447,15 @@ namespace CI_Platform_Web.Repositories.Repositories
 
 
         //For Save the story details entered by the user
-        public ShareStoryViewModel GetSavedStory(long userId)
+        public ShareStoryViewModel GetSavedStory(long userId,int missionId)
         {
             ShareStoryViewModel v = new ShareStoryViewModel();
-            var i = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT").ToList();
+            var i = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT" && x.MissionId == missionId).ToList();
             if (i.Count() > 0)
-            {
+            {   
                 v.stories = i.FirstOrDefault();
                 v.media = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId).FirstOrDefault();
-                /*   if (v.media == null)
-                   {
-                       v.missionId = -1;
-                   }
-                   */
+                v.url = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId && x.Type == "video").FirstOrDefault()?.Path;
             }
             return v;
         }
