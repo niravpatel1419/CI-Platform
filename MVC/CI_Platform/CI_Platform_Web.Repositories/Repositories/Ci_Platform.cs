@@ -478,7 +478,7 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         //For Edit User Profile
 
-        public bool UpdateUserDetails(User u)
+        public bool UpdateUserDetails(User u, List<int> usersSkills)
         {
             User temp = _cI_PlatformContext.Users.Where(x => x.UserId == u.UserId).FirstOrDefault();
             
@@ -486,7 +486,7 @@ namespace CI_Platform_Web.Repositories.Repositories
             temp.LastName = u.LastName;
             temp.EmployeeId = u.EmployeeId;
             temp.Manager = u.Manager;
-            temp.Title = u.Title;
+            temp.Title = u.Title;                                                                   
             temp.Department = u.Department;
             temp.ProfileText = u.ProfileText;
             temp.WhyIVolunteer = u.WhyIVolunteer;
@@ -495,8 +495,22 @@ namespace CI_Platform_Web.Repositories.Repositories
             temp.Availability = u.Availability;
             temp.LinkedInUrl = u.LinkedInUrl;
             temp.UpdatedAt = DateTime.Now;
-
+            if (u.Avatar != null)
+            {
+                temp.Avatar = u.Avatar;
+            }
             _cI_PlatformContext.Users.Update(temp);
+            _cI_PlatformContext.SaveChanges();
+
+            var a = _cI_PlatformContext.Database.ExecuteSqlRaw($"delete from user_skill where user_id={u.UserId}");
+            _cI_PlatformContext.SaveChanges();
+
+            List<UserSkill> userSkillsList = new List<UserSkill>();
+            foreach (var id in usersSkills)
+            {
+                userSkillsList.Add(new UserSkill { SkillId = id, UserId = u.UserId });
+            }
+            _cI_PlatformContext.UserSkills.AddRange(userSkillsList);
             _cI_PlatformContext.SaveChanges();
 
             return true;
@@ -540,6 +554,64 @@ namespace CI_Platform_Web.Repositories.Repositories
             return _cI_PlatformContext.UserSkills.Where(x => x.UserId == userId).ToList();
         }
 
+        public volunteeringTimeSheetViewModel GetVolunteerTimeDetails(long userId)
+        {
+            volunteeringTimeSheetViewModel vol = new volunteeringTimeSheetViewModel();
+            List<MissionApplication> goalMission = _cI_PlatformContext.MissionApplications.Where(x => x.UserId == userId && x.Mission.MissionType == "goal").ToList();
+            List<MissionApplication> timeMission = _cI_PlatformContext.MissionApplications.Where(x => x.UserId == userId && x.Mission.MissionType == "time").ToList();
+            vol.timeMissions = timeMission;
+            vol.goalMissions = goalMission;
+            vol.allMissions = _cI_PlatformContext.Missions.ToList();
+            vol.goalTimesheetList = _cI_PlatformContext.Timesheets.Where(x => x.UserId == userId && x.Mission.MissionType == "goal").ToList();
+            vol.timeTimesheetList = _cI_PlatformContext.Timesheets.Where(x => x.UserId == userId && x.Mission.MissionType == "time").ToList();
+            return vol;
+        }
+
+        public bool AddTimeSheetEntry(long userId, volunteeringTimeSheetViewModel vm)
+        {
+
+            Timesheet t = new Timesheet();
+            if (vm.timesheetPrimary != 0)
+            {
+                t = _cI_PlatformContext.Timesheets.Where(x => x.TimesheetId == vm.timesheetPrimary).FirstOrDefault();
+            }
+            t.UserId = userId;
+            t.MissionId = vm.missionId;
+            t.DateVolunteered = vm.date;
+            t.Notes = vm.message;
+
+            if (vm.missionType == "time")
+            {
+                t.Time = TimeSpan.Parse(vm.hours.ToString() + ":" + vm.minutes.ToString() + ":00");
+            }
+            if (vm.missionType == "goal")
+            {
+                t.Action = vm.action;
+            }
+            if (vm.timesheetPrimary != 0)
+            {
+                _cI_PlatformContext.Timesheets.Update(t);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+
+            }
+
+            _cI_PlatformContext.Timesheets.Add(t);
+            _cI_PlatformContext.SaveChanges();
+            return true;
+        }
+
+        public bool DeleteTimesheetRecord(int timesheetId)
+        {
+            _cI_PlatformContext.Database.ExecuteSqlRaw($"delete from timesheet where timesheet_id={timesheetId}");
+            return true;
+        }
+
+        public Timesheet EditTimesheetRecord(long timesheetId)
+        {
+            Timesheet t = _cI_PlatformContext.Timesheets.Find(timesheetId);
+            return t;
+        }
     }
 
 }

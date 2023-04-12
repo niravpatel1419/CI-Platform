@@ -54,7 +54,16 @@ namespace CI_Platform_Web.Controllers
         //For LandingPage
 
         public IActionResult home(string searchQuery, long id, int? pageIndex, int sortId, string[] countryList, string[] cityList, string[] themeList)
-        {
+            {
+
+            if (sortId != null)
+            {
+                ViewBag.sortIdPass = sortId;
+            }
+            else
+            {
+                ViewBag.sortIdPass = 0;
+            }
 
             var identity = User.Identity as ClaimsIdentity;
             var userEmail = identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -846,10 +855,21 @@ namespace CI_Platform_Web.Controllers
                 userSkillsIds = u.userSkills.Split(',').Select(int.Parse).ToList();
             }
 
+            if (u.userAvatar != null)
+            {
+                string filename = Guid.NewGuid().ToString() + u.userAvatar.FileName;
+
+                var filestr = new FileStream("wwwroot/images/Avatar/" + filename, FileMode.Create);
+                u.userAvatar.CopyTo(filestr);
+                u.users.Avatar = "/images/Avatar/" + filename;
+            }
+
             var identity = User.Identity as ClaimsIdentity;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
             u.users.ProfileText = ProfileText;
             u.users.WhyIVolunteer = WhyIVolunteer;
+            u.users.UserId = userId;
+            _iCiPlat.UpdateUserDetails(u.users, userSkillsIds);
 
             return RedirectToAction("userEditProfile","Home");
         }
@@ -894,6 +914,51 @@ namespace CI_Platform_Web.Controllers
             }
 
         }
+
+
+        //For Volunteering Time Sheet
+
+        public IActionResult volunteeringTimeSheet()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+
+            volunteeringTimeSheetViewModel volTime = new volunteeringTimeSheetViewModel();
+            volTime = _iCiPlat.GetVolunteerTimeDetails(userId);
+
+
+            return View(volTime);
+        }
+
+        [HttpPost]
+        public IActionResult VolunteeringTimesheet(volunteeringTimeSheetViewModel vm)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            var suserId = identity?.FindFirst(ClaimTypes.Sid)?.Value;
+            long userId = long.Parse(suserId);
+
+
+            // VolTimeSheetVM volTime = new VolTimeSheetVM();
+
+
+            // volTime = _iciplat.GetVolunteerTimeDetails(userId);
+            var a = _iCiPlat.AddTimeSheetEntry(userId, vm);
+            return RedirectToAction("VolunteeringTimesheet", "Home");
+        }
+
+        //For Delete Record in Volunteering Time Sheet
+        public bool DeleteTimesheetRecord(int timesheetId)
+        {
+            return _iCiPlat.DeleteTimesheetRecord(timesheetId);
+        }
+
+        //For Edit Record in Volunteering Time Sheet
+        public Timesheet EditTimesheetRecord(long timesheetId)
+        {
+            return _iCiPlat.EditTimesheetRecord(timesheetId);
+        }
+
 
 
 

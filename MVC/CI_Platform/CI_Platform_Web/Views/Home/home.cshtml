@@ -268,12 +268,12 @@
 
 
 <!--For The Pagination-->
-<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
-
+<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3 paginationNav" id="paginationNav">
+        
     <ul class="pagination">
 
         <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">
-            <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage - 1)" aria-label="Previous">
+            <a class="page-link" onclick="anyChange(id=@ViewBag.sortIdPass,pageNo=@(ViewBag.CurrentPage - 1))" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -281,12 +281,12 @@
         @for (int i = 0; i < ViewBag.TotalPages; i++)
         {
             <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@i">@((i + 1).ToString())</a>
+                <a class="page-link" onclick="anyChange(id=@ViewBag.sortIdPass,pageNo=@i)">@((i + 1).ToString())</a>
             </li>
         }
 
         <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages - 1 ? "disabled" : "")">
-            <a class="page-link" href="/Home/home/?searchQuery=@ViewBag.searchQuery&pageIndex=@(ViewBag.CurrentPage + 1)" aria-label="Next">
+            <a class="page-link" onclick="anyChange(id=@ViewBag.sortIdPass,pageNo=@(ViewBag.CurrentPage + 1))" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>

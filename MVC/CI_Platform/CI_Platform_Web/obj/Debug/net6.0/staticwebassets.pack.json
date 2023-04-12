@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\css\\volunteeringMission.css"
     },
     {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\volunteeringTimeSheet.css",
+      "PackagePath": "staticwebassets\\css\\volunteeringTimeSheet.css"
+    },
+    {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
@@ -75,6 +79,14 @@
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Animal-welfare-&-save-birds-campaign.png",
       "PackagePath": "staticwebassets\\images\\Animal-welfare-&-save-birds-campaign.png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Avatar\\3d388503-8e30-4cfa-9fbb-060f3a39ba03volunteer1.png",
+      "PackagePath": "staticwebassets\\images\\Avatar\\3d388503-8e30-4cfa-9fbb-060f3a39ba03volunteer1.png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Avatar\\7e7ecc8d-df4a-4678-bd42-178f32434c14volunteer3.png",
+      "PackagePath": "staticwebassets\\images\\Avatar\\7e7ecc8d-df4a-4678-bd42-178f32434c14volunteer3.png"
     },
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png",
@@ -179,6 +191,10 @@
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\38407c47-8ccd-4b22-aa53-902642055340_Screenshot (11).png",
       "PackagePath": "staticwebassets\\images\\Story\\38407c47-8ccd-4b22-aa53-902642055340_Screenshot (11).png"
+    },
+    {
+      "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png",
+      "PackagePath": "staticwebassets\\images\\Story\\6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png"
     },
     {
       "Id": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\ba51820b-5f68-4b51-9d48-58a1aa3dffa4_Screenshot (31).png",

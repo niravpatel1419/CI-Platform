@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3JnM5y9SM5HNaUJSCrvMJuM8hfmgkwbjnDyNT8HTISw=",
+  "Hash": "nv4UsRO1b424zXXUA6nvCDr2UlBxDNaQgZVn5XsHXj0=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -272,6 +272,23 @@
       "OriginalItemSpec": "wwwroot\\css\\volunteeringMission.css"
     },
     {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\volunteeringTimeSheet.css",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "css/volunteeringTimeSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\volunteeringTimeSheet.css"
+    },
+    {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\favicon.ico",
       "SourceId": "CI_Platform_Web",
       "SourceType": "Discovered",
@@ -423,6 +440,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\arrow.png"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Avatar\\3d388503-8e30-4cfa-9fbb-060f3a39ba03volunteer1.png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Avatar/3d388503-8e30-4cfa-9fbb-060f3a39ba03volunteer1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Avatar\\3d388503-8e30-4cfa-9fbb-060f3a39ba03volunteer1.png"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Avatar\\7e7ecc8d-df4a-4678-bd42-178f32434c14volunteer3.png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Avatar/7e7ecc8d-df4a-4678-bd42-178f32434c14volunteer3.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Avatar\\7e7ecc8d-df4a-4678-bd42-178f32434c14volunteer3.png"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\bell.png",
@@ -1834,6 +1885,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Story\\38407c47-8ccd-4b22-aa53-902642055340_Screenshot (11).png"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Story/6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Story\\6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\ba51820b-5f68-4b51-9d48-58a1aa3dffa4_Screenshot (31).png",

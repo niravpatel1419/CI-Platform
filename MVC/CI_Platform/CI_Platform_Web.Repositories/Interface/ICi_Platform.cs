@@ -33,10 +33,14 @@ namespace CI_Platform_Web.Repositories.Interface
         public ShareStoryViewModel GetSavedStory(long UserId,int missionId);
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
-        public bool UpdateUserDetails(User u);
+        public bool UpdateUserDetails(User u, List<int> usersSkills);
         public bool changeUserPassword(UserDetailsViewModel u);
         public List<Country> GetCountryList();
         public List<Skill> GetAllSkills();
         public List<UserSkill> GetUsersSkills(long userId);
+        public volunteeringTimeSheetViewModel GetVolunteerTimeDetails(long userId);
+        public bool AddTimeSheetEntry(long userId, volunteeringTimeSheetViewModel vm);
+        public bool DeleteTimesheetRecord(int timesheetId);
+        public Timesheet EditTimesheetRecord(long timesheetId);
     }
 }

@@ -1,0 +1,158 @@
+﻿a {
+    text-decoration: none;
+}
+
+
+
+/* Top Header CSS */
+
+.headerLeft a {
+    width: 150px;
+    height: 22px;
+    font-size: 16px;
+    color: #333333;
+    opacity: 1;
+}
+
+.policy-1 {
+    margin-left: -13px;
+}
+
+.menu {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+    top: 0;
+    left: 0;
+    right: 50vw;
+    bottom: 50vh;
+    z-index: 99;
+    color: #333333;
+    background-color: #fff;
+    list-style: none;
+    padding-top: 4rem;
+}
+
+.showMenu {
+    transform: translateY(0);
+}
+
+.hamburger {
+    position: relative;
+    z-index: 100;
+    top: 12px;
+    /* left: 1rem; */
+    padding-top: 4px;
+    margin-bottom: auto;
+    border: black solid 1px;
+    border-radius: 10%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.closeIcon {
+    display: none;
+}
+
+.btnCustom {
+    /* width: 262px; */
+    /* height: 22px; */
+    font-size: 16px;
+    color: #333333;
+    background-color: #fff;
+    border: none;
+    opacity: 1;
+}
+
+.btn:hover {
+    color: #333333;
+    background-color: #fff;
+}
+
+.imgIcon {
+    /* margin-left: 450px; */
+    margin-right: 11px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.titletag {
+    color: #414141;
+}
+
+.innerdiv {
+    border: 1px solid #414141;
+    min-height: 50vh;
+}
+
+.maindiv-timesheet {
+    margin-top: 120px;
+}
+
+.saffron {
+    color: #F88634;
+}
+
+.addbtntmsht {
+    width: 70px;
+    background: #fff;
+    color: #F88634;
+    border: 1px solid #F88634;
+    border-radius: 25px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: calc(100% - 72px);
+    margin-top: 3px;
+}
+
+.addSkillsbtnmodal {
+    width: 100px;
+    color: #414141;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: white;
+    border: 2px solid #414141;
+    border-radius: 25px;
+    margin-left: auto;
+}
+
+.savebtnmodal {
+    width: fit-content;
+    color: #F88634;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: white;
+    border: 2px solid #F88634;
+    border-radius: 25px;
+    margin-left: 5px;
+}
+
+.margin-top-table {
+    margin-top: 10px !important;
+}
+
+/* Media Queries For NavBar Responsive */
+
+@media (max-width:991px) {
+    .filterNav {
+        display: none;
+    }
+
+    .topHeader {
+        display: none;
+    }
+}
+
+@media (min-width : 991px) {
+    .hamburger {
+        display: none;
+    }
+}
+
+@media (max-width : 991px) {
+    .form-control {
+        width: 50vw;
+    }
+}

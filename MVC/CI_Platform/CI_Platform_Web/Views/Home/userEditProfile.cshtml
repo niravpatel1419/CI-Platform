@@ -22,8 +22,8 @@
 
             <div class="col-md-3 col-sm-12">
                 <div class="userImageDiv">
-                    <img src="~/images/user-img-large.png" alt="User Image" class="userImg mt-3" onclick="imageClicked()">
-                    <input type="file" id="imgupload" accept="image/jpeg,image/png,image/jpg" hidden />
+                    @*<img src="~/images/user-img-large.png" alt="User Image" class="userImg mt-3" id="userProfileImg" onclick="imageClicked()">*@
+                    <img src="@Model.users.Avatar" alt="User Image" class="userImg mt-3" id="userProfileImg" onclick="imageClicked()" />
                     <p class="mb-0" style="font-size: 20px;">@Model.users.FirstName @Model.users.LastName</p>
                     <a href="#" class="changePassword mb-2" data-bs-toggle="modal" data-bs-target="#modalChangePassword">Change Password</a>
 
@@ -60,10 +60,10 @@
                                 </div>
 
                                 <div class="modal-footer d-flex">
-                                    <button type="button" class="addSkillsbtnmodal" data-bs-dismiss="modal">
+                                    <button type="button" class="addSkillsbtnmodal cancelBtn" data-bs-dismiss="modal">
                                         Cancel
                                     </button>
-                                    <button type="" class="savebtnmodal" onclick="changePassword()">
+                                    <button type="" class="savebtnmodal changePswBtn" onclick="changePassword()">
                                         Change Password
                                     </button>
                                 </div>
@@ -80,7 +80,8 @@
             <!--Information Section-->
             <div class="col-md-9 col-sm-12 infomationDiv">
 
-                <form asp-controller="Home" asp-action="userEditProfile" method="post">
+                <form asp-controller="Home" asp-action="userEditProfile" method="post" enctype="multipart/form-data">
+                    <input type="file" id="imgupload" accept="image/jpeg,image/png,image/jpg" hidden asp-for="userAvatar" onchange="userImgChanged(this.value)" />
                     <div class="container">
                         <h3 class="innerTitle">Basic Information</h3>
                         <hr>
@@ -293,6 +294,24 @@
 
 <script>
 
+    function userImgChanged(input) {
+        console.log(input);
+        var reader = new FileReader();
+        reader.readAsDataURL(document.getElementById("imgupload").files[0]);
+
+        reader.onload = function (e) {
+
+            //console.log("INI IIN  ININ SIDE")
+            $('#userProfileImg').attr("src", e.target.result)
+        }
+
+        // reader.readAsDataURL(input.files[0]);
+    }
+
+</script>
+
+<script>
+
     $('body').on('click','div .list-group .list-group-item',function(){
              $(this).toggleClass('active');
          });
@@ -369,6 +388,15 @@
                 }
             }
         });
+    }
+
+    function imageClicked() {
+        console.log("CAlled");
+        $('#imgupload').click();
+
+
+        //var file1= $('#imgupload').files;
+        //console.log(file1);
     }
 
 </script>

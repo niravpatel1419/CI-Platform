@@ -1,4 +1,5 @@
 ﻿using CI_Platform_Web.Entities.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -31,5 +32,6 @@ namespace CI_Platform_Web.Entities.ViewModel
         public string userSkills { get; set; }
 
         public List<UserSkill> userSkillsList { get; set; }
+        public IFormFile userAvatar { get; set; }
     }
 }
