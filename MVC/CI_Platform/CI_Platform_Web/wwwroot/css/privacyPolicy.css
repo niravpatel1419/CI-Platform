@@ -1,0 +1,161 @@
+﻿a {
+    text-decoration: none;
+}
+
+
+
+/* Top Header CSS */
+
+.headerLeft a {
+    width: 150px;
+    height: 22px;
+    font-size: 16px;
+    color: #333333;
+    opacity: 1;
+}
+
+.policy-1 {
+    margin-left: -13px;
+}
+
+.menu {
+    position: fixed;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+    top: 0;
+    left: 0;
+    right: 50vw;
+    bottom: 50vh;
+    z-index: 99;
+    color: #333333;
+    background-color: #fff;
+    list-style: none;
+    padding-top: 4rem;
+}
+
+.showMenu {
+    transform: translateY(0);
+}
+
+.hamburger {
+    position: relative;
+    z-index: 100;
+    top: 12px;
+    /* left: 1rem; */
+    padding-top: 4px;
+    margin-bottom: auto;
+    border: black solid 1px;
+    border-radius: 10%;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.closeIcon {
+    display: none;
+}
+
+.btnCustom {
+    /* width: 262px; */
+    /* height: 22px; */
+    font-size: 16px;
+    color: #333333;
+    background-color: #fff;
+    border: none;
+    opacity: 1;
+}
+
+.btn:hover {
+    color: #333333;
+    background-color: #fff;
+}
+
+.imgIcon {
+    /* margin-left: 450px; */
+    margin-right: 11px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.innerleftdivprivacy {
+    position: fixed;
+}
+
+
+.titlefont {
+    color: #333333;
+}
+
+h1 {
+    font-size: 40px;
+    font-family: Notosans;
+}
+
+.privacy-link {
+    text-decoration: none;
+    color: #757575;
+    display: flex;
+    justify-content: space-between;
+}
+
+.arrow-img-Privacy {
+    margin-left: auto;
+}
+
+.line-left-privacy {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.fonttitle {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    /* box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1); */
+    right: 0;
+}
+
+.i1 {
+    padding-top: 48px;
+}
+
+.main-div-in-privacy {
+    overflow-y: auto;
+}
+
+.title-in-privacy {
+    position: sticky;
+    top: 0;
+}
+
+.of-ca-nvas {
+    width: 25vw !important;
+}
+
+
+/* Media Queries For NavBar Responsive */
+
+@media (max-width:991px) {
+    .filterNav {
+        display: none;
+    }
+
+    .topHeader {
+        display: none;
+    }
+}
+
+@media (min-width : 991px) {
+    .hamburger {
+        display: none;
+    }
+}
+
+@media (max-width : 991px) {
+    .form-control {
+        width: 50vw;
+    }
+}

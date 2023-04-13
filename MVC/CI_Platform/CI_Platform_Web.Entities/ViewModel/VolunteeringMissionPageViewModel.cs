@@ -18,5 +18,9 @@ namespace CI_Platform_Web.Entities.ViewModel
         public MissionListViewModel relatedMissions { get; set; }
         public string goaltimestring { get; set; }
         public string Applied { get; set; }
+        public IEnumerable<Skill> Skills { get; set; }
+        public IEnumerable<MissionSkill> MissionSkills { get; set; }
+        public List<MissionMedium> missionImages { get; set; }
+        public List<MissionDocument> missionDocuments { get; set; }
     }
 }

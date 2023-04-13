@@ -194,7 +194,10 @@ namespace CI_Platform_Web.Repositories.Repositories
             vm.countries = _cI_PlatformContext.Countries.Where(x => x.CountryId == countryid).FirstOrDefault();
             vm.themes = _cI_PlatformContext.MissionThemes.Where(x => x.MissionThemeId == themeid).FirstOrDefault();
             vm.goaltimestring = _cI_PlatformContext.GoalMissions.Where(x => x.MissionId == missionId).FirstOrDefault()?.GoalObjectiveText;
-
+            vm.MissionSkills = _cI_PlatformContext.MissionSkills.Where(x => x.MissionId == missionId).ToList();
+            vm.Skills = _cI_PlatformContext.Skills.ToList();
+            vm.missionImages = _cI_PlatformContext.MissionMedia.Where(x => x.MissionId == missionId).ToList();
+            vm.missionDocuments = _cI_PlatformContext.MissionDocuments.Where(X => X.MissionId == missionId).ToList();
             if (vm.goaltimestring == null)
             {
                 vm.goaltimestring = "It is a time base mission";
@@ -519,13 +522,13 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         //For Change The User Password In The User Edit Profile Section
 
-        public bool changeUserPassword(UserDetailsViewModel u)
+        public int changeUserPassword(UserDetailsViewModel u)
         {
             User user = _cI_PlatformContext.Users.Where(x => x.UserId == u.users.UserId).FirstOrDefault();
 
             if(user.Password != u.oldPassword)
             {
-                return false;
+                return 0;
             }
             else
             {
@@ -533,7 +536,7 @@ namespace CI_Platform_Web.Repositories.Repositories
                 _cI_PlatformContext.Update(user);
                 _cI_PlatformContext.SaveChanges();
 
-                return true;
+                return 1;
             }
         }
 

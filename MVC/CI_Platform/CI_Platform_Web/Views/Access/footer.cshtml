@@ -1,0 +1,86 @@
+﻿@using System.Security.Claims
+
+<style>
+    .font-color-footer {
+        color: #414141;
+    }
+
+    .footer-div {
+        height: 80px;
+    }
+
+    .innerdiv-footer {
+        height: 100%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+        a:hover {
+            cursor: pointer;
+        }
+</style>
+
+<hr />
+<div class="container footer-div ">
+    <div class="row innerdiv-footer">
+        <div class="col-12 col-lg-6 d-flex align-items-center innerdiv-footer justify-content-evenly">
+
+            @{
+                var identity = User.Identity as ClaimsIdentity;
+                string name = identity.FindFirst(ClaimTypes.Name).Value;
+
+                string email = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            }
+
+
+            <a class="font-color-footer" asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a>
+            <a class="font-color-footer" data-bs-toggle="modal" data-bs-target="#ContactModal">Contact us</a>
+
+
+            <!--MODAL FOR CONTACT US-->
+            <div class="modal fade" id="ContactModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <form method="post" asp-action="contact" asp-controller="User">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="mb-3">
+                                    <label for="Name" class="form-label">Name*</label>
+                                    <input type="text" class="form-control" value="@name" readonly disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address*</label>
+                                    <input type="text" class="form-control" value="@email" readonly disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" placeholder="Enter your Subject">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Message" class="form-label">Message</label>
+                                    <textarea type="text" class="form-control" placeholder="Enter your Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="" style="border-radius:50px" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="" style="border-radius:50px">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!--MODAL FOR CONTACT US-->
+
+
+        </div>
+        <div class="col-12 col-lg-6 d-flex align-items-center innerdiv-footer justify-content-center justify-content-lg-end">
+            <span class=""> © 2019 Optimy.com. All Right Reserved</span>
+        </div>
+    </div>
+</div>

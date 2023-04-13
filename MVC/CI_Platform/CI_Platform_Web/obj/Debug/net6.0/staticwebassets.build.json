@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nv4UsRO1b424zXXUA6nvCDr2UlBxDNaQgZVn5XsHXj0=",
+  "Hash": "825q0vwkdwQcCi/vThSQ70M3n0tGUnhZqifJEEXYk5A=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -117,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\noMissionFound.css"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\privacyPolicy.css",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "css/privacyPolicy.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\privacyPolicy.css"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\registration.css",
@@ -287,6 +304,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\volunteeringTimeSheet.css"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\Documents\\Day1-meet-coordinators.pdf",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "Documents/Day1-meet-coordinators.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Documents\\Day1-meet-coordinators.pdf"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\favicon.ico",

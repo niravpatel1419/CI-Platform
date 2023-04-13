@@ -185,7 +185,7 @@ namespace CI_Platform_Web.Controllers
             //}
 
 
-
+                
             //for search the mission
 
             if (searchQuery != null)
@@ -202,10 +202,10 @@ namespace CI_Platform_Web.Controllers
             int pageSize = 6;
             int skip = (pageIndex ?? 0) * pageSize;
 
-            var totalmission = missionlist.Missions;
-            var Missions = totalmission.Skip(skip).Take(pageSize).ToList();
+            var allmisions = missionlist.Missions;
+            var Missions = allmisions.Skip(skip).Take(pageSize).ToList();
 
-            int totalMissions = totalmission.Count();
+            int totalMissions = missionlist.Missions.Count();
             missionlist.Missions = Missions;
 
             ViewBag.TotalMission = totalMissions;
@@ -848,6 +848,26 @@ namespace CI_Platform_Web.Controllers
         [HttpPost]
         public IActionResult userEditProfile(UserDetailsViewModel u,string ProfileText, string WhyIVolunteer)
         {
+/*            if(u.users.FirstName == null)
+            {
+                ViewData["fname"] = "Please enter a name";
+            }
+
+            if(u.users.LastName == null)
+            {
+                ViewData["lname"] = "Please enter a surname";
+            }
+
+            if(ProfileText == null)
+            {
+                ViewData["profiletext"] = "Please enter a valid text";
+            }
+
+            if(WhyIVolunteer == null)
+            {
+                ViewData["wivtext"] = "Please enter a valid text";
+            }*/
+
             List<int> userSkillsIds = new List<int>();
             if (u.userSkills != null)
             {
@@ -890,7 +910,7 @@ namespace CI_Platform_Web.Controllers
 
         //For Change Password In User Edit Profile Section
 
-        public bool changePassword(UserDetailsViewModel u)
+        public int changePassword(UserDetailsViewModel u)
         {
             var identity = User.Identity as ClaimsIdentity;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
@@ -900,13 +920,13 @@ namespace CI_Platform_Web.Controllers
             if (u.oldPassword == null || u.newPassword == null || u.confirmNewPassword == null )
             {
                 ViewData["Error"] = "One of the field is empty";
-                return false;
+                return -2;
             }
 
             if(u.newPassword != u.confirmNewPassword)
             {
                 ViewData["PasswordNotMatch"] = "New Password and Confirm New Password Must Be Match";
-                return false;
+                return -1;
             }
             else
             {
@@ -963,7 +983,7 @@ namespace CI_Platform_Web.Controllers
 
 
         //For the Privacy Page
-        public IActionResult Privacy()
+        public IActionResult privacyPolicy()
         {
             return View();
         }

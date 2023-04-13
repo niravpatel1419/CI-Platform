@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\Avatar\" />
     <Folder Include="wwwroot\images\Story\" />
+    <Folder Include="wwwroot\Documents\" />
   </ItemGroup>
 
 </Project>

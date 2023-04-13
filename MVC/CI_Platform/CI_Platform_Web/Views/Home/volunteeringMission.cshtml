@@ -405,6 +405,22 @@
                     </p>
 
                     <span>Documents</span>
+                    <div class="documentsclass d-flex flex-wrap">
+                        @if (Model.missionDocuments.Count() == 0)
+                        {
+                            <span>NO DOCUMENTS AVAILABLE</span>
+                        }
+                        @foreach (var i in Model.missionDocuments)
+                        {
+
+                            <div class="ms-2 d-inline">
+                                <a href="@i.DocumentPath" target="_blank" style="text-decoration:none; color:black">
+                                    <img src="~/images/pdf.png" alt="" />
+                                    <span>lorem-ipsum.pdf</span>
+                                </a>
+                            </div>
+                        }
+                    </div>
                 </div>
 
                 <!--Organization Section-->
@@ -482,7 +498,26 @@
                 <hr>
                 <div class="skillDiv">
                     <p class="mb-0">Skills</p>
-                    <p class="mb-0">Cool, Easy going, Math, Computer</p>
+                    @if (!Model.MissionSkills.Any())
+                    {
+                        var j = "No Skills Required";
+                        @j
+                    }
+                    @foreach (var i in Model.MissionSkills)
+                    {
+                        var j = "garbage";
+                        @if (i == Model.MissionSkills.Last())
+                        {
+                            j = i.Skill.SkillName;
+                        }
+                        else
+                        {
+                            j = i.Skill.SkillName + ",  ";
+                        }
+
+                        @j
+
+                    }
                 </div>
                 <hr>
                 <div class="daysDiv">
@@ -523,15 +558,11 @@
                     </div>
                 </div>
                 <hr>
+                @if (Model.users.Count() == 0)
+                {
+                    <span style="margin-left:20px">NO RECENT VOLUNTEERS</span>
+                }
                 <div class="volunteersImage">
-
-                    @*     @foreach (var user in ViewBag.User)
-                    {
-                    <div class="imageDiv">
-                    <img src="~/images/user-img.png" alt="">
-                    <p class="name">@user.FirstName @user.LastName</p>
-                    </div>
-                    }*@
 
                     @for (int i = 0; i < Model.users.Count(); i++)
                     {
@@ -669,7 +700,7 @@ else
 <script>
 
     //For Apply Mission
-    $(document).ready(function (){
+    $(document).ready(function () {
         console.log("ready document");
         //testfun();
         //debugger
