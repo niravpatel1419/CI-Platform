@@ -104,12 +104,12 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Name" class="form-label" style="color: #414141;">Name*</label>
-                                <input asp-for="users.FirstName" type="text" class="form-control" placeholder="Enter Your Name" value="@Model.users.FirstName" />
+                                <input asp-for="users.FirstName" type="text" class="form-control" placeholder="Enter Your Name" value="@Model.users.FirstName" required />
                                 <span class="text-danger">@ViewData["fname"]</span>
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Surname" class="form-label" style="color: #414141;">Surname*</label>
-                                <input asp-for="users.LastName" type="text" class="form-control" placeholder="Enter Your Surname" value="@Model.users.LastName" />
+                                <input asp-for="users.LastName" type="text" class="form-control" placeholder="Enter Your Surname" value="@Model.users.LastName" required />
                                 <span class="text-danger">@ViewData["lname"]</span>
                             </div>
                         </div>
@@ -142,13 +142,13 @@
                             <div class="col-12">
                                 <label asp-for="users.ProfileText" class="form-label" style="color: #414141;">My Profile*</label>
                                 <textarea name="ProfileText" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;">@Model.users.ProfileText</textarea>
+                                          style="width: 100%;" required>@Model.users.ProfileText</textarea>
                                 <span class="text-danger">@ViewData["profiletext"]</span>
                             </div>
                             <div class="col-12 mt-2">
                                 <label asp-for="users.WhyIVolunteer" class="form-label" style="color: #414141;">Why I Volunteer?*</label>
                                 <textarea name="WhyIVolunteer" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;">@Model.users.WhyIVolunteer</textarea>
+                                          style="width: 100%;" required>@Model.users.WhyIVolunteer</textarea>
                                 <span class="text-danger">@ViewData["wivtext"]</span>
                             </div>
                         </div>

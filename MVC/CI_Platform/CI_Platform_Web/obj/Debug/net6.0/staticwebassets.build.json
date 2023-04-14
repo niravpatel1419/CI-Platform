@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "825q0vwkdwQcCi/vThSQ70M3n0tGUnhZqifJEEXYk5A=",
+  "Hash": "CvnP0E3LTHYhn4ftvBnWploxidamMA+GhSZakctovY4=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CI_Platform_Web.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\admin.css",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "css/admin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\admin.css"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\css\\bootstrap.min.css",

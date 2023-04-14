@@ -1,0 +1,292 @@
+﻿@model CI_Platform_Web.Entities.ViewModel.AdminViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/admin.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1 col-lg-3 left-side-bar-admin d-none d-sm-none d-md-block">
+                <div class="mt-4 col-12 d-none d-lg-block">
+                    <lable class="fw-bold fs-6 text-white text-break">Navigationbar</lable>
+                </div>
+                <ul class="navnav-pills mt-4 left-ul-admin p-1">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
+                        <a asp-action="Index"
+                           asp-controller="Admin"
+                           class="nav-link"
+                           aria-current="page">
+                            <i class="bi bi-person-fill sidebar-img-admin"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">User</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-file-earmark-text-fill sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">CMS Page</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-bullseye sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-tools sidebar-img me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission Theme</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-grid-1x2-fill sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">mission Skills</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-folder-fill sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission Application</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-book-half sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Story</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="AdminCms"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-border-style sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Banner Management</lable>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-sm-12 col-md-11 col-lg-9 right-div-admin">
+                <div class="topnav-admin p-1">
+                    <div class="time-admin">
+                        <button class="canvas-left-admin-btn d-inline d-md-none me-1"
+                                type="button"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasExample"
+                                aria-controls="offcanvasExample">
+                            <i class="bi bi-list" style="font-size: 40px"></i>
+                        </button>@DateTime.Now.ToString("dddd, MMMM dd, yyyy, HH:mm tt")
+                    </div>
+
+                    <!-- OFFCANVAS -->
+                    <div class="offcanvas offcanvas-start canvas-left-admin"
+                         tabindex="-1"
+                         id="offcanvasExample"
+                         aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <lable class="offcanvas-title fw-bold fs-6 text-white text-break d-none d-sm-inline"
+                                   id="offcanvasExampleLabel">
+                                Navigationbar
+                            </lable>
+                            <button type="button"
+                                    class="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navnav-pills mt-4 left-ul-admin p-1">
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
+                                    <a asp-action="Index"
+                                       asp-controller="Admin"
+                                       class="nav-link"
+                                       aria-current="page">
+                                        <i class="bi bi-person-fill sidebar-img-admin"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">User</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-file-earmark-text-fill sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">CMS Page</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-bullseye sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-tools sidebar-img me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission Theme</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-grid-1x2-fill sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">mission Skills</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-folder-fill sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission Application</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-book-half sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Story</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-border-style sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Banner Management</lable>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- OFF CANVAS -->
+                    <div class="admin-img-user">
+                        <div class="dropdown">
+                            <button class="dropdown-toggle drop-admin-btn"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <img src="~/images/volunteer3.png"
+                                     alt=""
+                                     class="circleimg-admin" />
+                                NAme NAme
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-4">
+                    <h3 class="admin-title-top">User</h3>
+                    <hr class="admin-title-line" />
+                    <div class="add-btn-div">
+                        <button class="add-btn-admin ps-2 pe-2">
+                            <i class="bi bi-plus me-1"></i><span>Add</span>
+                        </button>
+                    </div>
+                    <div class="table-admin-div-user mt-2">
+                        <table class="table table-bordered" id="myTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Employee Id</th>
+                                    <th scope="col">Department</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in Model.userdetails)
+                                {
+                                    <tr>
+                                        <td scope="row">@i.FirstName</td>
+                                        <td>@i.LastName</td>
+                                        <td>@i.Email</td>
+                                        <td>@i.EmployeeId</td>
+                                        <td>@i.Department</td>
+                                        @if(i.Status == 1)
+                                        {
+                                            <td style="color: #14C506;">Active</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Inactive</td>
+                                        }
+
+                                        <td><i id="@i.UserId"class="bi bi-pencil-square color-saffron" data-bs-toggle="modal" data-bs-target="#UserModal" onclick="loadUserDetailsModal(this.id)"></i><i class="bi bi-trash ms-2"></i></td>
+                                    </tr>
+                                }
+
+                                @*                                <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>twitter</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#myTable');
+</script>
+
+</html>

@@ -110,7 +110,7 @@
                             <img src="~/images/eye.png" alt="eyeImg">
                             @{
                                 var j = (long)0 + @Model.stories.TotalViews;
-                            } 
+                            }
                             @j Views
                         </span>
                     </div>
@@ -190,7 +190,9 @@
                             </div>
                         </div>
                     </div>
-                    <button class="openMissionBtn">Open Mission <i class="bi bi-arrow-right"></i></button>
+                    <a asp-action="volunteeringMission" asp-controller="Home" asp-route-missID="@Model.stories.MissionId">
+                        <button class="openMissionBtn">Open Mission <i class="bi bi-arrow-right"></i></button>
+                    </a>
                 </div>
 
             </div>
