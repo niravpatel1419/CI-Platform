@@ -1,0 +1,245 @@
+﻿@model CI_Platform_Web.Entities.ViewModel.AdminViewModel;
+
+@{
+    Layout = "_LayoutAdmin";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+
+
+    <h3 class="admin-title-top">User</h3>
+    <hr class="admin-title-line" />
+    <div class="add-btn-div">
+
+        <button type="button" class="add-btn-admin ps-2 pe-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="removeUserDetails()">
+            <i class="bi bi-plus me-1"></i><span>Add</span>
+        </button>
+
+        <!-- Vertically centered modal -->
+        <form asp-action="addUpdateUserDetails" asp-controller="Admin">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered user-edit-modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">User Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="container">
+                                <input asp-for="userDetails.UserId" value="0" id="modalAdminuserUserid" hidden />
+                                <div class="row justify-content-center">
+
+                                    <div class="col-6">
+                                        <div class="userImageDiv">
+                                            <img src="~/images/volunteer1.png" alt="User Image" class="userImg mt-1 mb-1"
+                                                 id="userProfileImg" onclick="imageClicked()" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="container">
+
+                                <div class="row mt-2">
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Name" class="form-label" style="color: #414141;">Name*</label>
+                                        <input asp-for="userDetails.FirstName" id="modalFirstName" type="text" class="form-control"
+                                               placeholder="Enter Your Name" value="" required />
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Surname" class="form-label" style="color: #414141;">Surname*</label>
+                                        <input asp-for="userDetails.LastName" id="modalLastName" type="text" class="form-control"
+                                               placeholder="Enter Your Surname" value="" required />
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Email" class="form-label" style="color: #414141;">Email*</label>
+                                        <input asp-for="userDetails.Email" id="modalEmail" type="text" class="form-control" placeholder="Enter Your Email"
+                                               value="" required />
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-2">
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Password" class="form-label" style="color: #414141;">Password</label>
+                                        <input asp-for="userDetails.Password" id="modalPassword" type="text" class="form-control"
+                                               placeholder="Enter Your Password" value="" required />
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Employee ID" class="form-label" style="color: #414141;">Employee ID</label>
+                                        <input asp-for="userDetails.EmployeeId" id="modalEmployeeId" type="text" class="form-control"
+                                               placeholder="Enter Your Employee ID" value="" required />
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="Department" class="form-label" style="color: #414141;">Department</label>
+                                        <input asp-for="userDetails.Department" id="modalDepartment" type="text" class="form-control"
+                                               placeholder="Enter Your Department" value="" required />
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-2">
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="" class="form-label">Country*</label>
+                                        <select asp-for="userDetails.CountryId" class="form-select" id="Country" onclick="GetCountry()"
+                                                aria-label="Default select example">
+                                            <option selected>Select Your Country</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="" class="form-label">City*</label>
+                                        <select asp-for="userDetails.CityId" class="form-select" id="City"
+                                                aria-label="Default select example">
+                                            <option selected styele="max-height:200px">Select Your City</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                                        <label for="" class="form-label">Status</label>
+                                        <select asp-for="userDetails.Status" class="form-select" id="modalStatus"
+                                                aria-label="Default select example">
+                                            <option selected styele="max-height:200px">Select Status</option>
+                                            <option styele="max-height:200px" value="1">Active</option>
+                                            <option styele="max-height:200px" value="0">In-Active</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-2">
+
+                                    <div class="col-12">
+                                        <label class="form-label" style="color: #414141;">
+                                            My
+                                            Profile*
+                                        </label>
+                                        <textarea asp-for="userDetails.ProfileText" name="ProfileText" id="modalProfileText" rows="5" class="" placeholder=" Enter your comments..."
+                                                  style="width: 100%;" required></textarea>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="table-admin-div-user mt-2">
+        <table class="table table-bordered" id="myTable">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.userList)
+                {
+                    <tr>
+                        <td scope="row">@i.FirstName</td>
+                        <td>@i.LastName</td>
+                        <td>@i.Email</td>
+                        <td>@i.EmployeeId</td>
+                        <td>@i.Department</td>
+                        @if (i.Status == 1)
+                        {
+                            <td class="green-bold-small">Active</td>
+                        }
+                        else
+                        {
+                            <td class="red-bold-small">In-Active</td>
+                        }
+
+                        <td><i id="@i.UserId" class="bi bi-pencil-square color-saffron editBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadUserDetailsModal(this.id)"></i><i class="bi bi-trash ms-2"></i></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#myTable');
+</script>
+
+<script>
+    $(document).ready(function () {
+        console.log("Ready")
+    });
+
+    function loadUserDetailsModal(u) {
+        console.log(u);
+
+        $.ajax({
+            url: '/Admin/GetUserDetail?userID=' + u,
+            success: function (data) {
+                console.log(data);
+                $('#modalAdminuserUserid').val(data.userId)
+                $('#modalFirstName').val(data.firstName);
+                $('#modalLastName').val(data.lastName);
+                $('#modalEmail').val(data.email);
+                $('#modalPassword').val(data.password);
+                $('#modalEmployeeId').val(data.employeeId);
+                $('#modalDepartment').val(data.department);
+                $('#modalCountry').val(data.countryId);
+                $('#modalCity').val(data.cityId);
+                $('#modalStatus').val(data.status);
+                $('#modalProfileText').val(data.profileText);
+            }
+        })
+    }
+
+    function removeUserDetails() {
+        $('#modalFirstName').val('');
+        $('#modalLastName').val('');
+        $('#modalEmail').val('');
+        $('#modalPassword').val('');
+        $('#modalEmployeeId').val('');
+        $('#modalDepartment').val('');
+        $('#modalCountry').val('');
+        $('#modalCity').val('');
+        $('#modalStatus').val('');
+        $('#modalProfileText').val('');
+    }
+
+</script>
+
+</html>

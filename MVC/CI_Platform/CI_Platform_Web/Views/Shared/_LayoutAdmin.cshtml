@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CI_Platform_Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="~/CI_Platform_Web.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <!--Side bar of admin-->
+            <div class="col-md-1 col-lg-3 left-side-bar-admin d-none d-sm-none d-md-block">
+                <div class="mt-4 col-12 d-none d-lg-block">
+                    <lable class="fw-bold fs-6 text-white text-break">Navigationbar</lable>
+                </div>
+                <ul class="navnav-pills mt-4 left-ul-admin p-1">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
+                        <a asp-action="user"
+                           asp-controller="Admin"
+                           class="nav-link"
+                           aria-current="page">
+                            <i class="bi bi-person-fill sidebar-img-admin"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">User</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="cmsPage"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-file-earmark-text-fill sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">CMS Page</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="mission"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-bullseye sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="missionTheme"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-tools sidebar-img me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission Theme</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="missionSkills"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-grid-1x2-fill sidebar-img-admin me-2"></i>
+
+                            <lable class="label-admin-side d-md-none d-lg-inline">mission Skills</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="missionApplication"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-folder-fill sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Mission Application</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="story"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-book-half sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Story</lable>
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                        <a asp-action="bannerManagement"
+                           asp-controller="Admin"
+                           class="nav-link side-link-admin">
+                            <i class="bi bi-border-style sidebar-img-admin me-2"></i>
+                            <lable class="label-admin-side d-md-none d-lg-inline">Banner Management</lable>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--Right part of the admin-->
+            <div class="col-12 col-sm-12 col-md-11 col-lg-9 right-div-admin">
+                <div class="topnav-admin p-1">
+                    <div class="time-admin">
+                        <button class="canvas-left-admin-btn d-inline d-md-none me-1"
+                                type="button"
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasExample"
+                                aria-controls="offcanvasExample">
+                            <i class="bi bi-list" style="font-size: 40px"></i>
+                        </button>@DateTime.Now.ToString("dddd, MMMM dd, yyyy, HH:mm tt")
+                    </div>
+
+                    <!-- OFFCANVAS -->
+                    <div class="offcanvas offcanvas-start canvas-left-admin"
+                         tabindex="-1"
+                         id="offcanvasExample"
+                         aria-labelledby="offcanvasExampleLabel">
+                        <div class="offcanvas-header">
+                            <lable class="offcanvas-title fw-bold fs-6 text-white text-break d-none d-sm-inline"
+                                   id="offcanvasExampleLabel">
+                                Navigationbar
+                            </lable>
+                            <button type="button"
+                                    class="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navnav-pills mt-4 left-ul-admin p-1">
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
+                                    <a asp-action="Index"
+                                       asp-controller="Admin"
+                                       class="nav-link"
+                                       aria-current="page">
+                                        <i class="bi bi-person-fill sidebar-img-admin"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">User</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-file-earmark-text-fill sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">CMS Page</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-bullseye sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-tools sidebar-img me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission Theme</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-grid-1x2-fill sidebar-img-admin me-2"></i>
+
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">mission Skills</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-folder-fill sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Mission Application</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-book-half sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Story</lable>
+                                    </a>
+                                </li>
+                                <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                                    <a asp-action="AdminCms"
+                                       asp-controller="Admin"
+                                       class="nav-link side-link-admin">
+                                        <i class="bi bi-border-style sidebar-img-admin me-2"></i>
+                                        <lable class="label-admin-side d-none d-sm-inline d-lg-inline">Banner Management</lable>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- OFF CANVAS -->
+                    <div class="admin-img-user">
+                        <div class="dropdown">
+                            <button class="dropdown-toggle drop-admin-btn"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <img src="~/images/volunteer3.png"
+                                     alt=""
+                                     class="circleimg-admin" />
+                                NAme NAme
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-4">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

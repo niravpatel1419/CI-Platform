@@ -1,0 +1,157 @@
+﻿.left-side-bar-admin {
+    background: #F88634;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.left-ul-admin {
+    list-style-type: none;
+}
+
+.left-sidebar-btn-admin {
+    display: flex;
+    border-radius: 5px;
+    height: 30px;
+    align-items: center;
+}
+
+    .left-sidebar-btn-admin:hover {
+        background: #fff;
+        color: #F88634;
+        border-radius: 5px;
+    }
+
+.active-admin {
+    background: #fff;
+    color: #F88634;
+}
+
+.sidebar-img-admin {
+}
+
+.side-link-admin {
+    display: flex;
+}
+
+.label-admin-side {
+    display: inline;
+}
+
+.topnav-admin {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    box-shadow: 0px 5px 5px 0px #bdbdbd55;
+}
+
+.right-div-admin {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.time-admin {
+    margin-left: 10px;
+}
+
+.admin-img-user {
+    margin-right: 10px;
+}
+
+.circleimg-admin {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.drop-admin-btn {
+    background: #fff;
+    border: none;
+}
+
+.canvas-left-admin-btn {
+    background: #fff;
+    border: none;
+}
+
+.canvas-left-admin {
+    background: #F88634;
+    color: #fff;
+    width: 40% !important;
+}
+
+@media screen and (max-width:575px) {
+    .canvas-left-admin {
+        width: 15% !important;
+    }
+}
+
+.admin-title-line {
+    margin-top: 2px;
+}
+
+.admin-title-top {
+    display: inline;
+    border-bottom: 3px solid black;
+}
+
+.add-btn-admin {
+    color: #F88634;
+    background: #fff;
+    border: 1px solid #F88634;
+    border-radius: 25px;
+    width: 80px;
+    margin-left: auto;
+    align-self: flex-end;
+    margin-right: 30px;
+}
+
+.add-btn-div {
+    display: flex;
+}
+
+.userImageDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #D9D9D9;
+}
+
+.userImg {
+    border-radius: 50%;
+    object-fit: cover;
+    height: 160px;
+    width: 160px;
+}
+
+.user-edit-modal {
+    max-width: 70vw;
+}
+
+.dataTables_length {
+    margin-bottom: 10px;
+}
+
+.color-saffron {
+    color: #F88634;
+}
+
+.green-bold-small {
+    color: green;
+    font-weight: bold;
+}
+
+.red-bold-small {
+    color: red;
+    font-weight: bold;
+}
+
+.userimg-modal-div {
+    height: 200px;
+    border: 1px solid #414141;
+}
+
+.editBtn{
+    cursor:pointer;
+}
