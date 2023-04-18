@@ -1,3 +1,128 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
+
+@model CI_Platform_Web.Entities.ViewModel.CMSViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+
+
+    <h3 class="admin-title-top">@ViewData["admin-Title"]</h3>
+    <hr class="admin-title-line" />
+    <div class="add-btn-div">
+        <a class="ms-auto" asp-action="AddEditCms" asp-controller="Admin">
+            <button type="button" class="add-btn-admin ps-2 pe-2">
+                <i class="bi bi-plus me-1"></i><span>Add</span>
+            </button>
+        </a>
+
+    </div>
+
+    <div class="table-admin-div-user mt-2">
+        <table class="table table-bordered table-responsive" id="table1">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var i in Model.cms)
+                {
+                    <tr id="rawcms_@i.CmsPageId">
+                        <th scope="row">@i.Title</th>
+
+                        @if (i.Status == 1)
+                        {
+                            <td class="green-bold-small">Active</td>
+                        }
+                        else
+                        {
+                            <td class="red-bold-small">In-Active</td>
+                        }
+
+                        <td>
+                            <a class="text-deco-none" asp-action="AddEditCms" asp-controller="Admin" asp-route-cmsPageId=@i.CmsPageId><i class="bi bi-pencil-square color-saffron cursor-pointer"></i></a><i class="bi bi-trash ms-2 cursor-pointer" data-bs-toggle="modal" data-bs-target="#DeleteCms" onclick="SetCmsPageId(@i.CmsPageId)"></i>
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="DeleteCms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog delete-modal-admin">
+                                    <div class="modal-content delete-modal-admin">
+
+                                        <div class="modal-body">
+                                            <input type="text" id="delete_cms" hidden>
+                                            <h3>Confirm Delete</h3>
+                                            <div class="mt-2">Are You Sure Want To Delete This Record?</div>
+                                            <div class="d-flex justify-content-center mt-4">
+                                                <button type="button" class="cancelBtn" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="savebtnmodal saveBtn" data-bs-dismiss="modal" onclick="deleteCmsPage()">Delete</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            @*MOdal END*@
+
+
+                        </td>
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        console.log("ready");
+    });
+
+    function SetCmsPageId(cms_id) {
+        console.log(cms_id);
+        $('#delete_cms').val(cms_id);
+
+    }
+
+    function deleteCmsPage() {
+
+        var id = $('#delete_cms').val()
+        console.log("cms id", id)
+        $.ajax({
+            url: '/Admin/DeleteCMSPage?cmsPageId=' + id,
+            success: function (data) {
+                console.log(data)
+
+
+
+                location.reload();
+
+
+            },
+            error: function (error) {
+                alert(error);
+            }
+        })
+
+    }
+
+</script>
+</html>

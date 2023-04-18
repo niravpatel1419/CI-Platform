@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+
+@model CI_Platform_Web.Entities.ViewModel.CMSViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+    <form asp-action="AddEditCms" asp-controller="Admin">
+        <input value="0" asp-for="cmsDetails.CmsPageId" id="cmspage_id" hidden />
+        <div class="row main-cms-add m-4">
+
+            <div class="edit-cms-title col-12">
+                <h3>Edit</h3>
+            </div>
+            <div class="edit-cms-body p-3 col-12">
+
+                <label class="form-label">Title</label>
+                <input asp-for="cmsDetails.Title" class="form-control" type="text" />
+                <label class="form-label mt-2">Description</label>
+                <textarea name="text_editor" asp-for="cmsDetails.Description">{@Model.cmsDetails.Description}</textarea>
+                <script>
+                    CKEDITOR.replace('text_editor');
+                    CKEDITOR.config.width = '100%';
+                    CKEDITOR.config.height = '30%';
+                </script>
+
+                <label class="form-label mt-2">Slug</label>
+                <input asp-for="cmsDetails.Slug" class="form-control" type="text" />
+                <label class="form-label mt-2">Status</label>
+
+                <select asp-for="cmsDetails.Status" class="form-select">
+                    <option value="1" selected>Active</option>
+                    <option value="0">InActive</option>
+                </select>
+
+
+            </div>
+
+        </div>
+        <div class="save-cancel-btn-div d-flex justify-content-end me-4">
+            <a class="text-deco-none cancelBtn" asp-action="CMSPage" asp-controller="Admin">Cancel</a>
+            <button type="submit" class="savebtnmodal saveBtn">Save</button>
+        </div>
+    </form>
+</body>
+ <script>
+     $(document).ready(function(){
+         console.log("ready")
+       
+    
+        console.log("true")
+         $('#cmspage_id').val("@ViewBag.cmsID");
+    
+   
+     })
+ </script>
+</html>

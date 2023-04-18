@@ -2,6 +2,7 @@
 using CI_Platform_Web.Entities.Models;
 using CI_Platform_Web.Entities.ViewModel;
 using CI_Platform_Web.Repositories.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace CI_Platform_Web.Repositories.Repositories
         {
             _cI_PlatformContext = cI_PlatformContext;
         }
+
+        //For User Page
 
         public AdminViewModel GetUserDetails()
         {
@@ -71,6 +74,75 @@ namespace CI_Platform_Web.Repositories.Repositories
                 _cI_PlatformContext.SaveChanges();
                 return true;
             }
+        }
+
+
+        //For the CMS Page
+
+        public List<CmsPage> FetchCMSPages()
+        {
+            return _cI_PlatformContext.CmsPages.Where(cmspage => cmspage.DeletedAt == null).ToList();
+        }
+
+        public CmsPage GetCmsPageDetails(long cmsPageId)
+        {
+            return _cI_PlatformContext.CmsPages.Find(cmsPageId);
+        }
+
+        public bool DeleteCMS(long cmsPageId)
+        {
+            CmsPage page = _cI_PlatformContext.CmsPages.Find(cmsPageId);
+            if (page != null)
+            {
+                page.DeletedAt = DateTime.Now;
+                page.Status = 0;
+                _cI_PlatformContext.CmsPages.Update(page);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddUpdateCMSDetails(CMSViewModel vm)
+        {
+            if (vm.cmsDetails.CmsPageId == 0)
+            {
+                CmsPage cms = new CmsPage();
+                cms.Title = vm.cmsDetails.Title;
+                cms.Description = vm.cmsDetails.Description;
+                cms.Slug = vm.cmsDetails.Slug;
+                cms.Status = vm.cmsDetails.Status;
+
+                _cI_PlatformContext.CmsPages.Add(cms);
+                _cI_PlatformContext.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                CmsPage cms = _cI_PlatformContext.CmsPages.Find(vm.cmsDetails.CmsPageId);
+                cms.Title = vm.cmsDetails.Title;
+                cms.Description = vm.cmsDetails.Description;
+                cms.Slug = vm.cmsDetails.Slug;
+                cms.Status = vm.cmsDetails.Status;
+                cms.UpdatedAt = DateTime.Now;
+
+                _cI_PlatformContext.CmsPages.Update(cms);
+                _cI_PlatformContext.SaveChanges();
+
+                return true;
+
+            }
+            
+        }
+
+
+        //For Mission Page
+        public MissionListViewModel GetMissionDetails()
+        {
+             MissionListViewModel missionDetails = new MissionListViewModel();
+            missionDetails.Missions = _cI_PlatformContext.Missions.ToList();
+            return missionDetails;
         }
     }
 }

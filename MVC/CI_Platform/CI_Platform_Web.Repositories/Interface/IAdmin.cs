@@ -16,5 +16,15 @@ namespace CI_Platform_Web.Repositories.Interface
         public User FetchUserDetails(long userId);
 
         public bool AddUpdateUserDetails(AdminViewModel vm);
+
+        public List<CmsPage> FetchCMSPages();
+
+        public CmsPage GetCmsPageDetails(long cmsPageId);
+
+        public bool DeleteCMS(long cmsPageId);
+
+        public bool AddUpdateCMSDetails(CMSViewModel vm);
+
+        public MissionListViewModel GetMissionDetails();
     }
 }

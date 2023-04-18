@@ -15,15 +15,19 @@
     align-items: center;
 }
 
-    .left-sidebar-btn-admin:hover {
-        background: #fff;
-        color: #F88634;
-        border-radius: 5px;
+
+.left-sidebar-btn-admin:hover {
+    background: #7575;
+    color: #f88634 !important;
+}
+    
+    .active-admin {
+        background: #7575;
+        color: #F88634 !important;
     }
 
-.active-admin {
-    background: #fff;
-    color: #F88634;
+.nav-link:hover{
+    color:#fff;
 }
 
 .sidebar-img-admin {
@@ -31,7 +35,9 @@
 
 .side-link-admin {
     display: flex;
+    color:#fff;
 }
+ 
 
 .label-admin-side {
     display: inline;
@@ -154,4 +160,26 @@
 
 .editBtn{
     cursor:pointer;
+}
+
+.cancelBtn {
+    padding-left:16px;
+    padding-right:16px;
+    margin-right:10px;
+    text-decoration:none;
+    color:#757575;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #757575;
+    border-radius: 24px;
+    opacity: 1;
+}
+
+.saveBtn {
+    padding-left:16px;
+    padding-right:16px;
+    color:#F88634;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    opacity: 1;
 }

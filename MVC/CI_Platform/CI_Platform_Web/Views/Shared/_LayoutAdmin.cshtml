@@ -1,4 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var time = DateTime.Now.ToString("dddd, dd MMMM yyyy, HH:mm");
+    //var identity =User.Identity as ClaimsIdentity;
+    //var name = identity.FindFirst(ClaimTypes.Name);
+
+}
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,26 +20,23 @@
 </head>
 <body>
 
-
-
     <div class="container-fluid">
         <div class="row">
-            <!--Side bar of admin-->
             <div class="col-md-1 col-lg-3 left-side-bar-admin d-none d-sm-none d-md-block">
                 <div class="mt-4 col-12 d-none d-lg-block">
                     <lable class="fw-bold fs-6 text-white text-break">Navigationbar</lable>
                 </div>
                 <ul class="navnav-pills mt-4 left-ul-admin p-1">
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="user"?"active-admin":"") ">
                         <a asp-action="user"
                            asp-controller="Admin"
-                           class="nav-link"
+                           class="nav-link side-link-admin"
                            aria-current="page">
-                            <i class="bi bi-person-fill sidebar-img-admin"></i>
+                            <i class="bi bi-person-fill sidebar-img-admin me-2"></i>
                             <lable class="label-admin-side d-md-none d-lg-inline">User</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="cms"?"active-admin":"")">
                         <a asp-action="cmsPage"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -40,7 +45,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">CMS Page</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="mission"?"active-admin":"") ">
                         <a asp-action="mission"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -49,7 +54,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">Mission</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="mtheme"?"active-admin":"")">
                         <a asp-action="missionTheme"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -58,7 +63,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">Mission Theme</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="mskill"?"active-admin":"")">
                         <a asp-action="missionSkills"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -67,7 +72,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">mission Skills</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="mapplication"?"active-admin":"")">
                         <a asp-action="missionApplication"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -75,7 +80,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">Mission Application</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="story"?"active-admin":"")">
                         <a asp-action="story"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -83,7 +88,7 @@
                             <lable class="label-admin-side d-md-none d-lg-inline">Story</lable>
                         </a>
                     </li>
-                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2">
+                    <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 @(ViewBag.SelectedTab=="banner"?"active-admin":"")">
                         <a asp-action="bannerManagement"
                            asp-controller="Admin"
                            class="nav-link side-link-admin">
@@ -93,8 +98,6 @@
                     </li>
                 </ul>
             </div>
-
-            <!--Right part of the admin-->
             <div class="col-12 col-sm-12 col-md-11 col-lg-9 right-div-admin">
                 <div class="topnav-admin p-1">
                     <div class="time-admin">
@@ -103,8 +106,8 @@
                                 data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasExample"
                                 aria-controls="offcanvasExample">
-                            <i class="bi bi-list" style="font-size: 40px"></i>
-                        </button>@DateTime.Now.ToString("dddd, MMMM dd, yyyy, HH:mm tt")
+                            <i class="bi bi-list"></i>
+                        </button><span id="display-time">@time</span>
                     </div>
 
                     <!-- OFFCANVAS -->
@@ -127,7 +130,7 @@
                                 <li class="nav-item mt-2 left-sidebar-btn-admin ps-2 active-admin">
                                     <a asp-action="Index"
                                        asp-controller="Admin"
-                                       class="nav-link"
+                                       class="nav-link anchorColour"
                                        aria-current="page">
                                         <i class="bi bi-person-fill sidebar-img-admin"></i>
                                         <lable class="label-admin-side d-none d-sm-inline d-lg-inline">User</lable>
@@ -219,7 +222,9 @@
                     </div>
                 </div>
                 <div class="container mt-4">
+
                     @RenderBody()
+
                 </div>
             </div>
         </div>
