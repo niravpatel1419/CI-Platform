@@ -11,6 +11,8 @@ namespace CI_Platform_Web.Entities.ViewModel
     {
         public IEnumerable<Mission> Missions { get; set; }
 
+        public Mission mission { get; set; }
+
         public IEnumerable<City> Cities { get; set; }
 
         public IEnumerable<Country> countries { get; set; }

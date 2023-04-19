@@ -94,6 +94,51 @@ namespace CI_Platform_Web.Controllers
             return View(missionDetail);
         }
 
+        public IActionResult AddEditMission(long missionId)
+        {
+            ViewBag.SelectedTab = "mission";
+            if(missionId == 0)
+            {
+                AdminMissionViewModel v = new AdminMissionViewModel();
+                v.countries = _iAdmin.GetCountries();
+                v.missionTheme = _iAdmin.GetMissionThemes();
+                v.Skill = _iAdmin.GetSkills();
+                ViewBag.missionId = 0;
+                return View(v);
+            }
+            else
+            {
+                AdminMissionViewModel v = new AdminMissionViewModel();
+                v.mission = _iAdmin.MissionDetails(missionId);
+                v.countries = _iAdmin.GetCountries();
+                v.missionTheme = _iAdmin.GetMissionThemes();
+                v.Skill = _iAdmin.GetSkills();
+                ViewBag.missionId = missionId;
+                return View(v);
+            }
+            
+        }
+
+        [HttpPost]
+        public IActionResult AddEditMission(AdminMissionViewModel vm)
+        {
+            ViewBag.SelectedTab = "mission";
+            string missionDescription = Request.Form["text_editor"].ToString();
+            string organizationDetail = Request.Form["text_editor1"].ToString();
+            return View();
+        }
+
+        public JsonResult City(int id)
+        {
+            var city = _cI_PlatformContext.Cities.Where(s => s.CountryId == id).ToList();
+            return new JsonResult(city);
+        }
+
+
+
+
+
+
         public IActionResult missionTheme()
         {
             ViewData["admin-Title"] = "User";

@@ -2,7 +2,7 @@
     Layout = "_LayoutAdmin";
 }
 
-@model CI_Platform_Web.Entities.ViewModel.MissionListViewModel;
+@model CI_Platform_Web.Entities.ViewModel.AdminMissionViewModel;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,12 +22,12 @@
     <hr class="admin-title-line" />
     <div class="add-btn-div">
 
-        <button type="button" class="add-btn-admin ps-2 pe-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="removeUserDetails()">
-            <i class="bi bi-plus me-1"></i><span>Add</span>
-        </button>
+        <a class="ms-auto" asp-action="AddEditMission" asp-controller="Admin">
+            <button type="button" class="add-btn-admin ps-2 pe-2">
+                <i class="bi bi-plus me-1"></i><span>Add</span>
+            </button>
+        </a>
 
-        <!-- Vertically centered modal -->
-      
     </div>
     <div class="table-admin-div-user mt-2">
         <table class="table table-bordered" id="myTable">
@@ -46,9 +46,9 @@
                     <tr>
                         <td scope="row">@i.Title</td>
                         <td>@i.MissionType</td>
-                        <td>@i.StartDate</td>
-                        <td>@i.EndDate</td>
-                        <td><i id="@i.MissionId" class="bi bi-pencil-square color-saffron editBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="loadUserDetailsModal(this.id)"></i><i class="bi bi-trash ms-2"></i></td>
+                        <td>@i.StartDate.Value.ToString("dd-MM-yyyy")</td>
+                        <td>@i.EndDate.Value.ToString("dd-MM-yyyy")</td>
+                        <td><a class="text-deco-none" asp-action="AddEditMission" asp-controller="Admin" asp-route-missionId=@i.MissionId><i class="bi bi-pencil-square color-saffron editBtn"></i></a><i class="bi bi-trash ms-2"></i></td>
                     </tr>
                 }
             </tbody>

@@ -25,6 +25,14 @@ namespace CI_Platform_Web.Repositories.Interface
 
         public bool AddUpdateCMSDetails(CMSViewModel vm);
 
-        public MissionListViewModel GetMissionDetails();
+        public AdminMissionViewModel GetMissionDetails();
+
+        public Mission MissionDetails(long missionId);
+
+        public List<Country> GetCountries();
+
+        public List<MissionTheme> GetMissionThemes();
+
+        public List<Skill> GetSkills();
     }
 }

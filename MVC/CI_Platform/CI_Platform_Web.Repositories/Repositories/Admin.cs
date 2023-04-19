@@ -138,11 +138,32 @@ namespace CI_Platform_Web.Repositories.Repositories
 
 
         //For Mission Page
-        public MissionListViewModel GetMissionDetails()
+        public AdminMissionViewModel GetMissionDetails()
         {
-             MissionListViewModel missionDetails = new MissionListViewModel();
+            AdminMissionViewModel missionDetails = new AdminMissionViewModel();
             missionDetails.Missions = _cI_PlatformContext.Missions.ToList();
+            missionDetails.countries = _cI_PlatformContext.Countries.ToList();
             return missionDetails;
+        }
+
+        public Mission MissionDetails(long missionId)
+        {
+            return _cI_PlatformContext.Missions.Find(missionId);
+        }
+
+        public List<Country> GetCountries()
+        {
+            return _cI_PlatformContext.Countries.ToList();
+        }
+
+        public List<MissionTheme> GetMissionThemes()
+        {
+            return _cI_PlatformContext.MissionThemes.ToList();
+        }
+
+        public List<Skill> GetSkills()
+        {
+            return _cI_PlatformContext.Skills.ToList();
         }
     }
 }

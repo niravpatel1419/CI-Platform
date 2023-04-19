@@ -1,0 +1,219 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+
+@model CI_Platform_Web.Entities.ViewModel.AdminMissionViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+    <form asp-action="AddEditMission" asp-controller="Admin">
+        <input value="0" id="mission_id" hidden />
+        <div class="row main-cms-add m-4">
+
+            <div class="edit-cms-title col-12">
+                <h3>Edit</h3>
+            </div>
+            <div class="container edit-mission-body p-3">
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label">Title</label>
+                        <input asp-for="mission.Title" class="form-control" type="text" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label">Mission Short Description</label>
+                        <input asp-for="mission.ShortDescription" class="form-control" type="text" />
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Start Date</label>
+                        <input asp-for="mission.StartDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">End Date</label>
+                        <input asp-for="mission.EndDate" class="form-control" type="date" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Mission Type</label>
+                        <select asp-for="mission.MissionType" class="form-select" id=""
+                                aria-label="Default select example">
+                            <option selected styele="max-height:200px">Select Mission Type</option>
+                            <option styele="max-height:200px" value="time">Time</option>
+                            <option styele="max-height:200px" value="goal">Goal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Country</label>
+                        <select asp-for="mission.CountryId" class="form-select" id="Country"
+                                aria-label="Default select example">
+                            <option selected style="max-height:200px">Select Country</option>
+                            @foreach (var country in Model.countries)
+                            {
+                                <option value="@country.CountryId">@country.Name</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">City</label>
+                        <select asp-for="mission.CityId" class="form-select" id="City"
+                                aria-label="Default select example">
+                            <option selected style="max-height:200px">Select City</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Mission Theme</label>
+                        <select asp-for="mission.ThemeId" class="form-select" id=""
+                                aria-label="Default select example">
+                            <option selected style="max-height:200px">Select Mission Theme</option>
+                            @foreach (var themes in Model.missionTheme)
+                            {
+                                <option value="@themes.MissionThemeId" styele="max-height:200px">@themes.Title</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Availability</label>
+                        <select asp-for="mission.Availability" class="form-select" id=""
+                                aria-label="Default select example">
+                            <option selected style="max-height:200px">Select Availability</option>
+                            <option styele="max-height:200px" value="Weekly">Weekly</option>
+                            <option styele="max-height:200px" value="Monthly">Monthly</option>
+                            <option styele="max-height:200px" value="Yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Seats Left</label>
+                        <input class="form-control" type="text" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        
+                        <label class="form-label">Skills</label>
+                        <button class="form-control dropdown-toggle drop-down-btn-mission-skill" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Mission Skills
+                        </button>
+                        <ul class="dropdown-menu skilldropmissionadmin" aria-labelledby="dropdownMenuButton1">
+                            @foreach (var i in Model.Skill)
+                            {
+                                <li>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="missionSkills" value="@i.SkillId" id="skill_@i.SkillId">
+
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            @i.SkillName
+                                        </label>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <label class="form-label mt-2">Mission Description</label>
+                        <textarea asp-for="mission.Description" name="text_editor"></textarea>
+                        <script>
+                            CKEDITOR.replace('text_editor');
+                            CKEDITOR.config.width = '100%';
+                            CKEDITOR.config.height = '30%';
+                        </script>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label mt-2">Mission Organisation Name</label>
+                        <input asp-for="mission.OrganizationName" class="form-control" type="text" />
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <label class="form-label mt-2">Mission Organisation Detail</label>
+                        <textarea asp-for="mission.OrganizationDetail" name="text_editor1"></textarea>
+                        <script>
+                            CKEDITOR.replace('text_editor1');
+                            CKEDITOR.config.width = '100%';
+                            CKEDITOR.config.height = '30%';
+                        </script>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Mission documents</label>
+                        <input class="form-control" type="file" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Mission Images</label>
+                        <input class="form-control" type="file" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                        <label class="form-label">Mission Video</label>
+                        <input class="form-control" type="url" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="save-cancel-btn-div d-flex justify-content-end me-4">
+            <a class="text-deco-none cancelBtn" asp-action="mission" asp-controller="Admin">Cancel</a>
+            <button type="submit" class="savebtnmodal saveBtn">Save</button>
+        </div>
+    </form>
+</body>
+<script>
+    $(document).ready(function () {
+        console.log("ready")
+
+        console.log("@ViewBag.missionId")
+        $('#mission_id').val("@ViewBag.missionId");
+
+    })
+
+    $('#Country').change(function () {
+        console.log("Onchange called")
+        //console.log($(this).val());
+        var id = $(this).val();
+
+        console.log(id)
+        $('#City').empty();
+        $('#City').append('<Option> Select Your City </option>');
+        $.ajax({
+            url: '/Admin/City?id=' + id,
+            success: function (result) {
+                console.log(result);
+                $.each(result, function (i, data) {
+                    console.log(data.name);
+                    //$('#City').append('<li style="padding:5px"><input class="form-check-input checkbox" id="' + data.name + '"style="margin-right:10px" type="checkbox" value="' + data.name + '">' + '<label class="form-check-label" for="flexCheckDefault">' + data.name + '</lable></li>');
+                    $('#City').append('<option value=' + data.cityId + '>' + data.name + '</option>');
+                })
+            }
+
+        });
+    });
+
+</script>
+</html>
