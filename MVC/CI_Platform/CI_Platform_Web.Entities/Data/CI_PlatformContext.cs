@@ -22,6 +22,7 @@ namespace CI_Platform_Web.Entities.Data
         public virtual DbSet<City> Cities { get; set; } = null!;
         public virtual DbSet<CmsPage> CmsPages { get; set; } = null!;
         public virtual DbSet<Comment> Comments { get; set; } = null!;
+        public virtual DbSet<ContactU> ContactUs { get; set; } = null!;
         public virtual DbSet<Country> Countries { get; set; } = null!;
         public virtual DbSet<FavouriteMission> FavouriteMissions { get; set; } = null!;
         public virtual DbSet<GoalMission> GoalMissions { get; set; } = null!;
@@ -243,6 +244,43 @@ namespace CI_Platform_Web.Entities.Data
                     .HasConstraintName("FK__comment__user_id__4F47C5E3");
             });
 
+            modelBuilder.Entity<ContactU>(entity =>
+            {
+                entity.HasKey(e => e.ContactusId)
+                    .HasName("PK__contact___226C46796F00F500");
+
+                entity.ToTable("contact_us");
+
+                entity.Property(e => e.ContactusId).HasColumnName("contactus_id");
+
+                entity.Property(e => e.ContactMessage).HasColumnName("contact_message");
+
+                entity.Property(e => e.ContactSubject)
+                    .HasMaxLength(300)
+                    .HasColumnName("contact_subject");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("created_at")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DeletedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("deleted_at");
+
+                entity.Property(e => e.UpdatedAt)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_at");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.ContactUs)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__contact_u__user___1B9317B3");
+            });
+
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.ToTable("country");
@@ -389,6 +427,11 @@ namespace CI_Platform_Web.Entities.Data
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("organization_name");
+
+                entity.Property(e => e.Seatleft)
+                    .HasMaxLength(15)
+                    .IsUnicode(false)
+                    .HasColumnName("seatleft");
 
                 entity.Property(e => e.ShortDescription)
                     .HasColumnType("text")

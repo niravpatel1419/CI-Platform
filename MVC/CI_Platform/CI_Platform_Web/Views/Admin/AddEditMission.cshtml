@@ -18,7 +18,7 @@
 </head>
 <body>
     <form asp-action="AddEditMission" asp-controller="Admin">
-        <input value="0" id="mission_id" hidden />
+        <input asp-for="mission.MissionId" value="0" id="mission_id" hidden />
         <div class="row main-cms-add m-4">
 
             <div class="edit-cms-title col-12">
@@ -95,6 +95,7 @@
                         <select asp-for="mission.Availability" class="form-select" id=""
                                 aria-label="Default select example">
                             <option selected style="max-height:200px">Select Availability</option>
+                            <option styele="max-height:200px" value="Daily">Daily</option>
                             <option styele="max-height:200px" value="Weekly">Weekly</option>
                             <option styele="max-height:200px" value="Monthly">Monthly</option>
                             <option styele="max-height:200px" value="Yearly">Yearly</option>
@@ -102,7 +103,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                         <label class="form-label">Seats Left</label>
-                        <input class="form-control" type="text" />
+                        <input asp-for="mission.Seatleft" class="form-control" type="text" />
                     </div>
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                         

@@ -8,6 +8,7 @@ namespace CI_Platform_Web.Entities.Models
         public User()
         {
             Comments = new HashSet<Comment>();
+            ContactUs = new HashSet<ContactU>();
             FavouriteMissions = new HashSet<FavouriteMission>();
             MissionApplications = new HashSet<MissionApplication>();
             MissionInviteFromUsers = new HashSet<MissionInvite>();
@@ -45,6 +46,7 @@ namespace CI_Platform_Web.Entities.Models
         public virtual City? City { get; set; }
         public virtual Country? Country { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<ContactU> ContactUs { get; set; }
         public virtual ICollection<FavouriteMission> FavouriteMissions { get; set; }
         public virtual ICollection<MissionApplication> MissionApplications { get; set; }
         public virtual ICollection<MissionInvite> MissionInviteFromUsers { get; set; }

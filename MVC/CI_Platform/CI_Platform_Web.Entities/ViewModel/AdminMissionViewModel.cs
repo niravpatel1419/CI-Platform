@@ -9,7 +9,7 @@ namespace CI_Platform_Web.Entities.ViewModel
 {
     public class AdminMissionViewModel
     {
-        public IEnumerable<Mission> Missions { get; set; }
+        public List<Mission> Missions { get; set; }
 
         public Mission mission { get; set; }
 

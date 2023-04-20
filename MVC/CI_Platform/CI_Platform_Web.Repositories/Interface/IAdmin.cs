@@ -25,7 +25,7 @@ namespace CI_Platform_Web.Repositories.Interface
 
         public bool AddUpdateCMSDetails(CMSViewModel vm);
 
-        public AdminMissionViewModel GetMissionDetails();
+        public List<Mission> FetchMissionDetails();
 
         public Mission MissionDetails(long missionId);
 
@@ -34,5 +34,17 @@ namespace CI_Platform_Web.Repositories.Interface
         public List<MissionTheme> GetMissionThemes();
 
         public List<Skill> GetSkills();
+
+        public bool AddUpdateMissionDetails(AdminMissionViewModel vm);
+
+        public bool DeleteMission(long missionId);
+
+        public List<MissionTheme> FetchMissionThemes();
+
+        public MissionTheme GetThemeDetail(long themeId);
+
+        public bool AddEditMissionTheme(AdminMissionThemeViewModel themeViewModel);
+
+        public bool DeleteTheme(long themeId);
     }
 }

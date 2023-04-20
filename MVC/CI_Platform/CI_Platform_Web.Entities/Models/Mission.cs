@@ -37,6 +37,7 @@ namespace CI_Platform_Web.Entities.Models
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
+        public string? Seatleft { get; set; }
 
         public virtual City City { get; set; } = null!;
         public virtual Country Country { get; set; } = null!;

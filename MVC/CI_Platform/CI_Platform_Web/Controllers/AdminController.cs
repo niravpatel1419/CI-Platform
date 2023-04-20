@@ -90,7 +90,8 @@ namespace CI_Platform_Web.Controllers
         {
             ViewData["admin-Title"] = "Mission";
             ViewBag.SelectedTab = "mission";
-            var missionDetail = _iAdmin.GetMissionDetails();
+            AdminMissionViewModel missionDetail = new AdminMissionViewModel();
+            missionDetail.Missions = _iAdmin.FetchMissionDetails();
             return View(missionDetail);
         }
 
@@ -125,7 +126,11 @@ namespace CI_Platform_Web.Controllers
             ViewBag.SelectedTab = "mission";
             string missionDescription = Request.Form["text_editor"].ToString();
             string organizationDetail = Request.Form["text_editor1"].ToString();
-            return View();
+            vm.mission.Description = missionDescription;
+            vm.mission.OrganizationDetail = organizationDetail;
+            bool missionDetails = _iAdmin.AddUpdateMissionDetails(vm);
+
+            return RedirectToAction("mission","Admin");
         }
 
         public JsonResult City(int id)
@@ -134,17 +139,44 @@ namespace CI_Platform_Web.Controllers
             return new JsonResult(city);
         }
 
+        public bool DeleteMission(long missionId)
+        {
+            return _iAdmin.DeleteMission(missionId);
+        }
 
 
-
-
+        //For Mission Theme Page
 
         public IActionResult missionTheme()
         {
-            ViewData["admin-Title"] = "User";
-            ViewBag.SelectedTab = "missionTheme";
-            return View();
+            ViewData["admin-Title"] = "Mission Themes";
+            ViewBag.SelectedTab = "mtheme";
+            AdminMissionThemeViewModel vm = new AdminMissionThemeViewModel();
+            vm.missionThemes = _iAdmin.FetchMissionThemes();
+            return View(vm);
         }
+
+        public MissionTheme GetThemeDetail(long missionThemeId)
+        {
+            MissionTheme theme = _iAdmin.GetThemeDetail(missionThemeId);
+            return theme;
+        }
+
+        public IActionResult AddEditMissionTheme(AdminMissionThemeViewModel vm)
+        {
+            ViewBag.SelectedTab = "mtheme";
+            bool theme = _iAdmin.AddEditMissionTheme(vm);
+            return RedirectToAction("missionTheme", "Admin");
+        }
+
+        public bool DeleteMissionTheme(long missionThemeId)
+        {
+            return _iAdmin.DeleteTheme(missionThemeId);
+        }
+
+
+
+
 
         public IActionResult missionSkills()
         {
