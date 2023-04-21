@@ -20,7 +20,7 @@ namespace CI_Platform_Web.Controllers
 
         //For User Page
 
-        public IActionResult user()
+        public IActionResult User()
         {
             ViewBag.SelectedTab = "user";
             var userDetails = _iAdmin.GetUserDetails();
@@ -33,7 +33,7 @@ namespace CI_Platform_Web.Controllers
             return u;
         }
         
-        public IActionResult addUpdateUserDetails(AdminViewModel vm)
+        public IActionResult AddUpdateUserDetails(AdminViewModel vm)
         {
             bool b = _iAdmin.AddUpdateUserDetails(vm);
             return RedirectToAction("user", "admin");
@@ -42,7 +42,7 @@ namespace CI_Platform_Web.Controllers
 
         //For CMS Page
 
-        public IActionResult cmsPage()
+        public IActionResult CmsPage()
         {
             ViewData["admin-Title"] = "CMS Page";
             ViewBag.SelectedTab = "cms";
@@ -86,7 +86,7 @@ namespace CI_Platform_Web.Controllers
 
 
         //For Mission Page
-        public IActionResult mission()
+        public IActionResult Mission()
         {
             ViewData["admin-Title"] = "Mission";
             ViewBag.SelectedTab = "mission";
@@ -147,7 +147,7 @@ namespace CI_Platform_Web.Controllers
 
         //For Mission Theme Page
 
-        public IActionResult missionTheme()
+        public IActionResult MissionTheme()
         {
             ViewData["admin-Title"] = "Mission Themes";
             ViewBag.SelectedTab = "mtheme";
@@ -174,23 +174,62 @@ namespace CI_Platform_Web.Controllers
             return _iAdmin.DeleteTheme(missionThemeId);
         }
 
+        //For Mission Skill Page
 
-
-
-
-        public IActionResult missionSkills()
+        public IActionResult MissionSkills()
         {
-            ViewData["admin-Title"] = "User";
-            ViewBag.SelectedTab = "missionSkill";
-            return View();
+            ViewData["admin-Title"] = "Mission Skills";
+            ViewBag.SelectedTab = "mskill";
+            AdminMissionSkillsViewModel skill = new AdminMissionSkillsViewModel();
+            skill.skills = _iAdmin.FetchSkillDetails();
+            return View(skill);
         }
 
-        public IActionResult missionApplication()
+        public Skill GetSkillDetail(long missionSkillId)
         {
-            ViewData["admin-Title"] = "User";
-            ViewBag.SelectedTab = "missionApplication";
-            return View();
+            Skill skill = _iAdmin.GetSkillDetail(missionSkillId);
+            return skill;
         }
+
+        public IActionResult AddEditSkill(AdminMissionSkillsViewModel skillVm)
+        {
+            ViewBag.SelectedTab = "mskill";
+            bool skill = _iAdmin.AddEditSkill(skillVm);
+            return RedirectToAction("missionSkills","Admin");
+        }
+
+        public bool DeleteMissionSkill(long missionSkillId)
+        {
+            return _iAdmin.DeleteSkill(missionSkillId);
+        }
+
+
+        //For Mission Application Page
+        public IActionResult MissionApplication()
+        {
+            ViewData["admin-Title"] = "Mission Application";
+            ViewBag.SelectedTab = "mapplication";
+            AdminMissionApplicationViewModel adminMissionApplication = new AdminMissionApplicationViewModel();
+            adminMissionApplication.missionApplications = _iAdmin.FetchMissionApplication();
+            adminMissionApplication.users = _iAdmin.FetchUser();
+            adminMissionApplication.missions = _iAdmin.FetchMissionDetails();
+            return View(adminMissionApplication);
+        }
+
+        public IActionResult ApproveMissionApplication(int status,long missionApplicationId)
+        {
+            bool result = _iAdmin.ApproveMissionApplication(status,missionApplicationId);
+            return RedirectToAction("MissionApplication","Admin");
+        }
+
+        public IActionResult RejectMissionApplication(long missionApplicationId)
+        {
+            bool result = _iAdmin.RejectMissionApplication(missionApplicationId);
+            return RedirectToAction("MissionApplication", "Admin");
+        }
+
+
+
 
         public IActionResult story()
         {

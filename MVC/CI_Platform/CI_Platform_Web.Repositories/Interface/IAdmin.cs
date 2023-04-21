@@ -46,5 +46,21 @@ namespace CI_Platform_Web.Repositories.Interface
         public bool AddEditMissionTheme(AdminMissionThemeViewModel themeViewModel);
 
         public bool DeleteTheme(long themeId);
+
+        public List<Skill> FetchSkillDetails();
+
+        public Skill GetSkillDetail(long skillId);
+
+        public bool AddEditSkill(AdminMissionSkillsViewModel skillVm);
+
+        public bool DeleteSkill(long skillId);
+
+        public List<MissionApplication> FetchMissionApplication();
+
+        public List<User> FetchUser();
+
+        public bool ApproveMissionApplication(int status,long approveId);
+
+        public bool RejectMissionApplication(long approveId);
     }
 }

@@ -1,1 +1,114 @@
-﻿
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+
+@model CI_Platform_Web.Entities.ViewModel.AdminMissionApplicationViewModel;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+
+    <h3 class="admin-title-top">@ViewData["admin-Title"]</h3>
+    <hr class="admin-title-line" />
+
+    <div class="table-admin-div-user mt-5">
+        <table class="table table-bordered" id="myTable">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Mission Title</th>
+                    <th scope="col">Mission Id</th>
+                    <th scope="col">User Id</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Applied Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model.missionApplications)
+                {
+                    <tr>
+                        <td scope="row">@i.Mission.Title</td>
+                        <td scope="row">@i.MissionId</td>
+                        <td scope="row">@i.UserId</td>
+                        <td scope="row">@i.User.FirstName @i.User.LastName</td>
+                        <td scope="row">@i.AppliedAt</td>
+                        <td>
+                            <i class="bi bi-check-circle color-saffron editBtn" onclick="approveRejectMissionApplication(1,@i.MissionApplicationId)"></i>
+                            <i class="bi bi-x-circle ms-2" id="@i.MissionApplicationId" onclick="approveRejectMissionApplicationId(0,this.id)"></i>
+
+                            <!--Delete Modal-->
+@*                            <div class="modal fade" id="DeleteSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog delete-modal-admin">
+                                    <div class="modal-content delete-modal-admin">
+
+                                        <div class="modal-body">
+                                            <input type="text" id="delete_missionapplication">
+                                            <h3>Confirm Delete</h3>
+                                            <div class="mt-2">Are You Sure Want To Delete This Record?</div>
+                                            <div class="d-flex justify-content-center mt-4">
+                                                <button type="button" class="cancelBtn" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="savebtnmodal saveBtn" onclick="rejectMissionApplication()" data-bs-dismiss="modal">Delete</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#myTable');
+</script>
+<script>
+    function approveRejectMissionApplication(status,id) {
+        console.log(status)
+        console.log(id)
+
+        $.ajax({
+            url: '/Admin/ApproveMissionApplication?missionApplicationId=' + id &'status' = + status,
+            success: function (data) {
+                console.log('approved');
+            }
+        })
+
+    }
+
+    function setMissionApplicationId(missionapplication_id){
+        console.log(missionapplication_id);
+        $('#delete_missionapplication').val(missionapplication_id)
+    }
+
+    function rejectMissionApplication() {
+        var id = $('#delete_missionapplication').val()
+        console.log(id)
+
+        $.ajax({
+            url: '/Admin/RejectMissionApplication?missionApplicationId=' + id,
+            success: function (data) {
+                console.log('rejected');
+            }
+        })
+
+    }
+</script>
+
+</html>

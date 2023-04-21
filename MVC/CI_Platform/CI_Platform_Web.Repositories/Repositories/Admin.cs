@@ -321,5 +321,88 @@ namespace CI_Platform_Web.Repositories.Repositories
 
             return true;
         }
+
+
+        //For Mission Skill Page on Admin
+        public List<Skill> FetchSkillDetails()
+        {
+            return _cI_PlatformContext.Skills.Where(skill => skill.DeletedAt == null).ToList();
+        }
+
+        public Skill GetSkillDetail(long skillId)
+        {
+            return _cI_PlatformContext.Skills.Find(skillId);
+        }
+
+        public bool AddEditSkill(AdminMissionSkillsViewModel skillVm)
+        {
+            if(skillVm.skill.SkillId == 0)
+            {
+                Skill skill = new Skill();
+                skill.SkillName = skillVm.skill.SkillName;
+                skill.Status = skillVm.skill.Status;
+
+                _cI_PlatformContext.Skills.Add(skill);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                Skill skill = _cI_PlatformContext.Skills.Find(skillVm.skill.SkillId);
+                skill.SkillName = skillVm.skill.SkillName;
+                skill.Status = skillVm.skill.Status;
+                skill.UpdatedAt = DateTime.Now;
+
+                _cI_PlatformContext.Skills.Update(skill);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+        }
+
+        public bool DeleteSkill(long skillId)
+        {
+            Skill skill = _cI_PlatformContext.Skills.Find(skillId);
+            skill.DeletedAt = DateTime.Now;
+            skill.Status = 0;
+
+            _cI_PlatformContext.Skills.Update(skill);
+            _cI_PlatformContext.SaveChanges();
+            return true;
+        }
+
+
+        //For Mission Application Page
+        public List<MissionApplication> FetchMissionApplication()
+        {
+            return _cI_PlatformContext.MissionApplications.ToList();
+        }
+
+        public List<User> FetchUser()
+        {
+            return _cI_PlatformContext.Users.ToList();
+        }
+
+        public bool ApproveMissionApplication(int status,long approveId)
+        {
+            MissionApplication missionApplication = _cI_PlatformContext.MissionApplications.Find(approveId);
+            missionApplication.ApprovalStatus = "APPROVED";
+            missionApplication.UpdatedAt = DateTime.Now;
+
+            _cI_PlatformContext.MissionApplications.Update(missionApplication);
+            _cI_PlatformContext.SaveChanges();
+            return true;
+        }
+
+        public bool RejectMissionApplication(long approveId)
+        {
+            MissionApplication missionApplication = _cI_PlatformContext.MissionApplications.Find(approveId);
+            missionApplication.ApprovalStatus = "DECLINED";
+            missionApplication.UpdatedAt = DateTime.Now;
+
+            _cI_PlatformContext.MissionApplications.Update(missionApplication);
+            _cI_PlatformContext.SaveChanges();
+            return true;
+        }
+
     }
 }
