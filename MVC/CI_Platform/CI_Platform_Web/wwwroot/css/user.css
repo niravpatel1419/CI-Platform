@@ -183,3 +183,14 @@
     border-radius: 24px;
     opacity: 1;
 }
+
+.view-btn {
+    border: 1px solid #F88634;
+    border-radius: 13px;
+    opacity: 1;
+    width: 49px;
+    /* height: 25px; */
+    background: white;
+    color: #F88634;
+    font-size: 13px;
+}

@@ -145,6 +145,7 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
         //For Mission Theme Page
 
         public IActionResult MissionTheme()
@@ -173,6 +174,9 @@ namespace CI_Platform_Web.Controllers
         {
             return _iAdmin.DeleteTheme(missionThemeId);
         }
+
+
+
 
         //For Mission Skill Page
 
@@ -204,6 +208,7 @@ namespace CI_Platform_Web.Controllers
         }
 
 
+
         //For Mission Application Page
         public IActionResult MissionApplication()
         {
@@ -216,29 +221,58 @@ namespace CI_Platform_Web.Controllers
             return View(adminMissionApplication);
         }
 
-        public IActionResult ApproveMissionApplication(int status,long missionApplicationId)
+        public IActionResult ApproveRejectMissionApplication(int status,long missionApplicationId)
         {
-            bool result = _iAdmin.ApproveMissionApplication(status,missionApplicationId);
+            bool result = _iAdmin.ApproveRejectMissionApplication(status,missionApplicationId);
             return RedirectToAction("MissionApplication","Admin");
         }
 
-        public IActionResult RejectMissionApplication(long missionApplicationId)
+
+
+
+        //For Sotry Page
+
+        public IActionResult Story()
         {
-            bool result = _iAdmin.RejectMissionApplication(missionApplicationId);
-            return RedirectToAction("MissionApplication", "Admin");
-        }
-
-
-
-
-        public IActionResult story()
-        {
-            ViewData["admin-Title"] = "User";
+            ViewData["admin-Title"] = "Story";
             ViewBag.SelectedTab = "story";
-            return View();
+            //return View();
+            /*TempData["success"] = "us eufgu stt";
+            TempData["error"] = "us eufgu stt";
+            TempData["warning"] = "us eufgu stt";*/
+            List<AdminStoryViewModel> vm = _iAdmin.FetchStoryList();
+            return View(vm);
         }
 
-        public IActionResult bannerManagement()
+        public IActionResult GetStoryDetails(long storyId)
+        {
+
+            AdminStoryViewModel v = _iAdmin.GetStoryDetails(storyId);
+            var data = new
+            {
+                story = v.storyDetails, 
+                media = v.storyimages
+            };
+            return Json(data);
+
+        }
+
+        public bool ApproveRejectStory(int status, long storyId)
+        {
+            return _iAdmin.StoryStatus(status, storyId);
+        }
+
+        public bool DeleteStory(long storyId)
+        {
+            return _iAdmin.DeleteStory(storyId);
+        }
+
+
+
+
+
+
+        public IActionResult BannerManagement()
         {
             ViewData["admin-Title"] = "User";
             ViewBag.SelectedTab = "banner";

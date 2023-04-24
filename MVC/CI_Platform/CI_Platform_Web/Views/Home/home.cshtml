@@ -50,11 +50,21 @@
 </div>
 
 
+
 <!--Mission Cards  -->
-@ViewData["nomission"]
+
 
 <div class="container grid-container">
+
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 item" id="myItems">
+        <div>
+            @if (ViewData["nomission"] != null)
+            {
+                @ViewData["nomission"]
+            }
+        </div>
+
         @{
             int j = 0;
         }
@@ -67,8 +77,34 @@
 
                     <div class="cardHead">
 
+                        @if (@Model.missionMedias.ElementAt(j) == null)
+                        {
+                            <img class="card-img"
+                         src="~/images/404-Page-image.png"
+                         alt="Card image cap" style="">
+
+                        }
+                        else
+                        {
+                            <img class="card-img-top card-img"
+                         src="@Model.missionMedias.ElementAt(j).MediaPath"
+                         alt="Card image cap" style="">
+
+                        }
+
+                        @if (Model.MissionApplicationlist[j] == "true")
+                        {
+                            <div class="appliedText">APPLIED</div>
+                        }
+                        @if (DateTime.Now > @item.EndDate)
+                        {
+
+                            <div class="closedText">Closed</div>
+                        }
+
                         <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img" alt="...">
                         <div class="landing-page-top-right"><img src="~/images/pin.png" alt="">@item.City.Name</div>
+
                         <div class="landing-page-bottom-right d-flex flex-column">
 
                             <button class="mb-2 landing-page-btn-img" onclick="addfav(@ViewBag.UserId,@item.MissionId)" id="item_@item.MissionId">
@@ -269,7 +305,7 @@
 
 <!--For The Pagination-->
 <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3 paginationNav" id="paginationNav">
-        
+
     <ul class="pagination">
 
         <li class="page-item @(ViewBag.CurrentPage == 0 ? "disabled" : "")">

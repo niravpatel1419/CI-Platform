@@ -59,8 +59,15 @@ namespace CI_Platform_Web.Repositories.Interface
 
         public List<User> FetchUser();
 
-        public bool ApproveMissionApplication(int status,long approveId);
+        public bool ApproveRejectMissionApplication(int status,long approveId);
 
-        public bool RejectMissionApplication(long approveId);
+        public List<AdminStoryViewModel> FetchStoryList();
+
+        public AdminStoryViewModel GetStoryDetails(long storyId);
+
+        public bool StoryStatus(int status,long storyId);
+
+        public bool DeleteStory(long storyId);
+
     }
 }

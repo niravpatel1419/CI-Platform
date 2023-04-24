@@ -3,6 +3,7 @@ using CI_Platform_Web.Repositories.Interface;
 using CI_Platform_Web.Repositories.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     option.LoginPath = "/Access/Login";
     option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+});
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
 });
 var app = builder.Build();
 

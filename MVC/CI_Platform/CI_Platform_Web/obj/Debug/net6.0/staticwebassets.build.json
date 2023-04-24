@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "kVkfQ1Kr6PA2lXV4lLr/w2cHZpIYxDGAGEGzq/jiQQU=",
+  "Hash": "pt3jP3U2Bf0g4Eee0x6y6Q5uN6cJrSJUiBz2SAiuzpM=",
   "Source": "CI_Platform_Web",
   "BasePath": "_content/CI_Platform_Web",
   "Mode": "Default",
@@ -1955,6 +1955,23 @@
       "OriginalItemSpec": "wwwroot\\images\\Story\\6aa6ea3e-fa85-4075-9acf-d4b3b8dd24d0_404-Page-image.png"
     },
     {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\b6a0dba6-662a-4e88-a3bf-70c75ab1a5e1_Screenshot (4).png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Story/b6a0dba6-662a-4e88-a3bf-70c75ab1a5e1_Screenshot (4).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Story\\b6a0dba6-662a-4e88-a3bf-70c75ab1a5e1_Screenshot (4).png"
+    },
+    {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\ba51820b-5f68-4b51-9d48-58a1aa3dffa4_Screenshot (31).png",
       "SourceId": "CI_Platform_Web",
       "SourceType": "Discovered",
@@ -2004,6 +2021,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\Story\\c4443d47-4635-4ee9-abf8-710446496611_Screenshot (19).png"
+    },
+    {
+      "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\c46eec7d-cec4-481e-9fae-49b19bdf30c1_bell-big.png",
+      "SourceId": "CI_Platform_Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\",
+      "BasePath": "_content/CI_Platform_Web",
+      "RelativePath": "images/Story/c46eec7d-cec4-481e-9fae-49b19bdf30c1_bell-big.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Story\\c46eec7d-cec4-481e-9fae-49b19bdf30c1_bell-big.png"
     },
     {
       "Identity": "D:\\Project 1\\CI Platform\\MVC\\CI_Platform\\CI_Platform_Web\\wwwroot\\images\\Story\\e6cc9a9c-573c-41cd-832a-0d03404dec31_Screenshot (11).png",

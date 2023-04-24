@@ -34,7 +34,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
         public bool UpdateUserDetails(User u, List<int> usersSkills);
-        public int changeUserPassword(UserDetailsViewModel u);
+        public int ChangeUserPassword(UserDetailsViewModel u);
         public List<Country> GetCountryList();
         public List<Skill> GetAllSkills();
         public List<UserSkill> GetUsersSkills(long userId);
@@ -42,5 +42,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public bool AddTimeSheetEntry(long userId, volunteeringTimeSheetViewModel vm);
         public bool DeleteTimesheetRecord(int timesheetId);
         public Timesheet EditTimesheetRecord(long timesheetId);
+        public int GetProgress(long missionId);
+        public int GetSeatLeft(long missionId);
     }
 }

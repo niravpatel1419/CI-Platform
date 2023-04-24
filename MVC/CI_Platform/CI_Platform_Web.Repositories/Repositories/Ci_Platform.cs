@@ -82,10 +82,10 @@ namespace CI_Platform_Web.Repositories.Repositories
         public MissionListViewModel DisplayMissions()
         {
             MissionListViewModel missions = new MissionListViewModel();
-            missions.Missions = _cI_PlatformContext.Missions.ToList();
-            missions.Cities = _cI_PlatformContext.Cities.ToList();
-            missions.countries = _cI_PlatformContext.Countries.ToList();
-            missions.MissionThemes = _cI_PlatformContext.MissionThemes.ToList();
+            missions.Missions = _cI_PlatformContext.Missions.Where(mission => mission.DeletedAt == null).ToList();
+            missions.Cities = _cI_PlatformContext.Cities.Where(cities => cities.DeletedAt == null).ToList();
+            missions.countries = _cI_PlatformContext.Countries.Where(countries => countries.DeletedAt == null).ToList();
+            missions.MissionThemes = _cI_PlatformContext.MissionThemes.Where(missionthemes => missionthemes.DeletedAt == null).ToList();
 
             return missions;
         }
@@ -93,11 +93,12 @@ namespace CI_Platform_Web.Repositories.Repositories
         public MissionListViewModel DisplayMissions(long? themeId, long? cityId, long? countryId)
         {
             MissionListViewModel missions = new MissionListViewModel();
-            missions.Missions = _cI_PlatformContext.Missions.Where(x => x.ThemeId == themeId || x.CityId == cityId || x.CountryId == countryId).ToList();
-            missions.Cities = _cI_PlatformContext.Cities.ToList();
-            missions.countries = _cI_PlatformContext.Countries.ToList();
-            missions.MissionThemes = _cI_PlatformContext.MissionThemes.ToList();
-
+            missions.Missions = _cI_PlatformContext.Missions.Where(mission => mission.ThemeId == themeId || mission.CityId == cityId || mission.CountryId == countryId).ToList();
+            missions.Missions = missions.Missions.Where(x => x.DeletedAt == null).ToList();
+            missions.Cities = _cI_PlatformContext.Cities.Where(cities => cities.DeletedAt == null).ToList();
+            missions.countries = _cI_PlatformContext.Countries.Where(countries => countries.DeletedAt == null).ToList();
+            missions.MissionThemes = _cI_PlatformContext.MissionThemes.Where(missionthemes => missionthemes.DeletedAt == null).ToList();
+            missions.missionMedias = _cI_PlatformContext.MissionMedia.Where(missionmedia => missionmedia.DeletedAt == null).ToList();
 
 
             return missions;
@@ -108,7 +109,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Get The User Details
         public User GetUserDetails(long userId)
         {
-            return _cI_PlatformContext.Users.Where(x => x.UserId == userId).FirstOrDefault();
+            return _cI_PlatformContext.Users.Where(user => user.UserId == userId && user.DeletedAt == null).FirstOrDefault();
         }
 
         //For Get the Average Rating
@@ -129,7 +130,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Add To Favourite Mission Check
         public bool IsFav(long userId, int missionId)
         {
-            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(f => f.UserId == userId && f.MissionId == missionId).ToList();
+            List<FavouriteMission> f = _cI_PlatformContext.FavouriteMissions.Where(favmission => favmission.UserId == userId && favmission.MissionId == missionId && favmission.DeletedAt == null).ToList();
             if (f.Count == 0)
             {
                 return false;
@@ -144,7 +145,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Applied to Mission Check
         public string IsApplied(long userId, int missionId)
         {
-            List<MissionApplication> f = _cI_PlatformContext.MissionApplications.Where(f => f.UserId == userId && f.MissionId == missionId).ToList();
+            List<MissionApplication> f = _cI_PlatformContext.MissionApplications.Where(missionapplication => missionapplication.UserId == userId && missionapplication.MissionId == missionId && missionapplication.DeletedAt == null).ToList();
             if (f.Count == 0)
             {
                 return "false";
@@ -160,7 +161,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For The User Rating Check
         public int RatedValue(long userId, int missionId)
         {
-            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == userId && x.MissionId == missionId).ToList();
+            List<MissionRating> rr = _cI_PlatformContext.MissionRatings.Where(missionratings => missionratings.UserId == userId && missionratings.MissionId == missionId && missionratings.DeletedAt == null).ToList();
             if (rr.Count == 0)
             {
                 return 0;
@@ -175,7 +176,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Get the Mission Info
         public Mission GetMissionDetails(int missionId)
         {
-            Mission mission = _cI_PlatformContext.Missions.Where(x => x.MissionId == missionId).FirstOrDefault();
+            Mission mission = _cI_PlatformContext.Missions.Where(mission => mission.MissionId == missionId && mission.DeletedAt == null).FirstOrDefault();
             return mission;
         }
 
@@ -210,7 +211,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Add The Rating
         public bool AddRating(MissionRating r)
         {
-            List<MissionRating> p = _cI_PlatformContext.MissionRatings.Where(x => x.UserId == r.UserId && x.MissionId == r.MissionId).ToList();
+            List<MissionRating> p = _cI_PlatformContext.MissionRatings.Where(missionratings => missionratings.UserId == r.UserId && missionratings.MissionId == r.MissionId && r.DeletedAt == null).ToList();
             if (p.Count == 0)
             {
                 _cI_PlatformContext.MissionRatings.Add(r);
@@ -232,7 +233,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Add To Favourite Mission
         public int AddRemoveFav(long userId, int missionId)
         {
-            IEnumerable<FavouriteMission> r = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == userId && x.MissionId == missionId).ToList();
+            IEnumerable<FavouriteMission> r = _cI_PlatformContext.FavouriteMissions.Where(favmission => favmission.UserId == userId && favmission.MissionId == missionId && favmission.DeletedAt == null).ToList();
             if (r.Count() == 0)
             {
                 FavouriteMission f = new FavouriteMission();
@@ -246,7 +247,7 @@ namespace CI_Platform_Web.Repositories.Repositories
 
             else
             {
-                FavouriteMission fav = _cI_PlatformContext.FavouriteMissions.Where(x => x.UserId == userId && x.MissionId == missionId).FirstOrDefault();
+                FavouriteMission fav = _cI_PlatformContext.FavouriteMissions.Where(favmission => favmission.UserId == userId && favmission.MissionId == missionId && favmission.DeletedAt == null ).FirstOrDefault();
                 _cI_PlatformContext.Remove(fav);
                 _cI_PlatformContext.SaveChanges();
                 return 0;
@@ -259,7 +260,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         public bool ApplyForMission(long userId, int missionId)
         {
 
-            var m = _cI_PlatformContext.MissionApplications.Where(x => x.UserId == userId && x.MissionId == missionId).FirstOrDefault();
+            var m = _cI_PlatformContext.MissionApplications.Where(missionapplication => missionapplication.UserId == userId && missionapplication.MissionId == missionId && missionapplication.DeletedAt == null).FirstOrDefault();
             if (m == null)
             {
                 MissionApplication a = new MissionApplication();
@@ -270,11 +271,7 @@ namespace CI_Platform_Web.Repositories.Repositories
                 _cI_PlatformContext.SaveChanges();
 
             }
-            else
-            {
-
-            }
-
+          
             return true;
         }
 
@@ -293,51 +290,28 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Getting Recent Volunteers
         public List<User> GetRecentVol(int missionId)
         {
-            //  return _context.MissionApplications.Where(x => x.MissionId == missionId).ToList();
             List<User> i = _cI_PlatformContext.Users.FromSqlInterpolated($"select u.* from [user] as u inner join mission_application  m On u.user_id=m.user_id where m.mission_id={missionId}  ").ToList();
             return i;
         }
+
 
         //For Shown story from the database
         public IEnumerable<StoryListViewModel> FetchStoryDetails()
         {
             StoryListViewModel v = new StoryListViewModel();
             List<StoryListViewModel> vm = new List<StoryListViewModel>();
-            // v.users = _context.Users.FromSql($"select u.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
-            //  v.storyLists= _context.Stories.FromSql($"select s.* from story s inner join [user] u on s.user_id=u.user_id").ToList();
-            // v.StoryMedias= _context.StoryMedia.FromSql($"select Sm.* from story S left join story_MEDIA SM ON S.STORY_ID=SM.STORY_ID").ToList();
-            v.users = _cI_PlatformContext.Users.ToList();
-            v.storyLists = _cI_PlatformContext.Stories.ToList();
-            v.StoryMedias = _cI_PlatformContext.StoryMedia.ToList();
-            //var id = from e1 in v.users
-            //         join e2 in v.storyLists on e1.UserId equals e2.UserId
-            //         join
-            //         e3 in v.StoryMedias on e2.StoryId equals e3.StoryId
-            //         select new StoryListViewModel
-            //         {
-            //             user = e1,
-            //             storyList = e2,
-            //             StoryMedia = e3,
-            //         };
-            //var iid = from e1 in v.storyLists
-            //          join e2 in v.StoryMedias  on e1.StoryId equals e2.StoryId into eg
-            //          from e2 in eg.DefaultIfEmpty()
-            //          join e3 in v.users on e1.UserId equals e3.UserId
-            //          select new StoryListViewModel
-            //          {
-            //              StoryMedia= e2,
-            //              storyList=e1,
-            //              user=e3
-            //          };
-            List<Story> s = _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).ToList();
+            v.users = _cI_PlatformContext.Users.Where(user => user.DeletedAt == null).ToList();
+            v.storyLists = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).ToList();
+            v.StoryMedias = _cI_PlatformContext.StoryMedia.Where(storymedia => storymedia.DeletedAt == null).ToList();
+
+            List<Story> s = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).Include(x => x.StoryMedia).Include(x => x.User).ToList();
             return vm;
         }
 
 
         public IEnumerable<Story> GetStoryListData()
         {
-            //return _cI_PlatformContext.Stories.Include(x => x.StoryMedia).Include(x => x.User).Where(x => x.Status != "DRAFT").ToList();
-            return _cI_PlatformContext.Stories.Include(x => x.User).Where(x => x.Status == "DRAFT").ToList();
+            return _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).Include(x => x.User).Where(x => x.Status != "DRAFT" && x.DeletedAt == null).ToList();
         }
 
 
@@ -349,7 +323,7 @@ namespace CI_Platform_Web.Repositories.Repositories
             {
                 return false;
             }
-            Story s = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT" && x.MissionId == missionId).FirstOrDefault();
+            Story s = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.Status == "DRAFT" && stories.MissionId == missionId && stories.DeletedAt == null).FirstOrDefault();
             if (s != null)
             {
                 s.UserId = userId;
@@ -361,8 +335,8 @@ namespace CI_Platform_Web.Repositories.Repositories
                 _cI_PlatformContext.Update(s);
                 _cI_PlatformContext.SaveChanges();
 
-                var id = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.MissionId == missionId && x.PublishedAt == s.PublishedAt).OrderByDescending(x => x.CreatedAt).FirstOrDefault().StoryId;
-                StoryMedium ma = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == id && x.Type == "video").FirstOrDefault();
+                var id = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.MissionId == missionId && stories.PublishedAt == s.PublishedAt && stories.DeletedAt == null).OrderByDescending(x => x.CreatedAt).FirstOrDefault().StoryId;
+                StoryMedium ma = _cI_PlatformContext.StoryMedia.Where(storymedia => storymedia.StoryId == id && storymedia.Type == "video" && storymedia.DeletedAt == null).FirstOrDefault();
                 if (ma != null)
                 {
                     if (url != null)
@@ -416,7 +390,7 @@ namespace CI_Platform_Web.Repositories.Repositories
                 //Story s1 = new Story();
                 if (url != null)
                 {
-                    var id = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == status && x.PublishedAt == publishdate).FirstOrDefault().StoryId;
+                    var id = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.Status == status && stories.PublishedAt == publishdate && stories.DeletedAt == null).FirstOrDefault().StoryId;
 
                     StoryMedium m = new StoryMedium();
                     m.StoryId = id;
@@ -436,8 +410,8 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Add the media in story
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid)
         {
-            var storyId = _cI_PlatformContext.Stories.OrderByDescending(e => e.CreatedAt).Where(e => (e.MissionId == mid) && (e.UserId == uid)).FirstOrDefault();
-            var storymedia = _cI_PlatformContext.StoryMedia.Where(e => e.StoryId == storyId.StoryId).FirstOrDefault();
+            var storyId = _cI_PlatformContext.Stories.OrderByDescending(stories => stories.CreatedAt).Where(stories => (stories.MissionId == mid) && (stories.UserId == uid) && (stories.DeletedAt == null)).FirstOrDefault();
+            var storymedia = _cI_PlatformContext.StoryMedia.Where(storymedia => storymedia.StoryId == storyId.StoryId && storymedia.DeletedAt == null).FirstOrDefault();
 
             StoryMedium sm = new StoryMedium();
             sm.StoryId = storyId.StoryId;
@@ -453,12 +427,16 @@ namespace CI_Platform_Web.Repositories.Repositories
         public ShareStoryViewModel GetSavedStory(long userId,int missionId)
         {
             ShareStoryViewModel v = new ShareStoryViewModel();
-            var i = _cI_PlatformContext.Stories.Where(x => x.UserId == userId && x.Status == "DRAFT" && x.MissionId == missionId).ToList();
+            if (missionId == 0)
+            {
+                return v;
+            }
+            var i = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.Status == "DRAFT" && stories.MissionId == missionId && stories.DeletedAt == null).ToList();
             if (i.Count() > 0)
             {   
                 v.stories = i.FirstOrDefault();
-                v.media = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId).FirstOrDefault();
-                v.url = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId && x.Type == "video").FirstOrDefault()?.Path;
+                v.media = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId && x.DeletedAt == null).FirstOrDefault();
+                v.url = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == v.stories.StoryId && x.Type == "video" && x.DeletedAt == null).FirstOrDefault()?.Path;
             }
             return v;
         }
@@ -469,9 +447,9 @@ namespace CI_Platform_Web.Repositories.Repositories
         {
             StoryDetailsVM v = new StoryDetailsVM();
 
-            v.stories = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).Include(x => x.StoryMedia).Include(x => x.User).Include(x => x.StoryMedia).FirstOrDefault();
+            v.stories = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId && x.DeletedAt == null).Include(x => x.StoryMedia).Include(x => x.User).Include(x => x.StoryMedia).FirstOrDefault();
             v.users = _cI_PlatformContext.Users.ToList();
-            Story s = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId).FirstOrDefault();
+            Story s = _cI_PlatformContext.Stories.Where(x => x.StoryId == storyId && x.DeletedAt == null).FirstOrDefault();
             s.TotalViews = s.TotalViews + 1;
             _cI_PlatformContext.Update(s);
             _cI_PlatformContext.SaveChanges();
@@ -483,7 +461,7 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         public bool UpdateUserDetails(User u, List<int> usersSkills)
         {
-            User temp = _cI_PlatformContext.Users.Where(x => x.UserId == u.UserId).FirstOrDefault();
+            User temp = _cI_PlatformContext.Users.Where(user => user.UserId == u.UserId && user.DeletedAt == null).FirstOrDefault();
             
             temp.FirstName = u.FirstName;
             temp.LastName = u.LastName;
@@ -520,11 +498,12 @@ namespace CI_Platform_Web.Repositories.Repositories
             
         }
 
+
         //For Change The User Password In The User Edit Profile Section
 
-        public int changeUserPassword(UserDetailsViewModel u)
+        public int ChangeUserPassword(UserDetailsViewModel u)
         {
-            User user = _cI_PlatformContext.Users.Where(x => x.UserId == u.users.UserId).FirstOrDefault();
+            User user = _cI_PlatformContext.Users.Where(user => user.UserId == u.users.UserId && user.DeletedAt == null).FirstOrDefault();
 
             if(user.Password != u.oldPassword)
             {
@@ -554,19 +533,19 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         public List<UserSkill> GetUsersSkills(long userId)
         {
-            return _cI_PlatformContext.UserSkills.Where(x => x.UserId == userId).ToList();
+            return _cI_PlatformContext.UserSkills.Where(userskills => userskills.UserId == userId && userskills.DeletedAt == null).ToList();
         }
 
         public volunteeringTimeSheetViewModel GetVolunteerTimeDetails(long userId)
         {
             volunteeringTimeSheetViewModel vol = new volunteeringTimeSheetViewModel();
-            List<MissionApplication> goalMission = _cI_PlatformContext.MissionApplications.Where(x => x.UserId == userId && x.Mission.MissionType == "goal").ToList();
-            List<MissionApplication> timeMission = _cI_PlatformContext.MissionApplications.Where(x => x.UserId == userId && x.Mission.MissionType == "time").ToList();
+            List<MissionApplication> goalMission = _cI_PlatformContext.MissionApplications.Where(missionapplication => missionapplication.UserId == userId && missionapplication.Mission.MissionType == "goal" && missionapplication.DeletedAt == null).ToList();
+            List<MissionApplication> timeMission = _cI_PlatformContext.MissionApplications.Where(missionapplication => missionapplication.UserId == userId && missionapplication.Mission.MissionType == "time" && missionapplication.DeletedAt == null).ToList();
             vol.timeMissions = timeMission;
             vol.goalMissions = goalMission;
             vol.allMissions = _cI_PlatformContext.Missions.ToList();
-            vol.goalTimesheetList = _cI_PlatformContext.Timesheets.Where(x => x.UserId == userId && x.Mission.MissionType == "goal").ToList();
-            vol.timeTimesheetList = _cI_PlatformContext.Timesheets.Where(x => x.UserId == userId && x.Mission.MissionType == "time").ToList();
+            vol.goalTimesheetList = _cI_PlatformContext.Timesheets.Where(timesheets => timesheets.UserId == userId && timesheets.Mission.MissionType == "goal" && timesheets.DeletedAt == null).ToList();
+            vol.timeTimesheetList = _cI_PlatformContext.Timesheets.Where(timesheets => timesheets.UserId == userId && timesheets.Mission.MissionType == "time" && timesheets.DeletedAt == null).ToList();
             return vol;
         }
 
@@ -576,7 +555,7 @@ namespace CI_Platform_Web.Repositories.Repositories
             Timesheet t = new Timesheet();
             if (vm.timesheetPrimary != 0)
             {
-                t = _cI_PlatformContext.Timesheets.Where(x => x.TimesheetId == vm.timesheetPrimary).FirstOrDefault();
+                t = _cI_PlatformContext.Timesheets.Where(timesheets => timesheets.TimesheetId == vm.timesheetPrimary && timesheets.DeletedAt == null).FirstOrDefault();
             }
             t.UserId = userId;
             t.MissionId = vm.missionId;
@@ -615,6 +594,53 @@ namespace CI_Platform_Web.Repositories.Repositories
             Timesheet t = _cI_PlatformContext.Timesheets.Find(timesheetId);
             return t;
         }
+
+
+        /*public Admin ValidateAdmin(User admin)
+        {
+            Admin ad = _cI_PlatformContext.Admins.Where(admi => admi.Email == admin.Email && admi.Password == admin.Password && admi.DeletedAt == null).FirstOrDefault();
+            return ad;
+        }*/
+
+        public int GetProgress(long missionId)
+        {
+            if (missionId == 0 || missionId < 0)
+            {
+                return -2;
+            }
+
+            Mission m = _cI_PlatformContext.Missions.Where(mission => mission.MissionId == missionId && mission.DeletedAt == null).FirstOrDefault();
+            if (m == null)
+            {
+                return -2;
+            }
+            if (m.MissionType == "time")
+            {
+                return -1;
+            }
+
+
+            int done = (int)_cI_PlatformContext.Timesheets.Where(x => x.MissionId == missionId && x.DeletedAt == null).Select(x => x.Action).ToList().Sum();
+            int total = _cI_PlatformContext.GoalMissions.Where(x => x.MissionId == missionId && x.DeletedAt == null).Select(x => x.GoalValue).FirstOrDefault();
+            return (int)(((float)done / (float)total) * 100);
+
+        }
+
+        public int GetSeatLeft(long missionId)
+        {
+            if (missionId == 0 || missionId < 0)
+            {
+                return -2;
+            }
+            int applied = _cI_PlatformContext.MissionApplications.Count(app => app.MissionId == missionId && app.DeletedAt == null && app.ApprovalStatus == "APPROVE");
+            int left = int.Parse(_cI_PlatformContext.Missions.Where(mission => mission.DeletedAt == null && mission.MissionId == missionId).FirstOrDefault().Availability) - applied;
+            return left;
+        }
+
+
+
+
+
     }
 
 }

@@ -1,1 +1,207 @@
-﻿
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+
+@model List<CI_Platform_Web.Entities.ViewModel.AdminStoryViewModel>;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="~/css/user.css" class="rel" />
+
+    <title>Document</title>
+</head>
+<body>
+    @*MODAL*@
+    <!-- Modal -->
+
+    <div class="modal fade" id="StoryModal" tabindex="-1" aria-labelledby="StoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered user-edit-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="StoryModalLabel">Story Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 mt-2">
+
+                                <h4>Story Title</h4>
+
+                                <span id="storyTitle">Story Title</span>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <h4>Mission Title</h4>
+                                <span id="missionTitle">Mission Title</span>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <h4>Description</h4>
+                                <p id="storyDesc">Story Title</p>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <h4>User Name</h4>
+                                <span id="firstName"></span>
+                                <span id="lastName"></span>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <div class="storyImage" id="imgStory"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @*MODAL*@
+
+    <h3 class="admin-title-top">@ViewData["admin-Title"]</h3>
+    <hr class="admin-title-line" />
+    <div class="add-btn-div">
+    </div>
+
+    <div class="table-admin-div-user mt-2">
+        <table class="table table-bordered table-responsive" id="myTable">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Story Title</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Mission Title</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var i in Model)
+                {
+                    <tr id="rawSTORY_@i.storyDetails.StoryId">
+                        <td>@i.storyDetails.Title</td>
+                        <td>@i.userDetails.FirstName @i.userDetails.LastName</td>
+                        <td>@i.missionDetails.Title</td>
+
+
+                        <td>
+                            <button onclick="viewStory(@i.storyDetails.StoryId)" class="savebtnmodal view-btn" data-bs-toggle="modal" data-bs-target="#StoryModal">View</button>
+                            <i class="bi bi-check-circle color-saffron cursor-pointer ms-2" onclick="approveRejectStory(1,@i.storyDetails.StoryId)"></i>
+                            <i class="bi bi-x-circle ms-2 cursor-pointer color-red" onclick="approveRejectStory(0,@i.storyDetails.StoryId)"></i>
+                            <i class="bi bi-trash ms-2 cursor-pointer" data-bs-toggle="modal" data-bs-target="#DeleteStory" onclick="SetStoryId(@i.storyDetails.StoryId)"></i>
+
+                        </td>
+                        <!-- Modal -->
+                        <div class="modal fade" id="DeleteStory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog delete-modal-admin">
+                                <div class="modal-content delete-modal-admin">
+
+                                    <div class="modal-body">
+                                        <input type="text" id="delete_story" hidden>
+                                        <h3>Confirm Delete</h3>
+                                        <div class="mt-2">Are You Sure Want To Delete This Record?</div>
+                                        <div class="d-flex justify-content-center mt-4">
+                                            <button type="button" class="cancelBtn" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" class="savebtnmodal saveBtn" data-bs-dismiss="modal" onclick="deleteStory()">Delete</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal end -->
+
+                    </tr>
+                }
+
+
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#myTable');
+</script>
+<script>
+    function viewStory(storyId) {
+        $.ajax({
+            url: '/Admin/GetStoryDetails?storyId=' + storyId,
+            success: function (data) {
+                //console.log("succes")
+                console.log(data)
+
+                $('#img').prop("src", "/images/volunteer1.png")
+
+                $('#storyTitle').text(data.story.title)
+                $('#storyDesc').html(data.story.description)
+                data.media[0]
+                $('#missionTitle').text(data.story.mission.title)
+                $('#firstName').text(data.story.user.firstName)
+                $('#lastName').text(data.story.user.lastName)
+                var storyimgvar = "";
+                $.each(data.media, function (key, value) {
+                    console.log(value)
+                    storyimgvar += '<div class=displayimg-story-div><img class=displayimg-story src=' + value + '></div>'
+
+                })
+                $('#imgStory').html(storyimgvar);
+
+
+
+            },
+            error: function (error) {
+                console.log(error)
+                console.log("error")
+            }
+        })
+
+
+
+    }
+    function SetStoryId(storyId) {
+        console.log(storyId);
+        $('#delete_story').val(storyId);
+
+    }
+
+    function deleteStory() {
+
+        var id = $('#delete_story').val()
+        console.log("story id", id)
+        $.ajax({
+            url: '/Admin/DeleteStory?storyId=' + id,
+            success: function (data) {
+                console.log(data)
+                location.reload();
+            },
+            error: function (error) {
+                alert(error);
+            }
+        })
+
+    }
+
+
+    function approveRejectStory(status, id) {
+        console.log("Testing it")
+        console.log(status, id)
+
+        $.ajax({
+
+            url: '/Admin/ApproveRejectStory?status=' + status + '&storyId=' + id,
+            success: function (data) {
+
+                console.log("success");
+                location.reload();
+            }
+        })
+    }
+
+</script>
+
+</html>

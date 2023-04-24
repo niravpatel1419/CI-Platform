@@ -26,6 +26,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         {
             AdminViewModel adminViewModel = new AdminViewModel();
             adminViewModel.userList = _cI_PlatformContext.Users.ToList();
+            adminViewModel.countryList = _cI_PlatformContext.Countries.ToList();
             return adminViewModel;
         }
 
@@ -37,20 +38,20 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Add Or Edit User Details On Admin Page
         public bool AddUpdateUserDetails(AdminViewModel vm)
         {
-            if(vm.userDetails.UserId == 0)
+            if(vm.UserId == 0)
             {
                 User u = new User();
-                u.FirstName = vm.userDetails.FirstName;
-                u.LastName = vm.userDetails.LastName;
-                u.Email = vm.userDetails.Email;
-                u.Password = vm.userDetails.Password;
-                u.Avatar = vm.userDetails.Avatar;
-                u.EmployeeId = vm.userDetails.EmployeeId;
-                u.Department = vm.userDetails.Department;
-                u.CityId = vm.userDetails.CityId;
-                u.CountryId = vm.userDetails.CountryId;
-                u.ProfileText = vm.userDetails.ProfileText;
-                u.Status = vm.userDetails.Status;
+                u.FirstName = vm.FirstName;
+                u.LastName = vm.LastName;
+                u.Email = vm.Email;
+                u.Password = vm.Password;
+                /*u.Avatar = vm.userDetails.Avatar;*/
+                u.EmployeeId = vm.EmployeeId;
+                u.Department = vm.Department;
+                u.CityId = vm.CityId;
+                u.CountryId = vm.CountryId;
+                u.ProfileText = vm.ProfileText;
+                u.Status = vm.Status;
 
                 _cI_PlatformContext.Users.Add(u);
                 _cI_PlatformContext.SaveChanges();
@@ -58,18 +59,18 @@ namespace CI_Platform_Web.Repositories.Repositories
             }
             else
             {
-                User u = _cI_PlatformContext.Users.Find(vm.userDetails.UserId);
-                u.FirstName = vm.userDetails.FirstName;
-                u.LastName = vm.userDetails.LastName;
-                u.Email = vm.userDetails.Email;
-                u.Password = vm.userDetails.Password;
-                u.Avatar = vm.userDetails.Avatar;
-                u.EmployeeId = vm.userDetails.EmployeeId;
-                u.Department = vm.userDetails.Department;
-                u.CityId = vm.userDetails.CityId;
-                u.CountryId = vm.userDetails.CountryId;
-                u.ProfileText = vm.userDetails.ProfileText;
-                u.Status = vm.userDetails.Status;
+                User u = _cI_PlatformContext.Users.Find(vm.UserId);
+                u.FirstName = vm.FirstName;
+                u.LastName = vm.LastName;
+                u.Email = vm.Email;
+                u.Password = vm.Password;
+               /* u.Avatar = vm.userDetails.Avatar;*/
+                u.EmployeeId = vm.EmployeeId;
+                u.Department = vm.Department;
+                u.CityId = vm.CityId;
+                u.CountryId = vm.CountryId;
+                u.ProfileText = vm.ProfileText;
+                u.Status = vm.Status;
 
                 _cI_PlatformContext.Update(u);
                 _cI_PlatformContext.SaveChanges();
@@ -374,7 +375,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         //For Mission Application Page
         public List<MissionApplication> FetchMissionApplication()
         {
-            return _cI_PlatformContext.MissionApplications.ToList();
+            return _cI_PlatformContext.MissionApplications.Where(missionApplication => missionApplication.ApprovalStatus == "PENDING").ToList();
         }
 
         public List<User> FetchUser()
@@ -382,26 +383,116 @@ namespace CI_Platform_Web.Repositories.Repositories
             return _cI_PlatformContext.Users.ToList();
         }
 
-        public bool ApproveMissionApplication(int status,long approveId)
+        public bool ApproveRejectMissionApplication(int status,long approveId)
         {
+            if(approveId == 0)
+            {
+                return false;
+            }
+
+            string stat = "";
+
+            if(status == 0)
+            {
+                stat = "DECLINE";
+            }
+            else
+            {
+                stat = "APPROVE";
+            }
+
             MissionApplication missionApplication = _cI_PlatformContext.MissionApplications.Find(approveId);
-            missionApplication.ApprovalStatus = "APPROVED";
+            missionApplication.ApprovalStatus = stat;
             missionApplication.UpdatedAt = DateTime.Now;
 
-            _cI_PlatformContext.MissionApplications.Update(missionApplication);
+            _cI_PlatformContext.Update(missionApplication);
             _cI_PlatformContext.SaveChanges();
             return true;
         }
 
-        public bool RejectMissionApplication(long approveId)
-        {
-            MissionApplication missionApplication = _cI_PlatformContext.MissionApplications.Find(approveId);
-            missionApplication.ApprovalStatus = "DECLINED";
-            missionApplication.UpdatedAt = DateTime.Now;
 
-            _cI_PlatformContext.MissionApplications.Update(missionApplication);
+
+        //For Story Page
+        public List<AdminStoryViewModel> FetchStoryList()
+        {
+            List<AdminStoryViewModel> storyAdminVM = new List<AdminStoryViewModel>();
+            var query = _cI_PlatformContext.Stories.AsQueryable();
+            query = query.Where(story => story.DeletedAt == null && story.Status == "PENDING");
+            var queryable = query.Select(x => new AdminStoryViewModel()
+            {
+                storyDetails = x,
+                userDetails = x.User,
+                missionDetails = x.Mission,
+
+            });
+            storyAdminVM = queryable.ToList();
+            return storyAdminVM;
+        }
+
+        public AdminStoryViewModel GetStoryDetails(long storyId)
+        {
+            AdminStoryViewModel vm = new AdminStoryViewModel();
+            var query = _cI_PlatformContext.Stories.AsQueryable();
+            query = query.Where(story => story.StoryId == storyId && story.DeletedAt == null);
+            query = query.Where(story => story.Mission.DeletedAt == null);
+            query = query.Where(story => story.User.DeletedAt == null);
+
+
+            //vm.storyDetails = _context.Stories.Find(storyId);
+            var queryselect = query.Select(story => new AdminStoryViewModel()
+            {
+                missionDetails = story.Mission,
+                userDetails = story.User,
+                storyDetails = story
+            });
+            vm = queryselect.FirstOrDefault();
+            List<StoryMedium> m = _cI_PlatformContext.StoryMedia.Where(x => x.StoryId == storyId && x.Type != "video").ToList();
+            if (m.Any())
+            {
+                m.ForEach(x => vm.storyimages.Add(x.Path));
+            }
+
+            return vm;
+        }
+
+        public bool StoryStatus(int status, long storyId)
+        {
+            if (storyId == 0)
+            {
+                return false;
+            }
+
+            string storyStatus = "";
+            if (status == 0)
+            {
+                storyStatus = "DECLINED";
+            }
+            if (status == 1)
+            {
+                storyStatus = "PUBLISHED";
+            }
+            Story temp = _cI_PlatformContext.Stories.Find(storyId);
+            temp.Status = storyStatus;
+            _cI_PlatformContext.Update(temp);
             _cI_PlatformContext.SaveChanges();
             return true;
+        }
+
+        public bool DeleteStory(long storyId)
+        {
+            if (storyId != 0)
+            {
+                var time = DateTime.Now;
+                Story story = _cI_PlatformContext.Stories.Find(storyId);
+                story.DeletedAt = time;
+                //story.Status = "DECLINED";
+                List<StoryMedium> medium = _cI_PlatformContext.StoryMedia.Where(media => media.StoryId == storyId).ToList();
+                medium.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(medium);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
     }

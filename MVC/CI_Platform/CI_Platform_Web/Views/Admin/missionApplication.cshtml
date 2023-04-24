@@ -44,15 +44,15 @@
                         <td scope="row">@i.AppliedAt</td>
                         <td>
                             <i class="bi bi-check-circle color-saffron editBtn" onclick="approveRejectMissionApplication(1,@i.MissionApplicationId)"></i>
-                            <i class="bi bi-x-circle ms-2" id="@i.MissionApplicationId" onclick="approveRejectMissionApplicationId(0,this.id)"></i>
-
+                            <i class="bi bi-x-circle ms-2" onclick="setMissionApplicationId(@i.MissionApplicationId)" data-bs-toggle="modal" data-bs-target="#DeleteMissionApplication"></i>
+                            
                             <!--Delete Modal-->
-@*                            <div class="modal fade" id="DeleteSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="DeleteMissionApplication" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog delete-modal-admin">
                                     <div class="modal-content delete-modal-admin">
 
                                         <div class="modal-body">
-                                            <input type="text" id="delete_missionapplication">
+                                            <input type="text" id="delete_missionapplication" hidden>
                                             <h3>Confirm Delete</h3>
                                             <div class="mt-2">Are You Sure Want To Delete This Record?</div>
                                             <div class="d-flex justify-content-center mt-4">
@@ -63,7 +63,7 @@
 
                                     </div>
                                 </div>
-                            </div>*@
+                            </div>
 
                         </td>
                     </tr>
@@ -79,35 +79,34 @@
     let table = new DataTable('#myTable');
 </script>
 <script>
-    function approveRejectMissionApplication(status,id) {
+
+    function approveRejectMissionApplication(status,id){
         console.log(status)
         console.log(id)
 
         $.ajax({
-            url: '/Admin/ApproveMissionApplication?missionApplicationId=' + id &'status' = + status,
-            success: function (data) {
-                console.log('approved');
+            url: '/Admin/ApproveRejectMissionApplication?status='+status+'&missionApplicationId='+id,
+            success:function(data){
+                console.log(data)
             }
         })
-
     }
 
     function setMissionApplicationId(missionapplication_id){
-        console.log(missionapplication_id);
         $('#delete_missionapplication').val(missionapplication_id)
+        console.log(missionapplication_id);
     }
 
-    function rejectMissionApplication() {
-        var id = $('#delete_missionapplication').val()
-        console.log(id)
+    function rejectMissionApplication(status,id){
+        var status = 0;
+        var id = $('#delete_missionapplication').val();
 
         $.ajax({
-            url: '/Admin/RejectMissionApplication?missionApplicationId=' + id,
+            url: '/Admin/ApproveRejectMissionApplication?status=' + status + '&missionApplicationId=' + id,
             success: function (data) {
-                console.log('rejected');
+                console.log(data)
             }
         })
-
     }
 </script>
 

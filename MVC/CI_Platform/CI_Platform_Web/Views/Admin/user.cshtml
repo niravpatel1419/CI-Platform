@@ -41,7 +41,7 @@
 
                         <div class="modal-body">
                             <div class="container">
-                                <input asp-for="userDetails.UserId" value="0" id="modalAdminuserUserid" hidden />
+                                <input asp-for="UserId" value="0" id="modalAdminuserUserid" hidden />
                                 <div class="row justify-content-center">
 
                                     <div class="col-6">
@@ -60,20 +60,25 @@
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Name" class="form-label" style="color: #414141;">Name*</label>
-                                        <input asp-for="userDetails.FirstName" id="modalFirstName" type="text" class="form-control"
+                                        <input asp-for="FirstName" id="modalFirstName" type="text" class="form-control"
                                                placeholder="Enter Your Name" value="" required />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Surname" class="form-label" style="color: #414141;">Surname*</label>
-                                        <input asp-for="userDetails.LastName" id="modalLastName" type="text" class="form-control"
+                                        <input asp-for="LastName" id="modalLastName" type="text" class="form-control"
                                                placeholder="Enter Your Surname" value="" required />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Email" class="form-label" style="color: #414141;">Email*</label>
-                                        <input asp-for="userDetails.Email" id="modalEmail" type="text" class="form-control" placeholder="Enter Your Email"
+                                        <input asp-for="Email" id="modalEmail" type="text" class="form-control" placeholder="Enter Your Email"
                                                value="" required />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+
                                     </div>
 
                                 </div>
@@ -82,20 +87,22 @@
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Password" class="form-label" style="color: #414141;">Password</label>
-                                        <input asp-for="userDetails.Password" id="modalPassword" type="text" class="form-control"
-                                               placeholder="Enter Your Password" value="" required />
+                                        <input asp-for="Password" id="modalPassword" type="text" class="form-control"
+                                               placeholder="Enter Your Password" value="" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Employee ID" class="form-label" style="color: #414141;">Employee ID</label>
-                                        <input asp-for="userDetails.EmployeeId" id="modalEmployeeId" type="text" class="form-control"
-                                               placeholder="Enter Your Employee ID" value="" required />
+                                        <input asp-for="EmployeeId" id="modalEmployeeId" type="text" class="form-control"
+                                               placeholder="Enter Your Employee ID" value="" />
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="Department" class="form-label" style="color: #414141;">Department</label>
-                                        <input asp-for="userDetails.Department" id="modalDepartment" type="text" class="form-control"
-                                               placeholder="Enter Your Department" value="" required />
+                                        <input asp-for="Department" id="modalDepartment" type="text" class="form-control"
+                                               placeholder="Enter Your Department" value="" />
                                     </div>
 
                                 </div>
@@ -104,23 +111,31 @@
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="" class="form-label">Country*</label>
-                                        <select asp-for="userDetails.CountryId" class="form-select" id="Country" onclick="GetCountry()"
+                                        <select asp-for="CountryId" class="form-select" id="Country" onclick="GetCountry()"
                                                 aria-label="Default select example">
                                             <option selected>Select Your Country</option>
+                                            @foreach (var country in Model.countryList)
+                                            {
+                                                <option value="@country.CountryId">@country.Name</option>
+                                            }
                                         </select>
+                                        <span asp-validation-for="CountryId" class="text-danger"></span>
+
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="" class="form-label">City*</label>
-                                        <select asp-for="userDetails.CityId" class="form-select" id="City"
+                                        <select asp-for="CityId" class="form-select" id="City"
                                                 aria-label="Default select example">
                                             <option selected styele="max-height:200px">Select Your City</option>
                                         </select>
+                                        <span asp-validation-for="CityId" class="text-danger"></span>
+
                                     </div>
 
                                     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                                         <label for="" class="form-label">Status</label>
-                                        <select asp-for="userDetails.Status" class="form-select" id="modalStatus"
+                                        <select asp-for="Status" class="form-select" id="modalStatus"
                                                 aria-label="Default select example">
                                             <option selected styele="max-height:200px">Select Status</option>
                                             <option styele="max-height:200px" value="1">Active</option>
@@ -137,8 +152,10 @@
                                             My
                                             Profile*
                                         </label>
-                                        <textarea asp-for="userDetails.ProfileText" name="ProfileText" id="modalProfileText" rows="5" class="" placeholder=" Enter your comments..."
+                                        <textarea asp-for="ProfileText" name="ProfileText" id="modalProfileText" rows="5" class="" placeholder=" Enter your comments..."
                                                   style="width: 100%;" required></textarea>
+                                        <span asp-validation-for="ProfileText" class="text-danger"></span>
+
                                     </div>
 
                                 </div>
@@ -148,8 +165,8 @@
 
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class=" btn-secondary cancelBtn" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class=" btn-primary saveBtn">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -219,8 +236,8 @@
                 $('#modalPassword').val(data.password);
                 $('#modalEmployeeId').val(data.employeeId);
                 $('#modalDepartment').val(data.department);
-                $('#modalCountry').val(data.countryId);
-                $('#modalCity').val(data.cityId);
+                $('#Country').val(data.countryId);
+                $('#City').val(data.cityId);
                 $('#modalStatus').val(data.status);
                 $('#modalProfileText').val(data.profileText);
             }
@@ -234,12 +251,39 @@
         $('#modalPassword').val('');
         $('#modalEmployeeId').val('');
         $('#modalDepartment').val('');
-        $('#modalCountry').val('');
-        $('#modalCity').val('');
+        $('#Country').val('Select Your Country');
+        $('#mCity').val('Select Your City');
         $('#modalStatus').val('');
         $('#modalProfileText').val('');
     }
 
-</script>
 
+    $('#Country').change(function () {
+        console.log("Onchange called")
+        //console.log($(this).val());
+        var id = $(this).val();
+
+        console.log(id)
+        $('#City').empty();
+        $('#City').append('<Option> Select Your City </option>');
+        $.ajax({
+            url: '/Admin/City?id=' + id,
+            success: function (result) {
+                console.log(result);
+                $.each(result, function (i, data) {
+                    console.log(data.name);
+                    //$('#City').append('<li style="padding:5px"><input class="form-check-input checkbox" id="' + data.name + '"style="margin-right:10px" type="checkbox" value="' + data.name + '">' + '<label class="form-check-label" for="flexCheckDefault">' + data.name + '</lable></li>');
+                    $('#City').append('<option value=' + data.cityId + '>' + data.name + '</option>');
+                })
+            }
+
+        });
+    });
+
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 </html>
