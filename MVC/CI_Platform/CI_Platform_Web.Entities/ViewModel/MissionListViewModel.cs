@@ -25,5 +25,7 @@ namespace CI_Platform_Web.Entities.ViewModel
         public List<string> MissionApplicationlist { get; set; }
 
         public IEnumerable<GoalMission> Goals { get; set; }
+
+        public List<int> seatleft { get; set; }
     }
 }

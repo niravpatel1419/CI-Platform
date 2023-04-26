@@ -19,26 +19,22 @@
     <!-- Image Section -->
 
     <div class="container mt-5">
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                </div>
-            </div>
-        </div>
+        <h5>@ViewBag.GeneralError<span class="text-danger"> @ViewBag.FNameError @ViewBag.LastNameError @ViewBag.PText @ViewBag.WhyVOl @ViewBag.Country @ViewBag.City </span></h5>
 
         <div class="row">
 
             <div class="col-md-3 col-sm-12">
                 <div class="userImageDiv">
-                    @*<img src="~/images/user-img-large.png" alt="User Image" class="userImg mt-3" id="userProfileImg" onclick="imageClicked()">*@
-                    <img src="@Model.users.Avatar" alt="User Image" class="userImg mt-3" id="userProfileImg" onclick="imageClicked()" />
+
+                    @if (@Model.users.Avatar != null)
+                    {
+                        <img src="@Model.users.Avatar" class="userImg mt-3" id="userProfileImg" alt="userImg" onclick="imageClicked()" />
+                    }
+                    else
+                    {
+                        <img src="/images/Avatar/Default.jpg" class="userImg mt-3" id="userProfileImg" alt="userimg" onclick="imageClicked()" />
+                    }
+
                     <p class="mb-0" style="font-size: 20px;">@Model.users.FirstName @Model.users.LastName</p>
                     <a href="#" class="changePassword mb-2" data-bs-toggle="modal" data-bs-target="#modalChangePassword">Change Password</a>
 
@@ -104,52 +100,48 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Name" class="form-label" style="color: #414141;">Name*</label>
-                                <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter Your Name" value="@Model.users.FirstName" required />
-                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                <input asp-for="users.FirstName" type="text" class="form-control" placeholder="Enter Your Name" value="@Model.users.FirstName" />
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="Surname" class="form-label" style="color: #414141;">Surname*</label>
-                                <input asp-for="LastName" type="text" class="form-control" placeholder="Enter Your Surname" value="@Model.users.LastName" required />
-                                <span asp-validation-for="LastName" class="text-danger">@ViewData["lname"]</span>
+                                <input asp-for="users.LastName" type="text" class="form-control" placeholder="Enter Your Surname" value="@Model.users.LastName" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="empID" class="form-label" style="color: #414141;">Employee ID</label>
-                                <input asp-for="EmployeeId" type="text" class="form-control" placeholder="Enter Your Employee ID" value="@Model.users.EmployeeId" />
+                                <input asp-for="users.EmployeeId" type="text" class="form-control" placeholder="Enter Your Employee ID" value="@Model.users.EmployeeId" />
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="managerDetails" class="form-label" style="color: #414141;">Manager</label>
-                                <input asp-for="Manager" type="text" class="form-control" placeholder="Enter Your Manager" value="@Model.users.Manager" />
+                                <input asp-for="users.Manager" type="text" class="form-control" placeholder="Enter Your Manager" value="@Model.users.Manager" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="title" class="form-label" style="color: #414141;">Title</label>
-                                <input asp-for="Title" type="text" class="form-control" placeholder="Enter Your Title" value="@Model.users.Title" />
+                                <input asp-for="users.Title" type="text" class="form-control" placeholder="Enter Your Title" value="@Model.users.Title" />
                             </div>
 
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="department" class="form-label" style="color: #414141;">Department</label>
-                                <input asp-for="Department" type="text" class="form-control" placeholder="Enter Your Department" value="@Model.users.Department" />
+                                <input asp-for="users.Department" type="text" class="form-control" placeholder="Enter Your Department" value="@Model.users.Department" />
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col-12">
-                                <label asp-for="ProfileText" class="form-label" style="color: #414141;">My Profile*</label>
-                                <textarea name="ProfileText" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;" required>@Model.users.ProfileText</textarea>
-                                <span asp-validation-for="ProfileText" class="text-danger"></span>
+                                <label asp-for="users.ProfileText" class="form-label" style="color: #414141;">My Profile*</label>
+                                <textarea name="ProfileText" id="ProfileText" rows="5" class="" placeholder=" Enter your comments..."
+                                          style="width: 100%;" >@Model.users.ProfileText</textarea>
                             </div>
                             <div class="col-12 mt-2">
-                                <label asp-for="WhyIVolunteer" class="form-label" style="color: #414141;">Why I Volunteer?*</label>
+                                <label asp-for="users.WhyIVolunteer" class="form-label" style="color: #414141;">Why I Volunteer?*</label>
                                 <textarea name="WhyIVolunteer" id="" rows="5" class="" placeholder=" Enter your comments..."
-                                          style="width: 100%;" required>@Model.users.WhyIVolunteer</textarea>
-                                <span asp-validation-for="WhyIVolunteer" class="text-danger"></span>
+                                          style="width: 100%;" >@Model.users.WhyIVolunteer</textarea>
                             </div>
                         </div>
 
@@ -161,35 +153,16 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">Country*</label>
-                                <select asp-for="CountryId" class="form-select" id="Country" onclick="GetCountry()" aria-label="Default select example">
+                                <select asp-for="users.CountryId" class="form-select" id="Country" onclick="GetCountry()" aria-label="Default select example">
                                     <option selected>Select Your Country</option>
                                 </select>
-                                <span asp-validation-for="CountryId" class="text-danger"></span>
-
-                                @*
-                                <select id="countryselect" class="form-select" aria-label="Default select example" asp-for="users.CountryId" onchange="countryChange()">
-                                <option selected value="-1">select Country</option>
-                                @foreach (var i in Model.allcountries)
-                                {
-                                <a>
-                                <option value="@i.CountryId">@i.Name</option></a>
-                                }
-
-
-                                </select>*@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">City*</label>
-                                <select asp-for="CityId" class="form-select" id="City" aria-label="Default select example">
+                                <select asp-for="users.CityId" class="form-select" id="City" aria-label="Default select example">
                                     <option selected styele="max-height:200px">Select Your City</option>
                                 </select>
-                                <span asp-validation-for="CityId" class="text-danger"></span>
-
-
-                                @*                                <select id="cityselect" class="form-select" aria-label="Default select example" asp-for="users.CityId">
-                                <option value="-1">select City</option>
-                                </select>*@
-
+                                
                             </div>
                         </div>
                     </div>
@@ -200,7 +173,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">Availability</label>
-                                <select asp-for="Availability" class="form-select" aria-label="Default select example">
+                                <select asp-for="users.Availability" class="form-select" aria-label="Default select example">
                                     <option selected>Select Your Availability</option>
                                     <option value="daily">Daily</option>
                                     <option value="weekly">Weekly</option>
@@ -211,7 +184,7 @@
                             </div>
                             <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="" class="form-label">Linked In</label>
-                                <input asp-for="LinkedInUrl" type="text" class="form-control" placeholder="Enter Your LinkedIn" value="@Model.users.LinkedInUrl" />
+                                <input asp-for="users.LinkedInUrl" type="text" class="form-control" placeholder="Enter Your LinkedIn" value="@Model.users.LinkedInUrl" />
                             </div>
                         </div>
                     </div>
@@ -351,22 +324,14 @@
         var $button = $(this), actives = '', remv = '';
         if ($button.hasClass('leftbtn')) {
             actives = $('div .rightul li.active');
-            //console.log(actives);
-            // $.each(actives,function(i,data){
-            //     console.log(typeof(data))
-
-
-            // });
-
-
+ 
             actives.clone().appendTo('.leftul');
             actives.remove();
         }
         else if ($button.hasClass('rightbtn')) {
             actives = $('div .leftul li.active');
             actives.clone().appendTo('.rightul');
-            // actives.clone().appendTo('.skillClass ul');
-            // $('.skillClass ul li').removeClass('active');
+         
             actives.remove();
         }
     })

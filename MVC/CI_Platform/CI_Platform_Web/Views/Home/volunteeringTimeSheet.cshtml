@@ -46,7 +46,7 @@
 
                                         <label for="" class="form-label">Mission</label>
                                         <select asp-for="missionId" class="form-select" aria-label="Default select example" id="selectIntime">
-                                            <option selected>Open this select menu</option>
+                                            <option value="" selected>Open this select menu</option>
                                             @if (Model.timeMissions != null)
                                             {
                                                 @for (int i = 0; i < Model.timeMissions.Count(); i++)
@@ -54,7 +54,7 @@
                                                     <option value="@Model.timeMissions.ElementAt(i).MissionId">@Model.timeMissions.ElementAt(i).Mission.Title</option>
                                                 }
                                             }
-                                        </select>             
+                                        </select>    
 
                                         <label for="" class="form-label">Date Volunteered</label>
                                         <input asp-for="date" type="date" class="form-control" value="@DateTime.Now.Date" id="dateIntime" />
@@ -87,6 +87,8 @@
                         </div>
                     </form>
                     <!-- Modal End -->
+
+
                     <span>Volunteering Hours</span>
                     <table class="" style="width: 100%;" id="myTable">
                         <thead>
@@ -171,10 +173,6 @@
                                         <label for="" class="form-label">Date Volunteered</label>
                                         <input asp-for="date" type="date" class="form-control" value="@DateTime.Now.Date" id="dateIngoal" />
 
-
-
-
-
                                         <label for="" class="form-label">Message</label>
                                         <textarea asp-for="message" name="Message" id="messageIngoal" cols="30" rows="5" class="form-control"></textarea>
 
@@ -189,6 +187,7 @@
                         </div>
                     </form>
                     <!-- Modal End -->
+                        
                     <span>Volunteering Goals</span>
                     <table class="" style="width: 100%;" id="myTable2">
                         <thead>
@@ -244,6 +243,8 @@
 
 
     <script>
+
+ 
         function remove(timeSheetId, trId, type) {
 
 

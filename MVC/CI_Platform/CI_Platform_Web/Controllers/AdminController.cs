@@ -128,7 +128,12 @@ namespace CI_Platform_Web.Controllers
             string organizationDetail = Request.Form["text_editor1"].ToString();
             vm.mission.Description = missionDescription;
             vm.mission.OrganizationDetail = organizationDetail;
-            bool missionDetails = _iAdmin.AddUpdateMissionDetails(vm);
+
+            if (true)
+            {
+                bool missionDetails = _iAdmin.AddUpdateMissionDetails(vm);
+            }
+            
 
             return RedirectToAction("mission","Admin");
         }
@@ -165,6 +170,11 @@ namespace CI_Platform_Web.Controllers
 
         public IActionResult AddEditMissionTheme(AdminMissionThemeViewModel vm)
         {
+            if(vm.theme.Title == null)
+            {
+                TempData["error"] = "Test error";
+            }
+
             ViewBag.SelectedTab = "mtheme";
             bool theme = _iAdmin.AddEditMissionTheme(vm);
             return RedirectToAction("missionTheme", "Admin");
@@ -236,10 +246,6 @@ namespace CI_Platform_Web.Controllers
         {
             ViewData["admin-Title"] = "Story";
             ViewBag.SelectedTab = "story";
-            //return View();
-            /*TempData["success"] = "us eufgu stt";
-            TempData["error"] = "us eufgu stt";
-            TempData["warning"] = "us eufgu stt";*/
             List<AdminStoryViewModel> vm = _iAdmin.FetchStoryList();
             return View(vm);
         }

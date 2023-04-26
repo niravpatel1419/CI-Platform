@@ -11,6 +11,7 @@ namespace CI_Platform_Web.Repositories.Interface
     public interface ICI_Platform
     {
         public User Login(User userLogin);
+        public Admin ValidateAdmin(User admin);
         public bool IsRegister(User userRegister);
         public bool IsEmailExist(string email);
         public void ForgetPassword(string email, string token);
@@ -33,7 +34,7 @@ namespace CI_Platform_Web.Repositories.Interface
         public ShareStoryViewModel GetSavedStory(long UserId,int missionId);
         public void AddStoryMedia(string mediaType, string mediaPath, long mid, long uid);
         public StoryDetailsVM GetStoryDetails(long storyId);
-        public bool UpdateUserDetails(User u, List<int> usersSkills);
+        public bool UpdateUserDetails(User user, List<int> usersSkills);
         public int ChangeUserPassword(UserDetailsViewModel u);
         public List<Country> GetCountryList();
         public List<Skill> GetAllSkills();

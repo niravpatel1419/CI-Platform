@@ -28,7 +28,7 @@
         </button>
 
         <!--Mission Skill Modal-->
-        <form asp-action="AddEditSkill" asp-controller="Admin">
+        <form asp-action="AddEditSkill" asp-controller="Admin" onsubmit="return ValidateSkill()">
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -46,6 +46,8 @@
                                         <label for="" class="form-label">Mission Skill</label>
                                         <input class="form-control" id="modalSkill" asp-for="skill.SkillName" />
                                     </div>
+                                    <span class="text-danger d-none" id="skill-error">Please fill this field</span>
+
                                 </div>
 
                                 <div class="row mt-2 mb-4">
@@ -53,10 +55,12 @@
                                         <label for="" class="form-label">Status</label>
                                         <select asp-for="skill.Status" class="form-select" id="modalStatus"
                                                 aria-label="Default select example">
-                                            <option selected styele="max-height:200px">Select Status</option>
+                                            <option selected="selected" value="3" styele="max-height:200px">Select Status</option>
                                             <option styele="max-height:200px" value="1">Active</option>
                                             <option styele="max-height:200px" value="0">In-Active</option>
                                         </select>
+                                        <span class="text-danger d-none" id="status-error">Please select the status</span>
+
                                     </div>
                                 </div>
 
@@ -132,6 +136,29 @@
 </script>
 <script>
 
+    function ValidateSkill() {
+        var skill = $('#modalSkill').val();
+        var stat = $('#modalStatus').val();
+        if (skill == "") {
+            $('#skill-error').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#skill-error').addClass('d-none');
+        }
+
+        if (stat == 3) {
+            $('#status-error').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#status-error').addClass('d-none');
+        }
+
+        return true;
+    }
+
+
     function loadSkillDetail(u) {
         console.log(u);
 
@@ -149,7 +176,7 @@
     function removeSkillDetail() {
         $('#modalAdminSkillId').val('0')
         $('#modalSkill').val('')
-        $('#modalStatus').val('Select Status')
+        $('#modalStatus').val(3)
     }
 
     function setSkillId(skill_id) {

@@ -231,6 +231,30 @@ big {
     padding: 6px;
 }
 
+.appliedText {
+    color: #fff;
+    position: absolute;
+    top: 4px;
+    left: 0px;
+    background-color: #66c20a;
+    opacity: 1;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-right: 8px;
+}
+
+.closedText {
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    background-color: #F88634;
+    opacity: 1;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding-right: 13px;
+}
+
+
 .sendBtn {
     width: 100px;
     color: #F88634;

@@ -246,7 +246,9 @@ button:focus {
 
 .titletext {
     width: 95%;
-    height: 21.2px;
+    height: 37.2px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
 }
 
 .cancelbtn {

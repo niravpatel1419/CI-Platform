@@ -5,15 +5,6 @@
     Layout = "_LayoutSingleHeader";
 }
 
-@*@{
-    var missDetail = ViewBag.mission;
-    var city = ViewBag.citylist;
-    var theme = ViewBag.themelist;
-    var orgName = ViewBag.orgname;
-}*@
-
-
-
 <head>
 
     <link rel="stylesheet" href="~/css/volunteeringMission.css">
@@ -137,7 +128,7 @@
                 <div class="d-flex flex-row align-items-center seatDiv">
                     <img src="~/images/Seats-left.png" alt="" class="" height="30px" width="30px">
                     <div class="d-flex flex-column ms-2">
-                        <p class="d-inline mb-0 pt-2">10</p>
+                        <p class="d-inline mb-0 pt-2">@Model.missions.Seatleft</p>
                         <p class="seat">Seats Left</p>
                     </div>
                 </div>
@@ -522,7 +513,7 @@
                 <hr>
                 <div class="daysDiv">
                     <p class="mb-0">Days</p>
-                    <p class="mb-0">Weekend only</p>
+                    <p class="mb-0">@Model.missions.Availability</p>
                 </div>
                 <hr>
                 <div class="ratingDiv">
@@ -562,7 +553,7 @@
                 {
                     <span style="margin-left:20px">NO RECENT VOLUNTEERS</span>
                 }
-                <div class="volunteersImage">
+                <div class="volunteersImage" id="recentVolunteersDiv">
 
                     @for (int i = 0; i < Model.users.Count(); i++)
                     {
@@ -701,9 +692,7 @@ else
 
     //For Apply Mission
     $(document).ready(function () {
-        console.log("ready document");
-        //testfun();
-        //debugger
+        //console.log("ready document");
         if (@Model.Applied== true) {
             $('#applybtn').text("Applied");
             $('#applybtn').css("color", "white");

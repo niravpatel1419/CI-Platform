@@ -46,17 +46,17 @@
                 <div class="card">
 
                     <div class="cardHead">
-                        <img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img"
-                         alt="...">
+                        @*<img src="~/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img"
+                         alt="...">*@
 
-@*                        @if (i.StoryMedia.FirstOrDefault() == null)
+                        @if (i.StoryMedia.FirstOrDefault() == null)
                         {
                             <img src="~/images/404-Page-image.png" class="card-img" alt="..." style="max-height:199px">
                         }
                         else
                         {
                             <img src="@i.StoryMedia.FirstOrDefault().Path" class="card-img" alt="..." style="max-height:199px">
-                        }*@
+                        }
                     </div>
 
                     <a asp-area="" asp-controller="Home" asp-action="storyDetail" asp-route-storyId=@i.StoryId>

@@ -22,5 +22,6 @@ namespace CI_Platform_Web.Entities.ViewModel
         public IEnumerable<MissionSkill> MissionSkills { get; set; }
         public List<MissionMedium> missionImages { get; set; }
         public List<MissionDocument> missionDocuments { get; set; }
+        public int completed { get; set; }
     }
 }

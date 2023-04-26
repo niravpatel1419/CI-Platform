@@ -17,7 +17,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form asp-action="AddEditCms" asp-controller="Admin">
+    <form asp-action="AddEditCms" asp-controller="Admin" onsubmit="return ValidateCms()">
         <input value="0" asp-for="cmsDetails.CmsPageId" id="cmspage_id" hidden />
         <div class="row main-cms-add m-4">
 
@@ -27,9 +27,13 @@
             <div class="edit-cms-body p-3 col-12">
 
                 <label class="form-label">Title</label>
-                <input asp-for="cmsDetails.Title" class="form-control" type="text" />
+                <input asp-for="cmsDetails.Title" id="cmsTitle" class="form-control" type="text" />
+                <span class="text-danger d-none" id="title-error">Please enter the title</span>
+
                 <label class="form-label mt-2">Description</label>
-                <textarea name="text_editor" asp-for="cmsDetails.Description">{@Model.cmsDetails.Description}</textarea>
+                <textarea name="text_editor" id="cmsDesc" asp-for="cmsDetails.Description">{@Model.cmsDetails.Description}</textarea>                                    <span class="text-danger d-none" id="skill-error">Please fill this field</span>                <span class="text-danger d-none" id="title-error">Please enter the title</span>
+                <span class="text-danger d-none" id="desc-error">Please enter the description</span>
+
                 <script>
                     CKEDITOR.replace('text_editor');
                     CKEDITOR.config.width = '100%';
@@ -37,13 +41,18 @@
                 </script>
 
                 <label class="form-label mt-2">Slug</label>
-                <input asp-for="cmsDetails.Slug" class="form-control" type="text" />
+                <input asp-for="cmsDetails.Slug" id="cmsSlug" class="form-control" type="text" />
+                <span class="text-danger d-none" id="slug-error">Please enter the slug</span>
+
+
                 <label class="form-label mt-2">Status</label>
 
-                <select asp-for="cmsDetails.Status" class="form-select">
-                    <option value="1" selected>Active</option>
+                <select asp-for="cmsDetails.Status" class="form-select" id="status">
+                    <option value="3" selected>Select Status</option>
+                    <option value="1">Active</option>
                     <option value="0">InActive</option>
                 </select>
+                <span class="text-danger d-none" id="status-error">Please select status</span>
 
 
             </div>
@@ -55,15 +64,56 @@
         </div>
     </form>
 </body>
- <script>
-     $(document).ready(function(){
-         console.log("ready")
-       
-    
+<script>
+    function ValidateCms() {
+        var title = $('#cmsTitle').val();
+        var description = $('#cmsDesc').val();
+        var slug = $('#cmsSlug').val();
+        var stat = $('#status').val();
+        if (title == "") {
+            $('#title-error').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#title-error').addClass('d-none');
+        }
+
+        if (description == "") {
+            $('#desc-error').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#desc-error').addClass('d-none');
+        }
+
+        if (slug == "") {
+            $('#slug-error').removeClass('d-none');
+            return false;
+        }
+        else{
+            $('#slug-error').addClass('d-none');
+        }
+
+        if (stat == 3) {
+            $('#status-error').removeClass('d-none');
+            return false;
+        }
+        else {
+            $('#status-error').addClass('d-none');
+        }
+
+        return true;
+    }
+
+
+    $(document).ready(function () {
+        console.log("ready")
+
+
         console.log("true")
-         $('#cmspage_id').val("@ViewBag.cmsID");
-    
-   
-     })
- </script>
+        $('#cmspage_id').val("@ViewBag.cmsID");
+
+
+    })
+</script>
 </html>

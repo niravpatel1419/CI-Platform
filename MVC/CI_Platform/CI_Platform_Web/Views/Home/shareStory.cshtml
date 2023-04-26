@@ -152,16 +152,12 @@
 
         function selectedMissionChanged() {
             var a = $('#miiid').val();
-            console.log(a);
+            //console.log(a);
             $.ajax({
                 type: 'get',
                 url: '/Home/LoadStory?missionId=' + a,
                 success: function (data) {
-                    console.log("inside success")
-                    console.log(data);
                     $('#texttitle').val(data.title)
-                    // $('#newID').val(data.description)
-                    // $('#newID').text(data.description)
                     $('#date').val(data.date)
                     $('#url').val(data.url)
                     CKEDITOR.instances['ckeditorcontent'].setData(data.description);
@@ -218,10 +214,5 @@
         }
 
     </script>
-
-
-
-
-    <!-- HTML FOR UPOAD IMAGE -->
 </body>
 </html>

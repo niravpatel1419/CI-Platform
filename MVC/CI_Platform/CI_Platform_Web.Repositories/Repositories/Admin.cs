@@ -25,7 +25,7 @@ namespace CI_Platform_Web.Repositories.Repositories
         public AdminViewModel GetUserDetails()
         {
             AdminViewModel adminViewModel = new AdminViewModel();
-            adminViewModel.userList = _cI_PlatformContext.Users.ToList();
+            adminViewModel.userList = _cI_PlatformContext.Users.Where(user => user.DeletedAt == null).ToList();
             adminViewModel.countryList = _cI_PlatformContext.Countries.ToList();
             return adminViewModel;
         }
@@ -77,6 +77,67 @@ namespace CI_Platform_Web.Repositories.Repositories
                 return true;
             }
         }
+
+        //For Delete The User
+        public bool DeleteUser(long userId)
+        {
+            var time = DateTime.Now;
+            User user = _cI_PlatformContext.Users.Find(userId);
+
+            List<Comment> comments = _cI_PlatformContext.Comments.Where(comment => comment.UserId == userId).ToList();
+            comments.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(comments);
+
+            List<FavouriteMission> favMission = _cI_PlatformContext.FavouriteMissions.Where(fav => fav.UserId == userId).ToList();
+            favMission.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(favMission);
+
+            List<MissionApplication> missionapp = _cI_PlatformContext.MissionApplications.Where(app => app.UserId == userId).ToList();
+            missionapp.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(missionapp);
+
+            List<MissionInvite> invite = _cI_PlatformContext.MissionInvites.Where(app => app.FromUserId == userId || app.ToUserId == userId).ToList();
+            invite.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(invite);
+
+            List<MissionRating> rating = _cI_PlatformContext.MissionRatings.Where(app => app.UserId == userId).ToList();
+            rating.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(rating);
+
+            List<Story> story = _cI_PlatformContext.Stories.Where(app => app.UserId == userId).ToList();
+            List<long> storyIds = new List<long>();
+            story.ForEach(x => { x.DeletedAt = time; storyIds.Add(x.StoryId); });
+            _cI_PlatformContext.UpdateRange(story);
+
+            List<StoryMedium> storymed = new List<StoryMedium>();
+            foreach (var i in storyIds)
+            {
+                storymed = _cI_PlatformContext.StoryMedia.Where(app => app.StoryId == i).ToList();
+                storymed.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(storymed);
+            }
+
+            List<UserSkill> skills = _cI_PlatformContext.UserSkills.Where(app => app.UserId == userId).ToList();
+            skills.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(skills);
+
+            List<Timesheet> sheet = _cI_PlatformContext.Timesheets.Where(app => app.UserId == userId).ToList();
+            sheet.ForEach(x => x.DeletedAt = time);
+            _cI_PlatformContext.UpdateRange(sheet);
+
+            if (user != null)
+            {
+                user.DeletedAt = time;
+                user.Status = 0;
+                _cI_PlatformContext.Users.Update(user);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
+
 
 
         //For the CMS Page
@@ -261,11 +322,74 @@ namespace CI_Platform_Web.Repositories.Repositories
             Mission mission = _cI_PlatformContext.Missions.Find(missionId);
             if (mission != null)
             {
-                mission.DeletedAt = DateTime.Now;
+                var time = DateTime.Now;
+
+                List<Comment> comments = _cI_PlatformContext.Comments.Where(comment => comment.MissionId == missionId).ToList();
+                comments.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(comments);
+
+                List<FavouriteMission> favMission = _cI_PlatformContext.FavouriteMissions.Where(fav => fav.MissionId == missionId).ToList();
+                favMission.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(favMission);
+
+                List<MissionApplication> missionapp = _cI_PlatformContext.MissionApplications.Where(app => app.MissionId == missionId).ToList();
+                missionapp.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(missionapp);
+
+                List<MissionInvite> invite = _cI_PlatformContext.MissionInvites.Where(app => app.MissionId == missionId).ToList();
+                invite.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(invite);
+
+                List<MissionRating> rating = _cI_PlatformContext.MissionRatings.Where(app => app.MissionId == missionId).ToList();
+                rating.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(rating);
+
+                List<Story> story = _cI_PlatformContext.Stories.Where(app => app.MissionId == missionId).ToList();
+                List<long> storyIds = new List<long>();
+                story.ForEach(x => { x.DeletedAt = time; storyIds.Add(x.StoryId); });
+
+                _cI_PlatformContext.UpdateRange(story);
+
+                List<StoryMedium> storymed = new List<StoryMedium>();
+                foreach (var i in storyIds)
+                {
+                    storymed = _cI_PlatformContext.StoryMedia.Where(app => app.StoryId == i).ToList();
+                    storymed.ForEach(x => x.DeletedAt = time);
+                    _cI_PlatformContext.UpdateRange(storymed);
+                }
+
+
+                List<MissionSkill> skills = _cI_PlatformContext.MissionSkills.Where(app => app.MissionId == missionId).ToList();
+                skills.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(skills);
+
+                List<Timesheet> sheet = _cI_PlatformContext.Timesheets.Where(app => app.MissionId == missionId).ToList();
+                sheet.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(sheet);
+
+                List<MissionDocument> doc = _cI_PlatformContext.MissionDocuments.Where(doc => doc.MissionId == missionId).ToList();
+                doc.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(doc);
+
+                List<MissionMedium> media = _cI_PlatformContext.MissionMedia.Where(app => app.MissionId == missionId).ToList();
+                media.ForEach(x => x.DeletedAt = time);
+                _cI_PlatformContext.UpdateRange(media);
+
+                if (mission.MissionType == "goal")
+                {
+                    GoalMission g = _cI_PlatformContext.GoalMissions.Where(x => x.MissionId == missionId).FirstOrDefault();
+                    if (g != null)
+                    {
+                        g.DeletedAt = time;
+                        _cI_PlatformContext.Update(g);
+                    }
+                }
+
+
+                mission.DeletedAt = time;
                 mission.Status = 0;
                 _cI_PlatformContext.Missions.Update(mission);
                 _cI_PlatformContext.SaveChanges();
-
                 return true;
             }
             return false;
@@ -314,13 +438,17 @@ namespace CI_Platform_Web.Repositories.Repositories
         public bool DeleteTheme(long themeId)
         {
             MissionTheme missionTheme = _cI_PlatformContext.MissionThemes.Find(themeId);
-            missionTheme.DeletedAt = DateTime.Now;
-            missionTheme.Status = 0;
+            if(missionTheme != null)
+            {
+                missionTheme.DeletedAt = DateTime.Now;
+                missionTheme.Status = 0;
 
-            _cI_PlatformContext.MissionThemes.Update(missionTheme);
-            _cI_PlatformContext.SaveChanges();
+                _cI_PlatformContext.MissionThemes.Update(missionTheme);
+                _cI_PlatformContext.SaveChanges();
 
-            return true;
+                return true;
+            }
+           return false;
         }
 
 
@@ -363,24 +491,35 @@ namespace CI_Platform_Web.Repositories.Repositories
         public bool DeleteSkill(long skillId)
         {
             Skill skill = _cI_PlatformContext.Skills.Find(skillId);
-            skill.DeletedAt = DateTime.Now;
-            skill.Status = 0;
+            if(skill != null)
+            {
+                List<UserSkill> userSkillList = _cI_PlatformContext.UserSkills.Where(skill => skill.SkillId == skillId).ToList();
+                userSkillList.ForEach(x => x.DeletedAt = DateTime.Now);
+                _cI_PlatformContext.UpdateRange(userSkillList);
 
-            _cI_PlatformContext.Skills.Update(skill);
-            _cI_PlatformContext.SaveChanges();
-            return true;
+                List<MissionSkill> missionSkillList = _cI_PlatformContext.MissionSkills.Where(skill => skill.SkillId == skillId).ToList();
+                missionSkillList.ForEach(x => x.DeletedAt = DateTime.Now);
+                _cI_PlatformContext.UpdateRange(missionSkillList);
+
+                skill.DeletedAt = DateTime.Now;
+                skill.Status = 0;
+                _cI_PlatformContext.Update(skill);
+                _cI_PlatformContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
 
         //For Mission Application Page
         public List<MissionApplication> FetchMissionApplication()
         {
-            return _cI_PlatformContext.MissionApplications.Where(missionApplication => missionApplication.ApprovalStatus == "PENDING").ToList();
+            return _cI_PlatformContext.MissionApplications.Where(missionApplication => missionApplication.ApprovalStatus == "PENDING" && missionApplication.DeletedAt == null).ToList();
         }
 
         public List<User> FetchUser()
         {
-            return _cI_PlatformContext.Users.ToList();
+            return _cI_PlatformContext.Users.Where(user => user.DeletedAt == null).ToList();
         }
 
         public bool ApproveRejectMissionApplication(int status,long approveId)

@@ -1,22 +1,16 @@
 ﻿using CI_Platform_Web.Entities.Data;
 using CI_Platform_Web.Entities.Models;
+using CI_Platform_Web.Entities.ViewModel;
 using CI_Platform_Web.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.AspNetCore.Authorization;
+using CI_Platform_Web.Repositories.Interface;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Web;
-using NuGet.Common;
-using Newtonsoft.Json.Linq;
-using Microsoft.EntityFrameworkCore;
-using CI_Platform_Web.Repositories.Interface;
-using CI_Platform_Web.Entities.ViewModel;
-using Microsoft.Extensions.Hosting.Internal;
+using System.Net;
+using System.Net.Mail;
+using System.Security.Claims;
 
 namespace CI_Platform_Web.Controllers
 {
@@ -221,24 +215,24 @@ namespace CI_Platform_Web.Controllers
             List<MissionMedium> m = new List<MissionMedium>();
             List<bool> b = new List<bool>();
             List<string> c = new List<string>();
-          /*  List<int> progress = new List<int>();
-            List<int> seatLeft = new List<int>();*/
+            /*  List<int> progress = new List<int>();*/
+            List<int> seatLeft = new List<int>();
 
             foreach (var i in missionlist.Missions)
             {
                 missionratings.Add(_iCiPlat.GetRating((int)i.MissionId));
-                /* m.Add(missionlist.missionMedias.Where(x => x.MissionId == i.MissionId).FirstOrDefault());*/
-                b.Add(_iCiPlat.IsFav(userId, (int)i.MissionId));
+/*                m.Add(missionlist.missionMedias.Where(x => x.MissionId == i.MissionId).FirstOrDefault());
+*/                b.Add(_iCiPlat.IsFav(userId, (int)i.MissionId));
                 c.Add(_iCiPlat.IsApplied(userId, (int)i.MissionId));
-                /*progress.Add(_iciplat.GetProgress(i.MissionId));
-                seatLeft.Add(_iciplat.GetSeatLeft(i.MissionId));*/
+                /*progress.Add(_iciplat.GetProgress(i.MissionId));*/
+                seatLeft.Add(_iCiPlat.GetSeatLeft(i.MissionId));
             }
             missionlist.MissionRatingss = missionratings;
             missionlist.missionMedias = m.ToArray();
             missionlist.FavMission = b;
             missionlist.MissionApplicationlist = c;
-            /*missionlist.progress = progress;
-            missionlist.seatleft = seatLeft;*/
+            /*missionlist.progress = progress;*/
+            missionlist.seatleft = seatLeft;
 
             return View(missionlist);
 
@@ -454,7 +448,7 @@ namespace CI_Platform_Web.Controllers
 
 
         //For StoryListing Page
-        public IActionResult storyListingPage()
+        public IActionResult StoryListingPage()
         {
 
             //User Details From Claim Authentication
@@ -465,10 +459,6 @@ namespace CI_Platform_Web.Controllers
             long userId = long.Parse(suserId);
             ViewBag.UserId = userId;
             ViewBag.FirstName = userName;
-
-            //IEnumerable<StoryListViewModel> c;
-            // c = _iCiPlat.FetchStoryDetails();
-            //return View(c);
 
             var cii = _iCiPlat.GetStoryListData();
             return View(cii);
@@ -596,32 +586,99 @@ namespace CI_Platform_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult UserEditProfile(UserDetailsViewModel u)
+        public IActionResult UserEditProfile(UserDetailsViewModel user, string ProfileText, string WhyIVolunteer)
         {
-           
-           
-
-            List<int> userSkillsIds = new List<int>();
-            if (u.userSkills != null)
-            {
-                u.userSkills = u.userSkills.Remove(u.userSkills.Length - 1, 1);
-                userSkillsIds = u.userSkills.Split(',').Select(int.Parse).ToList();
-            }
-
-            if (u.userAvatar != null)
-            {
-                string filename = Guid.NewGuid().ToString() + u.userAvatar.FileName;
-
-                var filestr = new FileStream("wwwroot/images/Avatar/" + filename, FileMode.Create);
-                u.userAvatar.CopyTo(filestr);
-                u.users.Avatar = "/images/Avatar/" + filename;
-            }
 
             var identity = User.Identity as ClaimsIdentity;
             long userId = long.Parse(identity.FindFirst(ClaimTypes.Sid).Value);
 
-            u.users.UserId = userId;
-            _iCiPlat.UpdateUserDetails(u.users, userSkillsIds);
+
+            if (user.users.FirstName == null || user.users.LastName == null || ProfileText == null || WhyIVolunteer == null || user.users.CityId == null || user.users.CountryId == -1)
+            {
+                ViewBag.GeneralError = "following fields cant be empty";
+                UserDetailsViewModel u1 = new UserDetailsViewModel();
+                if (user.users.FirstName == null)
+                {
+                    ViewBag.FNameError = "Name ";
+                }
+                else
+                {
+                    u1.users.FirstName = user.users.FirstName;
+                }
+                if (user.users.LastName == null)
+                {
+                    ViewBag.LastNameError = "Surname ";
+                }
+                else
+                {
+                    u1.users.LastName = user.users.LastName;
+                }
+                if (ProfileText == null)
+                {
+                    ViewBag.PText = "My profile ";
+                }
+                else
+                {
+                    u1.users.ProfileText = ProfileText;
+                }
+                if (WhyIVolunteer == null)
+                {
+                    ViewBag.WhyVOl = "Why Volunteer";
+                }
+                else
+                {
+                    u1.users.WhyIVolunteer = WhyIVolunteer;
+                }
+                if (user.users.CountryId == -1)
+                {
+                    ViewBag.Country = "Country";
+                }
+                else
+                {
+                    u1.users.CountryId = user.users.CountryId;
+                }
+                if (user.users.CityId == -1)
+                {
+                    ViewBag.City = "City";
+                }
+                else
+                {
+                    u1.users.CityId = user.users.CityId;
+                }
+
+
+                u1.users = _iCiPlat.GetUserDetails(userId);
+                u1.allcountries = _iCiPlat.GetCountryList();
+                u1.allskills = _iCiPlat.GetAllSkills();
+                u1.userSkillsList = _iCiPlat.GetUsersSkills(userId);
+                return View(u1);
+
+            }
+
+
+
+            List<int> userSkillsIds = new List<int>();
+            if (user.userSkills != null)
+            {
+                user.userSkills = user.userSkills.Remove(user.userSkills.Length - 1, 1);
+                userSkillsIds = user.userSkills.Split(',').Select(int.Parse).ToList();
+            }
+
+            if (user.userAvatar != null)
+            {
+                string filename = Guid.NewGuid().ToString() + user.userAvatar.FileName;
+
+                var filestr = new FileStream("wwwroot/images/Avatar/" + filename, FileMode.Create);
+                user.userAvatar.CopyTo(filestr);
+                user.users.Avatar = "/images/Avatar/" + filename;
+            }
+
+            user.users.ProfileText = ProfileText;
+            user.users.WhyIVolunteer = WhyIVolunteer;
+            user.users.UserId = userId;
+
+
+            _iCiPlat.UpdateUserDetails(user.users, userSkillsIds);
 
             return RedirectToAction("userEditProfile", "Home");
         }

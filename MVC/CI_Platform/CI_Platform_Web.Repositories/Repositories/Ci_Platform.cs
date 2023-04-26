@@ -28,6 +28,15 @@ namespace CI_Platform_Web.Repositories.Repositories
             return user;
         }
 
+        public Admin ValidateAdmin(User admin)
+        {
+            Admin user = new Admin();
+            string email = admin.Email;
+            string password= admin.Password;
+            user = _cI_PlatformContext.Admins.Where(x => x.Email == email && x.Password == password).FirstOrDefault();
+            return user;
+        }
+
 
         //For User Register
         public bool IsRegister(User userRegister)
@@ -301,17 +310,17 @@ namespace CI_Platform_Web.Repositories.Repositories
             StoryListViewModel v = new StoryListViewModel();
             List<StoryListViewModel> vm = new List<StoryListViewModel>();
             v.users = _cI_PlatformContext.Users.Where(user => user.DeletedAt == null).ToList();
-            v.storyLists = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).ToList();
+            v.storyLists = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null && stories.Status == "PUBLISHED").ToList();
             v.StoryMedias = _cI_PlatformContext.StoryMedia.Where(storymedia => storymedia.DeletedAt == null).ToList();
 
-            List<Story> s = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).Include(x => x.StoryMedia).Include(x => x.User).ToList();
+            List<Story> s = _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null && stories.Status == "PUBLISHED").Include(x => x.StoryMedia).Include(x => x.User).ToList();
             return vm;
         }
 
 
         public IEnumerable<Story> GetStoryListData()
         {
-            return _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null).Include(x => x.User).Where(x => x.Status != "DRAFT" && x.DeletedAt == null).ToList();
+            return _cI_PlatformContext.Stories.Where(stories => stories.DeletedAt == null && stories.Status == "PUBLISHED").Include(x => x.User).Where(x => x.Status == "PUBLISHED" && x.DeletedAt == null).ToList();
         }
 
 
@@ -323,19 +332,19 @@ namespace CI_Platform_Web.Repositories.Repositories
             {
                 return false;
             }
-            Story s = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.Status == "DRAFT" && stories.MissionId == missionId && stories.DeletedAt == null).FirstOrDefault();
-            if (s != null)
+            Story story = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.Status == "DRAFT" && stories.MissionId == missionId && stories.DeletedAt == null).FirstOrDefault();
+            if (story != null)
             {
-                s.UserId = userId;
-                s.Title = title;
-                s.MissionId = missionId;
-                s.PublishedAt = DateTime.Parse(date);
-                s.Description = stext;
-                s.Status = status;
-                _cI_PlatformContext.Update(s);
+                story.UserId = userId;
+                story.Title = title;
+                story.MissionId = missionId;
+                story.PublishedAt = DateTime.Parse(date);
+                story.Description = stext;
+                story.Status = status;
+                _cI_PlatformContext.Update(story);
                 _cI_PlatformContext.SaveChanges();
 
-                var id = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.MissionId == missionId && stories.PublishedAt == s.PublishedAt && stories.DeletedAt == null).OrderByDescending(x => x.CreatedAt).FirstOrDefault().StoryId;
+                var id = _cI_PlatformContext.Stories.Where(stories => stories.UserId == userId && stories.MissionId == missionId && stories.PublishedAt == story.PublishedAt && stories.DeletedAt == null).OrderByDescending(x => x.CreatedAt).FirstOrDefault().StoryId;
                 StoryMedium ma = _cI_PlatformContext.StoryMedia.Where(storymedia => storymedia.StoryId == id && storymedia.Type == "video" && storymedia.DeletedAt == null).FirstOrDefault();
                 if (ma != null)
                 {
@@ -459,37 +468,37 @@ namespace CI_Platform_Web.Repositories.Repositories
 
         //For Edit User Profile
 
-        public bool UpdateUserDetails(User u, List<int> usersSkills)
+        public bool UpdateUserDetails(User user, List<int> usersSkills)
         {
-            User temp = _cI_PlatformContext.Users.Where(user => user.UserId == u.UserId && user.DeletedAt == null).FirstOrDefault();
+            User u = _cI_PlatformContext.Users.Where(user => user.UserId == user.UserId && user.DeletedAt == null).FirstOrDefault();
             
-            temp.FirstName = u.FirstName;
-            temp.LastName = u.LastName;
-            temp.EmployeeId = u.EmployeeId;
-            temp.Manager = u.Manager;
-            temp.Title = u.Title;                                                                   
-            temp.Department = u.Department;
-            temp.ProfileText = u.ProfileText;
-            temp.WhyIVolunteer = u.WhyIVolunteer;
-            temp.CountryId = u.CountryId;
-            temp.CityId = u.CityId;
-            temp.Availability = u.Availability;
-            temp.LinkedInUrl = u.LinkedInUrl;
-            temp.UpdatedAt = DateTime.Now;
-            if (u.Avatar != null)
+            u.FirstName = user.FirstName;
+            u.LastName = user.LastName;
+            u.EmployeeId = user.EmployeeId;
+            u.Manager = user.Manager;
+            u.Title = user.Title;                                                                   
+            u.Department = user.Department;
+            u.ProfileText = user.ProfileText;
+            u.WhyIVolunteer = user.WhyIVolunteer;
+            u.CountryId = user.CountryId;
+            u.CityId = user.CityId;
+            u.Availability = user.Availability;
+            u.LinkedInUrl = user.LinkedInUrl;
+            u.UpdatedAt = DateTime.Now;
+            if (user.Avatar != null)
             {
-                temp.Avatar = u.Avatar;
+                u.Avatar = user.Avatar;
             }
-            _cI_PlatformContext.Users.Update(temp);
+            _cI_PlatformContext.Users.Update(u);
             _cI_PlatformContext.SaveChanges();
 
-            var a = _cI_PlatformContext.Database.ExecuteSqlRaw($"delete from user_skill where user_id={u.UserId}");
+            var a = _cI_PlatformContext.Database.ExecuteSqlRaw($"delete from user_skill where user_id={user.UserId}");
             _cI_PlatformContext.SaveChanges();
 
             List<UserSkill> userSkillsList = new List<UserSkill>();
             foreach (var id in usersSkills)
             {
-                userSkillsList.Add(new UserSkill { SkillId = id, UserId = u.UserId });
+                userSkillsList.Add(new UserSkill { SkillId = id, UserId = user.UserId });
             }
             _cI_PlatformContext.UserSkills.AddRange(userSkillsList);
             _cI_PlatformContext.SaveChanges();
@@ -633,7 +642,8 @@ namespace CI_Platform_Web.Repositories.Repositories
                 return -2;
             }
             int applied = _cI_PlatformContext.MissionApplications.Count(app => app.MissionId == missionId && app.DeletedAt == null && app.ApprovalStatus == "APPROVE");
-            int left = int.Parse(_cI_PlatformContext.Missions.Where(mission => mission.DeletedAt == null && mission.MissionId == missionId).FirstOrDefault().Availability) - applied;
+            string s = _cI_PlatformContext.Missions.Where(mission => mission.DeletedAt == null && mission.MissionId == missionId).FirstOrDefault().Seatleft;
+            int left = int.Parse(s)-applied;
             return left;
         }
 
